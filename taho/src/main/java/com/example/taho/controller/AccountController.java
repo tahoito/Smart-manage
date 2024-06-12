@@ -2,6 +2,7 @@ package com.example.taho.controller;
 
 import java.net.Authenticator;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -235,8 +236,8 @@ public class AccountController {
 
 		String formattedDate;
 		try {
-			LocalDate parsedDate = LocalDate.parse(account.getDate(), inputFormatter);
-			formattedDate = parsedDate.format(outputFormatter);
+			LocalDate parsedDate = LocalDate.parse(dateStr, inputFormatter); // ✅ OK
+			formattedDate = parsedDate.format(outputFormatter);              // → "2025-06-15"
 		} catch (Exception e) {
 			formattedDate = LocalDate.now().format(outputFormatter);
 		}

@@ -1,38 +1,41 @@
 package com.example.taho.entity;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-import javax.validation.constraints.NotNull;
-
-
+@Entity
+@Table(name = "account")
 public class Account {
-    // フィールド
-    private int id;
-    @NotNull(message = "Date must not be null")
-    private String date;
-    private int type;
-    private String item;
-    private int price;
-    private int count;
 
-    // 引数なしのデフォルトコンストラクタ
-    public Account() {
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date date;
+
+
+    @NotNull(message = "Date must not be null")
+
+    private int type;
+
+    private String item;
+
+    private int price;
+
+    private int count = 0;
 
     private String username;
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    // デフォルトコンストラクタ
+    public Account() {}
 
-
-    // 既存の引数付きコンストラクタ
-    public Account(String date, int type, String item, int price, String username) {
+    // コンストラクタ（主にinsert用）
+    public Account(Date date, int type, String item, int price, String username) {
         this.date = date;
         this.type = type;
         this.item = item;
@@ -40,15 +43,7 @@ public class Account {
         this.username = username;
     }
 
-    // getterとsetter
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
+    // --- ゲッター・セッター ---
     public int getId() {
         return id;
     }
@@ -57,14 +52,16 @@ public class Account {
         this.id = id;
     }
 
-    public String getDate() {
+
+    public Date getDate() {
         return (date != null && !date.isEmpty()) ? date : new SimpleDateFormat("yyyy/MM/dd").format(new Date());
     }
 
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+
 
     public int getType() {
         return type;
@@ -90,10 +87,33 @@ public class Account {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-    return "Account{id=" + id + ", date='" + date + "', type=" + type + ", item='" + item + "', price=" + price + "}";
+    public int getCount() {
+        return count;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    // デバッグ・表示用
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", type=" + type +
+                ", item='" + item + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

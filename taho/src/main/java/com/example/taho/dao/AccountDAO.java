@@ -74,9 +74,19 @@ public class AccountDAO {
 
     // 新規登録処理
     public void insertAccount(Account account) {
-        jdbcTemplate.update("INSERT INTO account (date, type, item, price,username) VALUES (?, ?, ?, ?, ?)",
-            account.getDate(), account.getType(), account.getItem(), account.getPrice(),account.getUsername());
-    }
+    String sql = "INSERT INTO account (date, type, item, price, username, count) VALUES (?, ?, ?, ?, ?, ?)";
+
+    jdbcTemplate.update(
+        sql,
+        account.getDate(),
+        account.getType(),
+        account.getItem(),
+        account.getPrice(),
+        account.getUsername(),
+        account.getCount()
+    );
+}
+
 
     //収入追加
     public void insertIncomeAccount(Account account) {

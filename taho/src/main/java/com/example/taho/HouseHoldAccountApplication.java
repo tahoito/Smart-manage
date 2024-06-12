@@ -28,7 +28,7 @@ public class HouseHoldAccountApplication {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");  // MySQL のドライバー
         dataSource.setUrl("jdbc:mysql://localhost:3306/HouseHoldAccount");  // DB の URL
         dataSource.setUsername("root");  // DB のユーザー名
-        dataSource.setPassword("168168");  // DB のパスワード
+        dataSource.setPassword("NewPassword123!");  // DB のパスワード
         return dataSource;
     }
 }
