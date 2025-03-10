@@ -1,8 +1,42 @@
 section.write{
     position:absolute;
-    background-color: rgb(183, 183, 183);
-    width:800px;
+    background-color: rgb(255, 255, 255);
+    width:400px;
     height:600px;
-    left:18%;
-    top:5%;
+    left:50%;
+    transform: translateX(-50%);
+    top:15%;
 }
+
+.date,.type,.item,.price{
+    display: grid;
+    justify-items:left;
+    padding-left: 25%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 20px;
+}
+
+.flex-container{
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+}
+
+.flex-container label{
+    white-space: nowrap;
+}
+
+.insert_bottom,.update_bottom{
+    display: grid;
+    justify-items:center;
+    padding-top: 5%;
+}
+
+.bottom{
+    background-color: #78b0ce;
+    color:white;
+    border: none;
+    font-size: 20px;
+}
+

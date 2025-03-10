@@ -3,22 +3,34 @@
 <meta charset="UTF-8">
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link th:href="@{/css/styles.css}" rel="stylesheet">
+<link th:href="@{/css/insert.css}" rel="stylesheet">
 <title>スマートマネージ</title>
 </head>
 <body>
     <div th:replace="~{block/header::headerAccount}"></div>
-    <h1>更新画面</h1>
-    <h2>下記データを変更してください</h2>
 
-    <form method="post" th:action="@{/account/updateConfirm}">
-        <input type="hidden" name="id" th:value="${account.id}">
+    <section class="write">
+        <h1 class="write_title">更新画面</h1>
+        <h2>下記データを変更してください</h2>
 
-        <!-- 日付入力 -->
-        <label for="date">日時:</label>
-        <input type="date" id="date" name="date" th:value="${account.date}" required>
-        
-        <!-- カテゴリー選択 -->
-        <label>カテゴリー:</label>
+        <form method="post" th:action="@{/account/updateConfirm}">
+            <input type="hidden" name="id" th:value="${account.id}">
+
+            <!-- 日付入力 -->
+            <div class="date">
+                <div class="flex-container">
+                    <label for="date">日時:</label>
+                    <input type="date" id="date" name="date" th:value="${account.date}" required>            
+                </div>
+            </div>
+
+            <!-- カテゴリー選択 -->
+             <div class="type">
+                <div class="flex-container">
+                    <label>カテゴリー:</label>
+                </div>
+
+            </div>
         <div>
             <th:block th:each="category : ${ {1:'食費', 2:'日用品', 3:'交通費', 4:'趣味', 5:'遊び代', 6:'勉強', 7:'ファッション', 8:'美容', 9:'その他'} }">
                 <input type="radio" name="type" th:value="${category.key}" th:checked="${account.type == category.key}">
@@ -26,14 +38,25 @@
             </th:block>
         </div>
 
-        <label>メモ：</label>
-        <input type="type" name="item" th:value="${account.item}"  maxlength="15" size="30" required><br>
+            <div class="item">
+                <div class="flex-container">
+                    <label>メモ：</label>
+                    <input type="type" name="item" th:value="${account.item}"  maxlength="15" size="30" required>
+                </div>
+            </div>
 
-        <label>金額：</label>
-        <input type="type" name="price" th:value="${account.price}" oninput="sliceMaxLength(this, 8)" required>円<br>
+            <div class="price">
+                <div class="flex-container">
+                    <label>金額：</label>
+                    <input type="type" name="price" th:value="${account.price}" oninput="sliceMaxLength(this, 8)" required>円
+                </div>
+            </div>
 
-        <!-- 送信ボタン -->
-        <button type="submit">更新</button>
+            <div class="update_bottom">
+                <input class="bottom" type="submit" value="更新">
+            </div>
     </form>
+    </section>
+    
 </body>
 </html>

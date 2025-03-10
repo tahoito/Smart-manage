@@ -12,21 +12,47 @@
     
     <section class="write">
         <h1 class="write_title">新規登録画面</h1>
+    
         <form th:action="@{/account/insert}" method="post">
             <div class="date">
-                日時:<input type="date" name="date" required>
+                <div class="flex-container">
+                    <label>日時:</label>
+                    <input type="date" name="date" required>
+                </div>
             </div>
             <div class="type">
-                カテゴリー:<input type="radio" name="type" value="1" checked>食費<input type="radio" name="type" value="2">日用品<input type="radio" name="type" value="3">交通費<br><input type="radio" name="type" value="4">趣味<br><input type="radio" name="type" value="5">遊び代<br><input type="radio" name="type" value="6">勉強<br><input type="radio" name="type" value="7">ファッション<br><input type="radio" name="type" value="8">美容<br><input type="radio" name="type" value="*">その他<br>
+                <div class="flex-container">
+                    <label>カテゴリー:</label>
+                    <select id="category" name="type" required>
+                        <option value="1">食費</option>
+                        <option value="2">日用品</option>
+                        <option value="3">交通費</option>
+                        <option value="4">趣味</option>
+                        <option value="5">遊び代</option>
+                        <option value="6">勉強</option>
+                        <option value="7">ファッション</option>
+                        <option value="8">美容</option>
+                        <option value="*">その他</option>
+                    </select>
+                </div>
             </div>
-            <div class="memo">
-                メモ:<input type="text" name="item" maxlength="15" size="30" required><br>
+
+            <div class="item">
+                <div class="flex-container">
+                    <label>メモ:</label>
+                    <input type="text" name="item" maxlength="15" size="30" required>
+                </div>
             </div>
+
             <div class="price">
-                金額:<input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円            
+                <div class="flex-container">
+                    <label>金額:</label>
+                    <input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円   
+                </div>         
             </div>
-            <div class="inser_bottom">
-                <input type="submit" value="登録">
+
+            <div class="insert_bottom">
+                <input class="bottom" type="submit" value="登録">
             </div>
         </form>
     </section>
