@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link th:href="@{/css/styles.css}" rel="stylesheet">
-<link th:href="@{/css/insert.css}" rel="stylesheet">
+<link th:href="@{/css/write.css}" rel="stylesheet">
 <title>スマートマネージ</title>
 </head>
 <body>
@@ -28,15 +28,15 @@
              <div class="type">
                 <div class="flex-container">
                     <label>カテゴリー:</label>
+                    <select id="category" name="type" required>
+                        <option th:each="category : ${ {1:'食費', 2:'日用品', 3:'交通費', 4:'趣味', 5:'遊び代', 6:'勉強', 7:'ファッション', 8:'美容', 9:'その他'} }"
+                        th:value="${category.key}"
+                        th:selected="${account.type == category.key}"
+                        th:text="${category.value}">
+                        </option>
+                    </select>
                 </div>
-
             </div>
-        <div>
-            <th:block th:each="category : ${ {1:'食費', 2:'日用品', 3:'交通費', 4:'趣味', 5:'遊び代', 6:'勉強', 7:'ファッション', 8:'美容', 9:'その他'} }">
-                <input type="radio" name="type" th:value="${category.key}" th:checked="${account.type == category.key}">
-                <label th:text="${category.value}"></label>
-            </th:block>
-        </div>
 
             <div class="item">
                 <div class="flex-container">
