@@ -112,6 +112,45 @@ public class AccountDAO {
             account.getDate(), account.getType(), account.getItem(), account.getPrice(), account.getId());
     }
 
+    public List<Account> searchAccounts(Integer year, Integer month, Integer type) {
+        String sql = "SELECT id, date, type, item, price FROM account WHERE 1=1";
+        List<Object> params = new ArrayList<>();
+    
+        if (year != null) {
+            sql += " AND YEAR(date) = ?";
+            params.add(year);
+        }
+        if (month != null) {
+            sql += " AND MONTH(date) = ?";
+            params.add(month);
+        }
+        if (type != null) {
+            sql += " AND type = ?";
+            params.add(type);
+        }
+    
+        sql += " ORDER BY date, id";
+        
+        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, params.toArray());
+        List<Account> list = new ArrayList<>();
+    
+        for (Map<String, Object> result : resultList) {
+            Account account = new Account();
+            account.setId(convertToInt(result.get("id"), "id"));
+    
+            Date date = (Date) result.get("date");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            account.setDate(dateFormat.format(date));
+    
+            account.setType(convertToInt(result.get("type"), "type"));
+            account.setPrice(convertToInt(result.get("price"), "price"));
+            account.setItem((String) result.get("item"));
+    
+            list.add(account);
+        }
+        return list;
+    }
+
     // 年間検索処理
     public List<Account> findAccountByYear(String startDate, String endDate) {
         String sql = "SELECT id, date, type, item, price FROM account "

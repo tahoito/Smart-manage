@@ -107,11 +107,22 @@ public class AccountController {
 	// 更新処理を行う
 	@PostMapping("/account/update")
 	public String update(Model model, Account account) {
-		model.addAttribute("account", account);
-		service.updateAccount(account);
-		return "account/updateComplete"; // 更新完了ページ
+    	service.updateAccount(account); // まず更新処理を実行
+    	model.addAttribute("account", account); // 更新したデータをセット
+    	return "account/updateComplete"; // updateComplete.html に遷移
 	}
 
+	@GetMapping("/account/search")
+	public String search(@RequestParam(required = false) Integer year,
+                     	@RequestParam(required = false) Integer month,
+                     	@RequestParam(required = false) Integer type,
+                     	Model model) {
+    	List<Account> list = service.searchAccounts(year, month, type);
+    	int totalPrice = list.stream().mapToInt(Account::getPrice).sum(); // 合計金額計算
+    	model.addAttribute("list", list);
+    	model.addAttribute("totalPrice", totalPrice);
+    	return "account/search";
+	}
 	// 年別集計画面へ遷移
 	@GetMapping("/account/findByYear")
 	public String goFindByYear() {

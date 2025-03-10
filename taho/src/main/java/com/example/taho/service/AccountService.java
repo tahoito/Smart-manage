@@ -1,5 +1,6 @@
 package com.example.taho.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,43 +52,39 @@ public class AccountService{
         dao.updateAccount(account);
     }
 
-    //年別処理を行う
-    public List<Account> findAccountByYear(String year){
-        String startDate = year + "-01-01";
-        String endDate = year + "12-31";
-        List<Account> list = dao.findAccountByYear(startDate,endDate);
-        totalPrice = 0;
-        for(Account account : list ){
-            totalPrice += account.getPrice();
-        }return list;
-
+    public List<Account> searchAccounts(Integer year, Integer month, Integer type) {
+        return dao.searchAccounts(year, month, type);
     }
 
-    // AccountService での修正例
+    // 🔥【修正】 年間のデータを取得（DAOのメソッドを呼ぶだけにした！）
+    public List<Account> findAccountByYear(String year) {
+        String startDate = year + "-01-01";
+        String endDate = year + "-12-31"; // 修正: `"-"` が抜けてた
+        List<Account> list = dao.findAccountByYear(startDate, endDate);
+        totalPrice = list.stream().mapToInt(Account::getPrice).sum(); // 合計金額計算
+        return list;
+    }
+
     public List<Account> findAccountByYearAndMonth(String year, String month) {
         int yearInt = Integer.parseInt(year);
         int monthInt = Integer.parseInt(month);
-        String startDate = year + "-" + month + "-" + "01";
+        String startDate = year + "-" + month + "-01";
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, yearInt);
         calendar.set(Calendar.MONTH, monthInt - 1);
-        int result = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        String endDate = year + "-" + month + "-" + result;
-        List<Account> list = dao.findAccountByYearAndMonth(startDate, endDate);
-        totalPrice = 0;
+        int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        String endDate = year + "-" + month + "-" + lastDay;
 
-    // 収入と支出の区別
-    for (Account account : list) {
-        if ("income".equals(account.getType())) {
-            // 収入処理
-            totalPrice += account.getPrice();
-        } else if ("expense".equals(account.getType())) {
-            // 支出処理
-            totalPrice -= account.getPrice();
-        }
+        List<Account> list = dao.findAccountByYearAndMonth(startDate, endDate);
+
+        // 🔥【修正】`income` `expense` じゃなくて、`type == 1` か `type == 2` で判定！
+        totalPrice = list.stream()
+                .mapToInt(account -> account.getType() == 1 ? account.getPrice() : -account.getPrice())
+                .sum();
+
+        return list;
     }
-    return list;
-}
 
     public int getTotalPrice() {
         return totalPrice;

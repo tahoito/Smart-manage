@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>検索ページ</title>
+</head>
+<body>
+    <h1>家計簿検索</h1>
+
+    <form th:action="@{/account/search}" method="get">
+        <label>年:</label>
+        <input type="number" name="year" min="2000" max="2100" placeholder="2025">
+        
+        <label>月:</label>
+        <input type="number" name="month" min="1" max="12" placeholder="3">
+        
+        <label>カテゴリー:</label>
+        <select name="type">
+            <option value="">すべて</option>
+            <option value="1">食費</option>
+            <option value="2">日用品</option>
+            <option value="3">交通費</option>
+            <option value="4">趣味</option>
+            <option value="5">遊び代</option>
+            <option value="6">勉強</option>
+            <option value="7">ファッション</option>
+            <option value="8">美容</option>
+            <option value="9">その他</option>
+        </select>
+
+        <input type="submit" value="検索">
+    </form>
+
+    <!-- 検索結果 -->
+    <h2>検索結果</h2>
+    <table border="1">
+        <tr>
+            <th>日付</th>
+            <th>カテゴリー</th>
+            <th>メモ</th>
+            <th>金額</th>
+        </tr>
+        <tr th:each="account : ${searchResults}">
+            <td th:text="${account.date}"></td>
+            <td th:text="${account.type}"></td>
+            <td th:text="${account.item}"></td>
+            <td th:text="${account.price} + '円'"></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/account}">トップに戻る</a>
+</body>
+</html>
