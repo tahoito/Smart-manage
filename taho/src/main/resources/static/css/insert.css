@@ -1,0 +1,8 @@
+section.write{
+    position:absolute;
+    background-color: rgb(183, 183, 183);
+    width:800px;
+    height:600px;
+    left:18%;
+    top:5%;
+}

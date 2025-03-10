@@ -3,21 +3,34 @@
 <meta charset="UTF-8">
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link th:href="@{/css/styles.css}" rel="stylesheet">
+<link th:href="@{/css/insert.css}" rel="stylesheet">
 <title>スマートマネージ</title>
 </head>
 <body> 
     <!--Thymeleaf テンプレートエンジン-->
     <div th:replace=" ~{block/header::headerAccount}"></div>
-    <h1>新規登録画面</h1>
     
-    <form th:action="@{/account/insert}" method="post">
-        日時:<input type="date" name="date" required><br>
-        カテゴリー:<input type="radio" name="type" value="1" checked>食費<input type="radio" name="type" value="2">日用品<input type="radio" name="type" value="3">交通費<br><input type="radio" name="type" value="4">趣味<br><input type="radio" name="type" value="5">遊び代<br><input type="radio" name="type" value="6">勉強<br><input type="radio" name="type" value="7">ファッション<br><input type="radio" name="type" value="8">美容<br><input type="radio" name="type" value="*">その他<br>
-        メモ:<input type="text" name="item" maxlength="15" size="30" required><br>
-        金額:<input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円<br>
-        <br><input type="submit" value="登録">
-
-    </form>
+    <section class="write">
+        <h1 class="write_title">新規登録画面</h1>
+        <form th:action="@{/account/insert}" method="post">
+            <div class="date">
+                日時:<input type="date" name="date" required>
+            </div>
+            <div class="type">
+                カテゴリー:<input type="radio" name="type" value="1" checked>食費<input type="radio" name="type" value="2">日用品<input type="radio" name="type" value="3">交通費<br><input type="radio" name="type" value="4">趣味<br><input type="radio" name="type" value="5">遊び代<br><input type="radio" name="type" value="6">勉強<br><input type="radio" name="type" value="7">ファッション<br><input type="radio" name="type" value="8">美容<br><input type="radio" name="type" value="*">その他<br>
+            </div>
+            <div class="memo">
+                メモ:<input type="text" name="item" maxlength="15" size="30" required><br>
+            </div>
+            <div class="price">
+                金額:<input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円            
+            </div>
+            <div class="inser_bottom">
+                <input type="submit" value="登録">
+            </div>
+        </form>
+    </section>
+    
 
     <br>
     <div id="top">

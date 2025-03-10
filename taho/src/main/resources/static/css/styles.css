@@ -37,3 +37,22 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .navbar ul li {
     margin-left: 20px; /* メニュー項目間の間隔 */
 }
+
+.line{
+	border:solid
+	#76bde3 1px;
+}
+.main_title{
+    color: #60b2de;
+    font-size:25px;
+    justify-items: left;
+    display:grid;
+    padding-right:10%;
+}
+
+.write_title{
+    color: #60b2de;
+    font-size:25px;
+    justify-items: center;
+    display:grid;
+}
