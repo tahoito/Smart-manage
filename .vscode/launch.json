@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "HouseHoldAccountApplication",
+            "request": "launch",
+            "mainClass": "com.example.taho.HouseHoldAccountApplication",
+            "projectName": "taho"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TahoApplication<taho>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.taho.TahoApplication",
+            "projectName": "taho",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

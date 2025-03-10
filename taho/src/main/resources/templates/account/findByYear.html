@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<title>スマートマネージ</title>
+</head>
+<body>
+    <div th:replace="~{block/header::headerAccount}"></div>
+    <h1>年別集計</h1>
+    <form method="post" th:action="@{/account/findByYear}">
+        集計したい年:<input type="text" name="year" oninput="sliceMaxLength(this, 4)" size="4" required>年<br> <br> <input
+        type="submit" value="年別集計">
+    </form>
+
+    <h3 th:if="${year != null}" th:text="${year} + '年の集計'"></h3>
+
+    <div th:if="${list != null}" th:text="${year} + '年の集計'"></div>
+
+    <div th:if=" ${list !=null}">
+		<table class="table table-striped">
+			<tr>
+				<th>No</th>
+				<th>日時</th>
+				<th>カテゴリー</th>
+				<th>メモ</th>
+				<th>金額</th>
+            </tr>
+
+            <tr th:each="account, accountStat :${list}">
+                <td th:text="${accountStat.count}"></td>
+                <td th:text="${account.date}"></td>
+                <td th:switch="${account.type}">
+                    <span th:case="1">食費</span>
+                    <span th:case="2">日用品</span>
+                    <span th:case="3">交通費</span>
+                    <span th:case="4">趣味</span>
+                    <span th:case="5">遊び代</span>
+                    <span th:case="6">勉強</span>
+                    <span th:case="7">ファッション</span>
+                    <span th:case="8">美容</span>
+                    <span th:case="*">その他</span>
+                </td>			
+                <td th:text="${account.item}"></td>
+                <td th:text="${account.price} +'円'"></td>
+            </tr>
+        </table>       
+    </div>
+    
+    <div th:if="${totalPrice != null}">
+        <table class="table table-striped">
+            <tr>
+                <th>合計金額</th>
+                <td th:text="${totalPrice} + '円'"></td>
+            <tr>
+        </table>
+    </div>
+
+    <br>
+    <div id="top"><a th:href="@{/account}"><input type="button" value="トップに戻る"></a></div>
+    <br>
+
+    <script>
+		function sliceMaxLength(elem, maxLength) {
+			elem.value = elem.value.slice(0, maxLength);
+		}
+	</script>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+
+</body>
+</html>

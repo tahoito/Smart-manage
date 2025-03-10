@@ -1,0 +1,155 @@
+package com.example.taho.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.taho.entity.Account;
+import com.example.taho.service.AccountService;
+
+/**
+ * コントローラークラス
+ */
+
+ /* 
+@Controller
+ public class AccountController{
+ 
+	@GetMapping("/")
+	public String home() {
+		return "account/index";  // "index" はテンプレートのファイル名（例：src/main/resources/templates/index.html）
+	 }
+ }
+ */
+
+
+@Controller
+public class AccountController {
+
+	private final AccountService service;
+
+
+	public AccountController(AccountService service) {
+		this.service = service;
+	}
+
+	// 全件表示を行う
+	@GetMapping("/account")
+	public String account(Model model) {
+
+		List<Account> list = service.findAll();
+		int totalPrice = service.getTotalPrice();
+		System.out.println(list);
+		model.addAttribute("list", list);
+		model.addAttribute("totalPrice", totalPrice);
+		return "account/index";
+	}
+
+	@Autowired
+    private AccountService accountService;
+    
+	@PostMapping("/add")
+		public String addAccount(Account account) {
+    	accountService.addAccount(account); // 新しいデータを追加
+    	return "account/redirect:/"; // 一覧ページをリロードして新しいデータを表示
+	}
+
+
+	// 新規登録画面へ遷移
+	@GetMapping("/account/insert")
+	public String goInsert() {
+
+		return "account/insert";
+	}
+
+	// 新規登録画面へ遷移
+	@PostMapping("/account/insert")
+	public String insert(Model model, Account account) {
+
+		account = service.insertAccount(account);
+		model.addAttribute("account", account);
+		return "account/insertComplete";
+	}
+
+	// 削除確認画面へ遷移
+	@GetMapping("/account/deleteConfirm")
+	public String deleteConfirm(Model model, @RequestParam int id) {
+    	Account account = service.findAccountById(id);
+    	model.addAttribute("account", account);
+    	return "account/deleteConfirm";
+	}
+
+	// 削除処理を行う
+	@PostMapping("/account/delete")
+		public String delete(Model model, @RequestParam int id) {
+    	// 削除前にアカウント情報を取得する
+    	Account account = service.getAccountById(id);
+    	if (account != null) {
+        	model.addAttribute("account", account); // 削除したアカウント情報をModelに追加
+    	}
+    	service.deleteAccountById(id);
+    	return "account/deleteComplete"; // 完了画面に遷移
+	}
+
+	@GetMapping("/account/updateInput")
+	public String updateInput(Model model, @RequestParam int id) {
+		Account account = service.findAccountById(id);
+		model.addAttribute("account", account);
+		return "account/updateInput";
+	}
+	
+	// 更新処理を行う
+	@PostMapping("/account/update")
+	public String update(Model model, Account account) {
+		model.addAttribute("account", account);
+		service.updateAccount(account);
+		return "account/updateComplete"; // 更新完了ページ
+	}
+
+	// 年別集計画面へ遷移
+	@GetMapping("/account/findByYear")
+	public String goFindByYear() {
+
+		return "account/findByYear";
+	}
+
+	// 年別集計処理を行う
+	@PostMapping("/account/findByYear")
+	public String findByYear(Model model, @RequestParam String year) {
+
+		List<Account> list2 = service.findAccountByYear(year);
+		int totalPrice = service.getTotalPrice();
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("year", year);
+		model.addAttribute("list", list2);
+		return "account/findByYear";
+	}
+
+	// 年別月別集計画面へ遷移
+	@GetMapping("/account/findByYearAndMonth")
+	public String goFindByYearAndMonth() {
+
+		return "account/findByYearAndMonth";
+	}
+
+	// 年別月別集計処理を行う
+	@PostMapping("/account/findByYearAndMonth")
+	public String findByYearAndMonth(Model model, @RequestParam String year, @RequestParam String month) {
+    	List<Account> list2 = service.findAccountByYearAndMonth(year, month);
+    	int totalPrice = service.getTotalPrice();
+    	model.addAttribute("totalPrice", totalPrice);
+    	model.addAttribute("year", year);
+    	model.addAttribute("month", month);
+    	model.addAttribute("list", list2);
+    	return "account/findByYearAndMonth";
+	}
+
+
+
+}

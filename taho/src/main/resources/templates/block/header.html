@@ -1,0 +1,25 @@
+<header th:fragment="headerAccount">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" th:href="@{/account}">家計簿</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false"
+            aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--d-flexとjustify-content-between:で横並びになる
+                align-items-centerで、縦方向の中央揃え
+                justify-content-endで右寄りになる-->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0 d-flex">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account}">一覧</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/insert}">支出追加</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/update}">更新</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/delete}">削除</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/findByYear}">年別集計</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/findYearAndMonth}">年別月別集計</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

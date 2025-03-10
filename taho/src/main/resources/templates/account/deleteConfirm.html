@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<title>スマートマネージ</title>
+</head>
+<body>
+    <div th:replace="~{block/header::headerAccount}"></div>
+    <h1>削除確認画面</h1>    
+    <h2>下記のデータを削除してもいいですか？</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>日時</th>
+            <th>カテゴリー</th>
+            <th>メモ</th>
+            <th>金額</th>
+        </tr>
+
+        <tr>
+            <span th:text="${account.date}"></span>
+            <td th:text="${account.type}"></td>
+            <td th:switch="${account.type}">
+				<span th:case="1">食費</span>
+				<span th:case="2">日用品</span>
+				<span th:case="3">交通費</span>
+				<span th:case="4">趣味</span>
+				<span th:case="5">遊び代</span>
+				<span th:case="6">勉強</span>
+				<span th:case="7">ファッション</span>
+				<span th:case="8">美容</span>
+				<span th:case="*">その他</span>
+			</td>			
+            <td th:text="${account.price} +'円'"></td>
+        </tr>
+    </table>
+
+    <form method="post" th:action="@{/account/delete}">
+        <input type="hidden" name="id" th:value="${account.id}">
+        <input type="submit" value="削除">
+
+    </form>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

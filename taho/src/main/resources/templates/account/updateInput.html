@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<title>スマートマネージ</title>
+</head>
+<body>
+    <div th:replace="~{block/header::headerAccount}"></div>
+    <h1>更新画面</h1>
+    <h2>下記データを変更してください</h2>
+
+    <form method="post" th:action="@{/account/updateConfirm}">
+        <input type="hidden" name="id" th:value="${account.id}">
+
+        <!-- 日付入力 -->
+        <label for="date">日時:</label>
+        <input type="date" id="date" name="date" th:value="${account.date}" required>
+        
+        <!-- カテゴリー選択 -->
+        <label>カテゴリー:</label>
+        <div>
+            <th:block th:each="category : ${ {1:'食費', 2:'日用品', 3:'交通費', 4:'趣味', 5:'遊び代', 6:'勉強', 7:'ファッション', 8:'美容', 9:'その他'} }">
+                <input type="radio" name="type" th:value="${category.key}" th:checked="${account.type == category.key}">
+                <label th:text="${category.value}"></label>
+            </th:block>
+        </div>
+
+        <label>メモ：</label>
+        <input type="type" name="item" th:value="${account.item}"  maxlength="15" size="30" required><br>
+
+        <label>金額：</label>
+        <input type="type" name="price" th:value="${account.price}" oninput="sliceMaxLength(this, 8)" required>円<br>
+
+        <!-- 送信ボタン -->
+        <button type="submit">更新</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<title>スマートマネージ</title>
+</head>
+<body> 
+    <!--Thymeleaf テンプレートエンジン-->
+    <div th:replace=" ~{block/header::headerAccount}"></div>
+    <h1>新規登録画面</h1>
+    
+    <form th:action="@{/account/insert}" method="post">
+        日時:<input type="date" name="date" required><br>
+        カテゴリー:<input type="radio" name="type" value="1" checked>食費<input type="radio" name="type" value="2">日用品<input type="radio" name="type" value="3">交通費<br><input type="radio" name="type" value="4">趣味<br><input type="radio" name="type" value="5">遊び代<br><input type="radio" name="type" value="6">勉強<br><input type="radio" name="type" value="7">ファッション<br><input type="radio" name="type" value="8">美容<br><input type="radio" name="type" value="*">その他<br>
+        メモ:<input type="text" name="item" maxlength="15" size="30" required><br>
+        金額:<input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円<br>
+        <br><input type="submit" value="登録">
+
+    </form>
+
+    <br>
+    <div id="top">
+        <a th:href="@{/account}"><input type="submit" value="トップに戻る"></a>
+    </div>
+    <br>
+
+    <script>
+        function sliceMaxlength(elem,maxlength){
+            elem.value= elem.value.slice(0,maxlength);
+        }
+    </script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    
+</body>
+</html>
