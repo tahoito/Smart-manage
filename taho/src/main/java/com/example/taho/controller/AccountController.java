@@ -123,43 +123,7 @@ public class AccountController {
     	model.addAttribute("totalPrice", totalPrice);
     	return "account/search";
 	}
-	// 年別集計画面へ遷移
-	@GetMapping("/account/findByYear")
-	public String goFindByYear() {
 
-		return "account/findByYear";
-	}
-
-	// 年別集計処理を行う
-	@PostMapping("/account/findByYear")
-	public String findByYear(Model model, @RequestParam String year) {
-
-		List<Account> list2 = service.findAccountByYear(year);
-		int totalPrice = service.getTotalPrice();
-		model.addAttribute("totalPrice", totalPrice);
-		model.addAttribute("year", year);
-		model.addAttribute("list", list2);
-		return "account/findByYear";
-	}
-
-	// 年別月別集計画面へ遷移
-	@GetMapping("/account/findByYearAndMonth")
-	public String goFindByYearAndMonth() {
-
-		return "account/findByYearAndMonth";
-	}
-
-	// 年別月別集計処理を行う
-	@PostMapping("/account/findByYearAndMonth")
-	public String findByYearAndMonth(Model model, @RequestParam String year, @RequestParam String month) {
-    	List<Account> list2 = service.findAccountByYearAndMonth(year, month);
-    	int totalPrice = service.getTotalPrice();
-    	model.addAttribute("totalPrice", totalPrice);
-    	model.addAttribute("year", year);
-    	model.addAttribute("month", month);
-    	model.addAttribute("list", list2);
-    	return "account/findByYearAndMonth";
-	}
 
 
 

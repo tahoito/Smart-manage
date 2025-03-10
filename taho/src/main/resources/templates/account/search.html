@@ -1,10 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>検索ページ</title>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<title>スマートマネージ</title>
 </head>
 <body>
-    <h1>家計簿検索</h1>
+<div th:replace="~{block/header::headerAccount}"></div>
+<h1>家計簿検索</h1>
 
     <form th:action="@{/account/search}" method="get">
         <label>年:</label>
@@ -24,7 +27,7 @@
             <option value="6">勉強</option>
             <option value="7">ファッション</option>
             <option value="8">美容</option>
-            <option value="9">その他</option>
+            <option value="*">その他</option>
         </select>
 
         <input type="submit" value="検索">
@@ -32,21 +35,33 @@
 
     <!-- 検索結果 -->
     <h2>検索結果</h2>
-    <table border="1">
+    <p>合計金額: <span th:text="${totalPrice} + '円'"></span></p>
+
+    <table class="table">
         <tr>
-            <th>日付</th>
+            <th>日時</th>
             <th>カテゴリー</th>
             <th>メモ</th>
             <th>金額</th>
         </tr>
-        <tr th:each="account : ${searchResults}">
+        <tr th:each="account : ${list}">
             <td th:text="${account.date}"></td>
-            <td th:text="${account.type}"></td>
+            <td th:switch="${account.type}">
+                <span th:case="1">食費</span>
+                <span th:case="2">日用品</span>
+                <span th:case="3">交通費</span>
+                <span th:case="4">趣味</span>
+                <span th:case="5">遊び代</span>
+                <span th:case="6">勉強</span>
+                <span th:case="7">ファッション</span>
+                <span th:case="8">美容</span>
+                <span th:case="*">その他</span>
+            </td>
             <td th:text="${account.item}"></td>
             <td th:text="${account.price} + '円'"></td>
         </tr>
     </table>
 
-    <a th:href="@{/account}">トップに戻る</a>
+    <a th:href="@{/account}"><button>トップに戻る</button></a>
 </body>
 </html>
