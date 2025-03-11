@@ -1,4 +1,4 @@
-/*package com.example.taho.controller;
+package com.example.taho.controller;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,7 @@ public class LoginController {
     // ログインページを表示
     @GetMapping("/login")
     public String showLoginForm() {
-        return "/login";  // login.htmlページを返す
+        return "registration/login";  // login.htmlページを返す
     }
 
     // ユーザーログイン処理
@@ -40,7 +40,7 @@ public class LoginController {
             return "redirect:/account";  // ホームページにリダイレクト
         } catch (Exception e) {
             model.addAttribute("error", "ユーザー名またはパスワードが間違っています");
-            return "/login";  // ログイン失敗時、再度ログインページを表示
+            return "/registration/login";  // ログイン失敗時、再度ログインページを表示
         }
     }
-}*/
+}
