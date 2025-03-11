@@ -9,54 +9,103 @@
 <body>
 	<div th:replace="~{block/header::headerAccount}"></div>
 
-	<section class="list">
-		<h1 class="main_title">支出一覧画面</h1>
-		<div class="line"></div>
-		<table class="table table-striped">
-			<tr>
-				<th>No</th>
-				<th>日時</th>
-				<th>カテゴリー</th>
-				<th>メモ</th>
-				<th>金額</th>
-				<th>更新・削除</th>
-			</tr>
-	
-			<tr th:each="account,iterStat : ${list}">
-				<td th:text="${iterStat.index + 1}"></td>
-				<td th:text="${account.date}"></td>
-				<td th:switch="${account.type}">
-					<span th:case="1">食費</span>
-					<span th:case="2">日用品</span>
-					<span th:case="3">交通費</span>
-					<span th:case="4">趣味</span>
-					<span th:case="5">遊び代</span>
-					<span th:case="6">勉強</span>
-					<span th:case="7">ファッション</span>
-					<span th:case="8">美容</span>
-					<span th:case="*">その他</span>
-				</td>			
-				<td th:text="${account.item}"></td>
-				<td th:text="${account.price} + '円'"></td>
-				<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新"></a>
-					<a th:href="@{/account/deleteConfirm(id=${account.id})}"><input type="button" value="削除"></a>
-				</td>
-			</tr>
-			
-		</table>
-	
-		<!--<table class="table table-striped">
-			<tr>
-				<th>合計金額</th>
-				<td th:text="${totalPrice} + '円'"></td>
-			</tr>
-		</table>-->
-	</section>
-
-	<section class="add">
+	<div class="container">
+		<section class="list">
+			<h1 class="main_title">支出一覧画面</h1>
+			<div class="line"></div>
+			<table class="table table-striped">
+				<tr>
+					<th>日時</th>
+					<th>カテゴリー</th>
+					<th>メモ</th>
+					<th>金額</th>
+					<th>更新・削除</th>
+				</tr>
 		
-	</section>
+				<tr th:each="account,iterStat : ${list}">
+					<td th:text="${account.date}"></td>
+					<td th:switch="${account.type}">
+						<span th:case="1">食費</span>
+						<span th:case="2">日用品</span>
+						<span th:case="3">交通費</span>
+						<span th:case="4">趣味</span>
+						<span th:case="5">遊び代</span>
+						<span th:case="6">勉強</span>
+						<span th:case="7">ファッション</span>
+						<span th:case="8">美容</span>
+						<span th:case="*">その他</span>
+					</td>			
+					<td th:text="${account.item}"></td>
+					<td th:text="${account.price} + '円'"></td>
+					<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新"></a>
+						<a th:href="@{/account/deleteConfirm(id=${account.id})}"><input type="button" value="削除"></a>
+					</td>
+				</tr>
+				
+			</table>
+		
+			<!--<table class="table table-striped">
+				<tr>
+					<th>合計金額</th>
+					<td th:text="${totalPrice} + '円'"></td>
+				</tr>
+			</table>-->
+		</section>
+	
+		<section class="add">
+			<h1 class="main_title">支出の追加</h1>
+			<form th:action="@{/account/insert}" method="post">
+				<div class="date">
+					<div class="flex-container">
+						<label>日時:</label>
+						<input type="date" name="date" required>
+					</div>
+				</div>
+				<div class="type">
+					<div class="flex-container">
+						<label>カテゴリー:</label>
+						<select id="category" name="type" required>
+							<option value="1">食費</option>
+							<option value="2">日用品</option>
+							<option value="3">交通費</option>
+							<option value="4">趣味</option>
+							<option value="5">遊び代</option>
+							<option value="6">勉強</option>
+							<option value="7">ファッション</option>
+							<option value="8">美容</option>
+							<option value="*">その他</option>
+						</select>
+					</div>
+				</div>
+	
+				<div class="item">
+					<div class="flex-container">
+						<label>メモ:</label>
+						<input type="text" name="item" maxlength="15" size="30" required>
+					</div>
+				</div>
+	
+				<div class="price">
+					<div class="flex-container">
+						<label>金額:</label>
+						<input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円   
+					</div>         
+				</div>
+	
+				<div class="insert_bottom">
+					<input class="bottom" type="submit" value="登録">
+				</div>
+			</form>
+		</section>
+	</div>
+    
 
+
+    <script>
+        function sliceMaxlength(elem,maxlength){
+            elem.value= elem.value.slice(0,maxlength);
+        }
+    </script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	
 </body>
