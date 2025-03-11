@@ -38,7 +38,11 @@
 					<td th:text="${account.item}"></td>
 					<td th:text="${account.price} + '円'"></td>
 					<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新"></a>
-						<a th:href="@{/account/deleteConfirm(id=${account.id})}"><input type="button" value="削除"></a>
+						<!--<a th:href="@{/account/deleteConfirm(id=${account.id})}"><input type="button" value="削除"></a>-->
+						<form th:action="@{/account/delete}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+							<input type="hidden" name="id" th:value="${account.id}">
+							<input type="submit" value="削除">
+						</form>							
 					</td>
 				</tr>
 				
@@ -106,7 +110,13 @@
         function sliceMaxlength(elem,maxlength){
             elem.value= elem.value.slice(0,maxlength);
         }
+		function confirmDelete(url) {
+		if (confirm("本当に削除しますか？")) {
+			window.location.href = url; // 削除処理を実行
+		}
+	}
     </script>
+
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	
 </body>

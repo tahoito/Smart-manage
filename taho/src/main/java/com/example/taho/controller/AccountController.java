@@ -17,18 +17,6 @@ import com.example.taho.service.AccountService;
  * コントローラークラス
  */
 
- /* 
-@Controller
- public class AccountController{
- 
-	@GetMapping("/")
-	public String home() {
-		return "account/index";  // "index" はテンプレートのファイル名（例：src/main/resources/templates/index.html）
-	 }
- }
- */
-
-
 @Controller
 public class AccountController {
 
@@ -77,14 +65,6 @@ public class AccountController {
 		return "account/insertComplete";
 	}
 
-	// 削除確認画面へ遷移
-	@GetMapping("/account/deleteConfirm")
-	public String deleteConfirm(Model model, @RequestParam int id) {
-    	Account account = service.findAccountById(id);
-    	model.addAttribute("account", account);
-    	return "account/deleteConfirm";
-	}
-
 	// 削除処理を行う
 	@PostMapping("/account/delete")
 		public String delete(Model model, @RequestParam int id) {
@@ -94,7 +74,7 @@ public class AccountController {
         	model.addAttribute("account", account); // 削除したアカウント情報をModelに追加
     	}
     	service.deleteAccountById(id);
-    	return "account/deleteComplete"; // 完了画面に遷移
+    	return "redirect:/account/"; 
 	}
 
 	@GetMapping("/account/updateInput")
