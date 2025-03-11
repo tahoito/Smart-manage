@@ -12,18 +12,18 @@ section.list {
 
 section.add {
     flex: 1; /* 幅の比率（小さめ） */
-    background-color: rgb(186, 236, 254);
+    background-color: #d9d9d9;
     width: 400px;
-    height: 400px;
+    height: 350px;
     border-radius:30px;
-    margin-top: 10px;
+    margin-top: 5%;
 }
 
 
 .date,.type,.item,.price{
     display: grid;
     justify-items:left;
-    padding-left: 10px;
+    padding-left: 10%;
     padding-bottom: 5px;
     padding-top: 5px;
     font-size: 15px;
@@ -37,4 +37,8 @@ section.add {
 
 .flex-container label{
     white-space: nowrap;
+}
+
+.add_space{
+    padding-top:10%;
 }

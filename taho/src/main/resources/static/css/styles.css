@@ -45,6 +45,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	border:solid
 	#76bde3 1px;
 }
+
+
 .main_title{
     color: #60b2de;
     font-size:25px;
@@ -57,4 +59,18 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     font-size:25px;
     justify-items: center;
     display:grid;
+}
+
+.add_title{
+    color: #60b2de;
+    font-size:25px;
+    justify-items: center;
+    display:grid;
+    padding-top:10px;
+}
+
+.insert_bottom{
+    display: grid;
+    justify-items:center;
+    padding-top: 5%;
 }
