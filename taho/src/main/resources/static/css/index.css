@@ -20,7 +20,7 @@ section.add {
 }
 
 
-.date,.type,.item,.price{
+.date,.type,.item,.price,.month,.year{
     display: grid;
     justify-items:left;
     padding-left: 10%;
@@ -41,4 +41,13 @@ section.add {
 
 .add_space{
     padding-top:10%;
+}
+
+section.search{
+    flex: 1; /* 幅の比率（小さめ） */
+    background-color: #d9d9d9;
+    width: 400px;
+    height: 400px;
+    border-radius:30px;
+    margin-top: 5%;
 }
