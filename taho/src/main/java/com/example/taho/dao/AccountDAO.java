@@ -49,7 +49,7 @@ public class AccountDAO {
             // 日付を文字列に変換
             Date date = (Date) result.get("date");
             if (date != null) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 account.setDate(dateFormat.format(date));
             } else {
                 account.setDate(null); // 日付がNULLの場合に対応

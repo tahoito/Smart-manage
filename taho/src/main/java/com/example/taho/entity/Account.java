@@ -46,7 +46,7 @@ public class Account {
     }
 
     public String getDate() {
-        return (date != null && !date.isEmpty()) ? date : new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        return (date != null && !date.isEmpty()) ? date : new SimpleDateFormat("yyyy/MM/dd").format(new Date());
     }
 
 
