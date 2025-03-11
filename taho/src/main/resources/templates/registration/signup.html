@@ -1,34 +1,37 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>サインアップ</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/register.css}" rel="stylesheet"></link>
+    <title>新規登録画面</title>
 </head>
 <body>
-    <h2>新規登録</h2>
+    <h1 class="register_title">新規登録</h1>
     
-    <!-- エラーメッセージ -->
-    <div th:if="${error}" style="color: red;">
-        <p th:text="${error}"></p>
-    </div>
+    <section class="signup">
+        <!-- エラーメッセージ -->
+        <div th:if="${error}" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
 
-    <form th:action="@{/signup}" method="post">
-        <div>
-            <label>ユーザー名:</label>
-            <input type="text" name="username" required>
-        </div>
-        <div>
-            <label>パスワード:</label>
-            <input type="password" name="password" required>
-        </div>
-        <div>
-            <label>パスワード確認:</label>
-            <input type="password" name="confirmPassword" required>
-        </div>
-        <button type="submit">登録</button>
-    </form>
+        <form th:action="@{/signup}" method="post">
+            <div>
+                <label>アカウント名:</label>
+                <input type="text" name="username" required>
+            </div>
+            <div>
+                <label>パスワード:</label>
+                <input type="password" name="password" required>
+            </div>
+            <div>
+                <label>パスワード(確認):</label>
+                <input type="password" name="confirmPassword" required>
+            </div>
+            <button type="submit">登録</button>
+        </form>
+    </section>
 
-    <p>すでにアカウントをお持ちですか？ <a th:href="@{/login}">ログイン</a></p>
+    <p>すでにアカウントをお持ちですか？ <a th:href="@{/login}">ログイン画面</a></p>
 </body>
 </html>
