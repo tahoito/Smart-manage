@@ -1,35 +1,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" th:href="@{/css/registration.css}">
-</head>    
-<body>
-    <h1 class="register_title">ログイン画面</h1>
-    <section class="login">
-        <div th:if="${param.error}">
-            <p>パスワードが存在しません。</p>
-        </div>
-        <div th:if="${param.logout}">
-            <p>ログアウトされました。</p>
-        </div>
-        <form th:action="@{/login}" method="post">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <div>
-                <label>アカウント名: </label>
-                <input type="text" name="username" required/>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/registration.css}">
+    </head>    
+    <body>
+        <div class="container">
+            <h1 class="smart_title">Smart Manage</h1>
+            <section class="login">
+                <div th:if="${param.error}">
+                    <p>パスワードが存在しません。</p>
+                </div>
+                <div th:if="${param.logout}">
+                    <p>ログアウトされました。</p>
+                </div>
+                <div class="account">
+                    <form th:action="@{/login}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <div class="login_form">
+                            <div class="flex-container">
+                                <label>アカウント名: </label>
+                                <input type="text" name="username" required/>
+                            </div>
+                        </div>
+                        <div class="password_form">
+                            <div class="flex-container">
+                                <label>パスワード: </label>
+                                <input type="password" name="password" required/>
+                            </div>
+                        </div>
+                        <div class="login_button">
+                            <button type="submit">ログイン</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        
+            <div class="signup_next">
+                <p>新規登録は<a th:href="@{/signup}">こちら</a></p>
             </div>
-            <div>
-                <label>パスワード: </label>
-                <input type="password" name="password" required/>
-            </div>
-            <button type="submit">ログイン</button>
-        </form>
-    </section>
-
-    <p>アカウントがない方: <a th:href="@{/signup}">新規登録</a></p>
-
-</body>
+        </div>
+    </body>    
 </html>
-

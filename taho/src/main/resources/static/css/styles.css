@@ -69,7 +69,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     padding-top:10px;
 }
 
-.insert_button,.search_button{
+.insert_button,.search_button,.login_button{
     display: grid;
     justify-items:center;
     padding-top: 5%;

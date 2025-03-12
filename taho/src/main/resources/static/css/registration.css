@@ -1,15 +1,68 @@
-html{
+body{
     background-color:#A2D2EC;
 }
 
-section.login{
-    background-color: white;
+.container{
+    position:absolute;
+    width:500px;
+    height:350px;
+    left:50%;
+    transform: translate(-50%,-50%);
+    top:50%;
     border-radius: 30px;
-    position: absolute;
-    justify-content: center;
-    top:20%;
 }
 
-.register_title{
-    color:#ffffff;
+section.login{
+    position:absolute;
+    background-color: rgb(255, 255, 255);
+    width:400px;
+    height:180px;
+    left:50%;
+    transform: translate(-50%,-50%);
+    top:50%;
+    border-radius: 30px;
 }
+
+.smart_title{
+    position: absolute;
+    font-weight: bold;
+    color: white;
+    font-size: 35px;
+    text-align: center;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+.signup_next{
+    position: absolute;
+    bottom: 10px; /* 下に配置 */
+    right: 10px; /* 右に配置 */
+    color: white;
+    font-size: 15px;
+    text-align: right;
+}
+
+.account{
+    position: absolute;
+    left:50%;
+    transform: translate(-50%,-50%);
+    top:50%;
+}
+
+.login_form,.password_form{
+    display: grid;
+    justify-items:left;
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.flex-container{
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+}
+
+.flex-container label{
+    white-space: nowrap;
+}
+
