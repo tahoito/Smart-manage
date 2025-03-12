@@ -47,7 +47,7 @@ section.signup,section.login{
 
 .login_next,.signup_next{
     position: absolute;
-    bottom: 5px; 
+    bottom: 25px; 
     right: 15px; 
     color: white;
     font-size: 15px;
