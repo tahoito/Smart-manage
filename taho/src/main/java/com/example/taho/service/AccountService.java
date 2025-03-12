@@ -25,12 +25,10 @@ public class AccountService{
     }
 
     // 全件検索
-    public List<Account> findAll() {
-        List<Account> list = dao.findAll();
-        totalPrice = 0;
-        for(Account account : list){
-            totalPrice += account.getPrice();
-        }return list;
+    public List<Account> findByUsername(String username) {
+        List<Account> list = dao.findByUsername(username);
+        totalPrice = list.stream().mapToInt(Account::getPrice).sum();
+        return list;
     }
 
     //新規登録
@@ -54,10 +52,11 @@ public class AccountService{
         dao.updateAccount(account);
     }
 
-    public List<Account> searchAccounts(Integer year, Integer month, Integer type) {
-        return dao.searchAccounts(year, month, type);
+    public List<Account> searchAccounts(Integer year, Integer month, Integer type, String username) {
+        return dao.searchAccounts(year, month, type, username);
     }
 
+    
 
     public int getTotalPrice() {
         return totalPrice;
@@ -87,8 +86,8 @@ public class AccountService{
     }
 
 
-    public Map<String, Integer> getExpenseByCategory() {
-        List<Account> expenses = dao.findAll(); // すべてのデータを取得
+    public Map<String, Integer> getExpenseByCategory(String username) {
+        List<Account> expenses = dao.findByUsername(username);
     
         // カテゴリーIDを名前に変換するマップ
         Map<Integer, String> categoryMap = Map.of(

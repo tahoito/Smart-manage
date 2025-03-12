@@ -1,8 +1,10 @@
 package com.example.taho.controller;
 
+import java.net.Authenticator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.taho.entity.Account;
 import com.example.taho.service.AccountService;
 import java.util.Map;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 
 /**
  * コントローラークラス
@@ -32,9 +37,12 @@ public class AccountController {
 	@GetMapping("/account")
 	public String account(Model model) {
 
-		List<Account> list = service.findAll();
-		int totalPrice = service.getTotalPrice();
-		Map<String, Integer> expensesByCategory = service.getExpenseByCategory();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+
+		List<Account> list = service.findByUsername(username);
+		int totalPrice = list.stream().mapToInt(Account::getPrice).sum();
+		Map<String, Integer> expensesByCategory = service.getExpenseByCategory(username);
 		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("totalPrice", totalPrice);
@@ -96,17 +104,28 @@ public class AccountController {
     	return "account/updateComplete"; // updateComplete.html に遷移
 	}
 
+
 	@GetMapping("/account/search")
 	public String search(@RequestParam(required = false) Integer year,
-                     	@RequestParam(required = false) Integer month,
-                     	@RequestParam(required = false) Integer type,
-                     	Model model) {
-    	List<Account> list = service.searchAccounts(year, month, type);
-    	int totalPrice = list.stream().mapToInt(Account::getPrice).sum(); // 合計金額計算
-    	model.addAttribute("list", list);
-    	model.addAttribute("totalPrice", totalPrice);
-    	return "account/search";
-	}
+                     @RequestParam(required = false) Integer month,
+                     @RequestParam(required = false) Integer type,
+                     Model model) {
+    // 🔹 現在ログインしているユーザーの `username` を取得
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+
+    // 🔹 `username` を渡して検索
+    List<Account> list = service.searchAccounts(year, month, type, username);
+    
+    // 🔹 合計金額計算
+    int totalPrice = list.stream().mapToInt(Account::getPrice).sum();
+
+    model.addAttribute("list", list);
+    model.addAttribute("totalPrice", totalPrice);
+
+    return "account/search";
+}
+
 	
 
 

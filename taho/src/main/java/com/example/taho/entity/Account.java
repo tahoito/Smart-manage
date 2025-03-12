@@ -20,6 +20,17 @@ public class Account {
     public Account() {
     }
 
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
     // 既存の引数付きコンストラクタ
     public Account(String date, int type, String item, int price) {
         this.date = date;

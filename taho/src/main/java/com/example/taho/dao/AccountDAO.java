@@ -35,9 +35,9 @@ public class AccountDAO {
     }
 
     // 全件検索処理
-    public List<Account> findAll() {
-        String sql = "SELECT id, date, type, item, price FROM account ORDER BY date, id";
-        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
+    public List<Account> findByUsername(String username) {
+        String sql = "SELECT id, date, type, item, price, username FROM account WHERE username = ? ORDER BY date, id";
+        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, new Object[]{username});
         List<Account> list = new ArrayList<>();
 
         for (Map<String, Object> result : resultList) {
@@ -72,13 +72,14 @@ public class AccountDAO {
 
     // 新規登録処理
     public void insertAccount(Account account) {
-        jdbcTemplate.update("INSERT INTO account (date, type, item, price) VALUES (?, ?, ?, ?)",
-            account.getDate(), account.getType(), account.getItem(), account.getPrice());
+        jdbcTemplate.update("INSERT INTO account (date, type, item, price,username) VALUES (?, ?, ?, ?)",
+            account.getDate(), account.getType(), account.getItem(), account.getPrice(),account.getUsername());
     }
+
 
     // ID検索処理
     public Account findAccountById(int id) {
-        String sql = "SELECT id, date, type, item, price FROM account WHERE id = ?";
+        String sql = "SELECT id, date, type, item, price, username FROM account WHERE id = ?";
         Map<String, Object> result = jdbcTemplate.queryForMap(sql, id);
 
         Account account = new Account();
@@ -98,6 +99,8 @@ public class AccountDAO {
         // Priceを安全に変換
         account.setPrice(convertToInt(result.get("price"), "price"));
 
+        account.setUsername((String) result.get("username"));
+
         return account;
     }
 
@@ -108,13 +111,14 @@ public class AccountDAO {
 
     // 更新処理
     public void updateAccount(Account account) {
-        jdbcTemplate.update("UPDATE account SET date = ?, type = ?, item = ?, price = ? WHERE id = ?",
-            account.getDate(), account.getType(), account.getItem(), account.getPrice(), account.getId());
+        jdbcTemplate.update("UPDATE account SET date = ?, type = ?, item = ?, price = ? username = ? WHERE id = ?",
+            account.getDate(), account.getType(), account.getItem(), account.getPrice(), account.getId(), account.getUsername());
     }
 
-    public List<Account> searchAccounts(Integer year, Integer month, Integer type) {
-        String sql = "SELECT id, date, type, item, price FROM account WHERE 1=1";
+    public List<Account> searchAccounts(Integer year, Integer month, Integer type, String username) {
+        String sql = "SELECT id, date, type, item, price, username FROM account WHERE username = ?";
         List<Object> params = new ArrayList<>();
+        params.add(username); // 🔹 `username` を追加
     
         if (year != null) {
             sql += " AND YEAR(date) = ?";
@@ -130,25 +134,24 @@ public class AccountDAO {
         }
     
         sql += " ORDER BY date, id";
-        
+    
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, params.toArray());
         List<Account> list = new ArrayList<>();
     
         for (Map<String, Object> result : resultList) {
             Account account = new Account();
             account.setId(convertToInt(result.get("id"), "id"));
-    
             Date date = (Date) result.get("date");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             account.setDate(dateFormat.format(date));
-    
             account.setType(convertToInt(result.get("type"), "type"));
             account.setPrice(convertToInt(result.get("price"), "price"));
             account.setItem((String) result.get("item"));
-    
+            account.setUsername((String) result.get("username")); // 🔹 `username` をセット
             list.add(account);
         }
         return list;
     }
+    
 
 }
