@@ -34,8 +34,10 @@ section.add {
 .date,.type,.item,.price,.month,.year{
     display: grid;
     justify-items:left;
+    padding-left: 10%;
     padding-bottom: 5px;
     padding-top: 5px;
+    padding-left:30%;
     font-size: 15px;
 }
 
@@ -60,13 +62,6 @@ section.search{
     height: 300px;
     border-radius:30px;
     margin-top: 5%;
-}
-
-.search_form{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
 }
 
 .icon_add {
