@@ -5,14 +5,14 @@ body{
 .container{
     position:absolute;
     width:500px;
-    height:350px;
+    height:400px;
     left:50%;
     transform: translate(-50%,-50%);
     top:50%;
     border-radius: 30px;
 }
 
-section.login{
+/*section.login{
     position:absolute;
     background-color: rgb(255, 255, 255);
     width:400px;
@@ -21,13 +21,13 @@ section.login{
     transform: translate(-50%,-50%);
     top:50%;
     border-radius: 30px;
-}
+}*/
 
-section.signup{
+section.signup,section.login{
     position:absolute;
     background-color: rgb(255, 255, 255);
     width:400px;
-    height:250px;
+    height:230px;
     left:50%;
     transform: translate(-50%,-50%);
     top:50%;
@@ -44,18 +44,10 @@ section.signup{
     transform: translateX(-50%);
 }
 
-.signup_next{
-    position: absolute;
-    bottom: 20px; 
-    right: 15px; 
-    color: white;
-    font-size: 15px;
-    text-align: right;
-}
 
-.login_next{
+.login_next,.signup_next{
     position: absolute;
-    bottom: 10px; 
+    bottom: 5px; 
     right: 15px; 
     color: white;
     font-size: 15px;

@@ -7,10 +7,10 @@
     <title>新規登録画面</title>
 </head>
 <body>
-    <div class="container">    
+    <div class="container">   
+        <h1 class="smart_title">Smart Manage</h1> 
         <section class="signup">
             <!-- エラーメッセージ -->
-            <h1 class="smart_title">Smart Manage</h1>
             <div th:if="${error}" style="color: red;">
                 <p th:text="${error}"></p>
             </div>
@@ -35,7 +35,9 @@
                             <input type="password" name="confirmPassword" required>
                         </div>
                     </div>
-                    <button type="submit">登録</button>
+                    <div class="signup_button">
+                        <button type="submit">登録</button>
+                    </div>
                 </form>
             </div>
     </section>
