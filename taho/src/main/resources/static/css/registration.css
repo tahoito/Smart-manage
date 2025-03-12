@@ -1,5 +1,5 @@
 body{
-    background-color:#A2D2EC;
+    background-color:#8cc8e9;
 }
 
 .container{
@@ -47,7 +47,7 @@ section.signup,section.login{
 
 .login_next,.signup_next{
     position: absolute;
-    bottom: 25px; 
+    bottom: 18px; 
     right: 15px; 
     color: white;
     font-size: 15px;

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +85,30 @@ public class AccountService{
     public Account getAccountById(int id) {
         return dao.findAccountById(id); // DAOのメソッドを呼び出す
     }
+
+
+    public Map<String, Integer> getExpenseByCategory() {
+        List<Account> expenses = dao.findAll(); // すべてのデータを取得
     
+        // カテゴリーIDを名前に変換するマップ
+        Map<Integer, String> categoryMap = Map.of(
+            1, "食費",
+            2, "日用品",
+            3, "交通費",
+            4, "趣味",
+            5, "遊び代",
+            6, "勉強",
+            7, "ファッション",
+            8, "美容",
+            9, "その他" // `*` は数字として扱えないから 9 にする
+        );
+    
+        return expenses.stream()
+            .collect(Collectors.groupingBy(
+                account -> categoryMap.getOrDefault(account.getType(), "その他"), // `int` → `String` 変換
+                Collectors.summingInt(Account::getPrice) // 金額を合計
+            ));    
+    }
+        
 
 }

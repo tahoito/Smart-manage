@@ -10,14 +10,25 @@ section.list {
     height: 600px;
 }
 
-section.add {
+section.chart {
     flex: 1; /* 幅の比率（小さめ） */
+    background-color: #f2eeee;
+    width: 400px;
+    height: 400px;
+    border-radius:30px;
+    margin-top: 5%;
+}
+
+/*
+section.add {
+    flex: 1; 
     background-color: #d9d9d9;
     width: 400px;
     height: 350px;
     border-radius:30px;
     margin-top: 5%;
-}
+}*/
+
 
 
 .date,.type,.item,.price,.month,.year{

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.taho.entity.Account;
 import com.example.taho.service.AccountService;
+import java.util.Map;
 
 /**
  * コントローラークラス
@@ -33,10 +34,13 @@ public class AccountController {
 
 		List<Account> list = service.findAll();
 		int totalPrice = service.getTotalPrice();
+		Map<String, Integer> expensesByCategory = service.getExpenseByCategory();
 		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("expenseData", expensesByCategory);
 		return "account/index";
+		
 	}
 
 	@Autowired
@@ -45,7 +49,7 @@ public class AccountController {
 	@PostMapping("/add")
 		public String addAccount(Account account) {
     	accountService.addAccount(account); // 新しいデータを追加
-    	return "account/redirect:/"; // 一覧ページをリロードして新しいデータを表示
+    	return "redirect:/account/"; // 一覧ページをリロードして新しいデータを表示
 	}
 
 
@@ -103,7 +107,7 @@ public class AccountController {
     	model.addAttribute("totalPrice", totalPrice);
     	return "account/search";
 	}
-
+	
 
 
 

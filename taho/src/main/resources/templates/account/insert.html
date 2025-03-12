@@ -11,58 +11,53 @@
     <div th:replace=" ~{block/header::headerAccount}"></div>
     
     <section class="write">
-        <h1 class="write_title">新規登録画面</h1>
+        <h1 class="write_title">支出追加</h1>
+
+        <div class="write_form">
+            <form th:action="@{/account/insert}" method="post">
+                <div class="date">
+                    <div class="flex-container">
+                        <label>日時:</label>
+                        <input type="date" name="date" required>
+                    </div>
+                </div>
+                <div class="type">
+                    <div class="flex-container">
+                        <label>カテゴリー:</label>
+                        <select id="category" name="type" required>
+                            <option value="1">食費</option>
+                            <option value="2">日用品</option>
+                            <option value="3">交通費</option>
+                            <option value="4">趣味</option>
+                            <option value="5">遊び代</option>
+                            <option value="6">勉強</option>
+                            <option value="7">ファッション</option>
+                            <option value="8">美容</option>
+                            <option value="*">その他</option>
+                        </select>
+                    </div>
+                </div>
     
-        <form th:action="@{/account/insert}" method="post">
-            <div class="date">
-                <div class="flex-container">
-                    <label>日時:</label>
-                    <input type="date" name="date" required>
+                <div class="item">
+                    <div class="flex-container">
+                        <label>メモ:</label>
+                        <input type="text" name="item" maxlength="15" size="30" required>
+                    </div>
                 </div>
-            </div>
-            <div class="type">
-                <div class="flex-container">
-                    <label>カテゴリー:</label>
-                    <select id="category" name="type" required>
-                        <option value="1">食費</option>
-                        <option value="2">日用品</option>
-                        <option value="3">交通費</option>
-                        <option value="4">趣味</option>
-                        <option value="5">遊び代</option>
-                        <option value="6">勉強</option>
-                        <option value="7">ファッション</option>
-                        <option value="8">美容</option>
-                        <option value="*">その他</option>
-                    </select>
+    
+                <div class="price">
+                    <div class="flex-container">
+                        <label>金額:</label>
+                        <input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円   
+                    </div>         
                 </div>
-            </div>
-
-            <div class="item">
-                <div class="flex-container">
-                    <label>メモ:</label>
-                    <input type="text" name="item" maxlength="15" size="30" required>
+                <div class="insert_buttom">
+                    <input class="buttom" type="submit" value="追加">
                 </div>
-            </div>
-
-            <div class="price">
-                <div class="flex-container">
-                    <label>金額:</label>
-                    <input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円   
-                </div>         
-            </div>
-
-            <div class="insert_buttom">
-                <input class="buttom" type="submit" value="追加">
-            </div>
-        </form>
+            </form>
+        </div>
     </section>
     
-
-    <br>
-    <div id="top">
-        <a th:href="@{/account}"><input type="submit" value="トップに戻る"></a>
-    </div>
-    <br>
 
     <script>
         function sliceMaxlength(elem,maxlength){

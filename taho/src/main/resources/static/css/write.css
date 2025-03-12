@@ -1,11 +1,19 @@
 section.write{
     position:absolute;
-    background-color: rgb(255, 255, 255);
-    width:400px;
-    height:600px;
+    background-color: rgb(222, 221, 221);
+    width:600px;
+    height:400px;
     left:50%;
-    transform: translateX(-50%);
-    top:15%;
+    transform: translate(-50%,-50%);
+    top:50%;
+    border-radius: 30px;
+}
+
+.write_form{
+    position: absolute;
+    left:50%;
+    transform: translate(-50%,-50%);
+    top:50%;
 }
 
 .date,.type,.item,.price{
