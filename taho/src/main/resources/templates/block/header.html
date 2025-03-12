@@ -8,16 +8,18 @@
             aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!--d-flexとjustify-content-between:で横並びになる
-                align-items-centerで、縦方向の中央揃え
-                justify-content-endで右寄りになる-->
+            
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0 d-flex">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account}">一覧</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/insert}">支出追加</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/search}">検索</a></li>
+                    
+                    <!-- ユーザーメニュー -->
                     <li class="nav-item user-menu">
-                        <button class="user-icon" onclick="toggleMenu()"><i class="fa-solid fa-user"></i></button>
+                        <button id="userIcon" class="user-icon" onclick="toggleMenu()">
+                            <i class="fa-solid fa-user"></i>
+                        </button>
                         <div id="menu" class="menu hidden">
                             <a href="/profile">プロフィール</a>
                             <a href="/settings">設定</a>
@@ -32,4 +34,3 @@
     </nav>
 </header>
 
-<script th:src="@{/js/script.js}"></script>

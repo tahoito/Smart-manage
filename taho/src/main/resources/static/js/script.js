@@ -7,13 +7,16 @@ function toggleMenu() {
     }
 }
 
-document.addEventListener('click',function(event){
-    var menu = document.getElementById("menu");
-    var userIcon = document.getElementById("userIcon"); 
+// ✅ グローバルスコープに登録
+window.toggleMenu = toggleMenu;
 
-    if(menu&&userIcon){
-        var menu = document.getElementById("menu");{
-            menu.style.display == "none";
-        }
+console.log("✅ script.js is loaded and toggleMenu is registered!");
+
+document.addEventListener("click", function (event) {
+    let menu = document.getElementById("menu");
+    let userIcon = document.getElementById("userIcon");
+
+    if (menu && userIcon && !menu.contains(event.target) && !userIcon.contains(event.target)) {
+        menu.style.display = "none";
     }
-})
+});
