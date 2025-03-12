@@ -1,4 +1,5 @@
 <header th:fragment="headerAccount">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <a class="navbar-brand" th:href="@{/account}">Smart Manage</a>
@@ -15,8 +16,20 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account}">一覧</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/insert}">支出追加</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/account/search}">検索</a></li>
+                    <li class="nav-item user-menu">
+                        <button class="user-icon" onclick="toggleMenu()"><i class="fa-solid fa-user"></i></button>
+                        <div id="menu" class="menu hidden">
+                            <a href="/profile">プロフィール</a>
+                            <a href="/settings">設定</a>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit">ログアウト</button>
+                            </form>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+<script th:src="@{/js/script.js}"></script>
