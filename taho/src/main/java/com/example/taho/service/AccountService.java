@@ -55,7 +55,6 @@ public class AccountService{
     public List<Account> searchAccounts(Integer year, Integer month, Integer type, String username) {
         return dao.searchAccounts(year, month, type, username);
     }
-
     
 
     public int getTotalPrice() {

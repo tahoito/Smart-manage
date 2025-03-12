@@ -64,6 +64,8 @@ public class AccountDAO {
             // Itemを取得（文字列として取得）
             account.setItem((String) result.get("item"));
 
+            account.setUsername((String) result.get("username"));
+
             // リストに追加
             list.add(account);
         }
@@ -72,7 +74,7 @@ public class AccountDAO {
 
     // 新規登録処理
     public void insertAccount(Account account) {
-        jdbcTemplate.update("INSERT INTO account (date, type, item, price,username) VALUES (?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO account (date, type, item, price,username) VALUES (?, ?, ?, ?, ?)",
             account.getDate(), account.getType(), account.getItem(), account.getPrice(),account.getUsername());
     }
 

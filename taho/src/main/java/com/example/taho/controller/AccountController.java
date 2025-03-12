@@ -72,10 +72,16 @@ public class AccountController {
 	@PostMapping("/account/insert")
 	public String insert(Model model, Account account) {
 
-		account = service.insertAccount(account);
-		model.addAttribute("account", account);
-		return "account/insertComplete";
-	}
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+
+    account.setUsername(username);
+    account = service.insertAccount(account);
+
+    model.addAttribute("account", account);
+    return "account/insertComplete";
+}
+
 
 	// 削除処理を行う
 	@PostMapping("/account/delete")

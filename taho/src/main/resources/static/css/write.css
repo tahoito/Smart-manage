@@ -52,3 +52,10 @@ h2{
     font-size: 15px;
 }
 
+.back{
+    position: absolute;
+    bottom: 18px; 
+    right: 20px; 
+    color: white;
+    font-size: 15px;
+}

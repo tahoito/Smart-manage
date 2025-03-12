@@ -32,11 +32,12 @@ public class Account {
 
 
     // 既存の引数付きコンストラクタ
-    public Account(String date, int type, String item, int price) {
+    public Account(String date, int type, String item, int price, String username) {
         this.date = date;
         this.type = type;
         this.item = item;
         this.price = price;
+        this.username = username;
     }
 
     // getterとsetter

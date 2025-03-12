@@ -18,7 +18,7 @@
                 <div class="date">
                     <div class="flex-container">
                         <label>日時:</label>
-                        <input type="date" name="date" required>
+                        <input type="date" name="date" required id = "dateInput">
                     </div>
                 </div>
                 <div class="type">
@@ -57,6 +57,9 @@
                 </div>
             </div>
         </form>
+        <div class="back">
+            <p>⇨<a th:href="@{/account/index}">戻る</a></p>
+        </div>
     </section>
     
 
@@ -64,6 +67,12 @@
         function sliceMaxlength(elem,maxlength){
             elem.value= elem.value.slice(0,maxlength);
         }
+
+        document.addEventListener("DOMContentLoaded", function(){
+            let today = new Date;
+            let formattedDate = today.toISOString().split("T")[0];
+            document.getElementById("dateInput").value = formattedDate;
+        });
     </script>
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
