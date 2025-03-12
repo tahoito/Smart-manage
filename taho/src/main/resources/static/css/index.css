@@ -57,7 +57,7 @@ section.add {
 
 section.search{
     flex: 1; /* 幅の比率（小さめ） */
-    background-color: #f2eeee;
+    background-color: rgb(222, 221, 221);
     width: 400px;
     height: 300px;
     border-radius:30px;
@@ -87,5 +87,7 @@ section.search{
 }
 
 .write-add:hover {
-    color: #f8cc64; 
+    background-color: #f8cc64;
+    color: #ffffff; 
 }
+
