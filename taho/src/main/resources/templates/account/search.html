@@ -43,40 +43,41 @@
     <section class="search">
         <h1 class="search_title">検索</h1>
         <form th:action="@{/account/search}" method="get">
-            <div class="year">
-                <div class="flex-container">
-                    <label>年:</label>
-                    <input type="number" name="year" min="2000" max="2100" placeholder="2025">
+            <div class="search_form">
+                <div class="year">
+                    <div class="flex-container">
+                        <label>年:</label>
+                        <input type="number" name="year" min="2000" max="2100" placeholder="2025">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="month">
-                <div class="flex-container">
-                    <label>月:</label>
-                    <input type="number" name="month" min="1" max="12" placeholder="3">
+                
+                <div class="month">
+                    <div class="flex-container">
+                        <label>月:</label>
+                        <input type="number" name="month" min="1" max="12" placeholder="3">
+                    </div>
                 </div>
-            </div>
-            
-            <div class="type">
-                <div class="flex-container">
-                    <label>カテゴリー:</label>
-                    <select name="type">
-                        <option value="">すべて</option>
-                        <option value="1">食費</option>
-                        <option value="2">日用品</option>
-                        <option value="3">交通費</option>
-                        <option value="4">趣味</option>
-                        <option value="5">遊び代</option>
-                        <option value="6">勉強</option>
-                        <option value="7">ファッション</option>
-                        <option value="8">美容</option>
-                        <option value="*">その他</option>
-                    </select>
+                
+                <div class="type">
+                    <div class="flex-container">
+                        <label>カテゴリー:</label>
+                        <select name="type">
+                            <option value="">すべて</option>
+                            <option value="1">食費</option>
+                            <option value="2">日用品</option>
+                            <option value="3">交通費</option>
+                            <option value="4">趣味</option>
+                            <option value="5">遊び代</option>
+                            <option value="6">勉強</option>
+                            <option value="7">ファッション</option>
+                            <option value="8">美容</option>
+                            <option value="*">その他</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="search_button">
-                <input class="button" type="submit" value="検索">
+                <div class="search_button">
+                    <input class="button" type="submit" value="検索">
+                </div>
             </div>
         </form>
     </section>

@@ -34,7 +34,6 @@ section.add {
 .date,.type,.item,.price,.month,.year{
     display: grid;
     justify-items:left;
-    padding-left: 10%;
     padding-bottom: 5px;
     padding-top: 5px;
     font-size: 15px;
@@ -56,9 +55,42 @@ section.add {
 
 section.search{
     flex: 1; /* 幅の比率（小さめ） */
-    background-color: #d9d9d9;
+    background-color: #f2eeee;
     width: 400px;
     height: 300px;
     border-radius:30px;
     margin-top: 5%;
+}
+
+.search_form{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+.icon_add {
+    position: fixed;
+    bottom: 20px;  /* 🔹 画面下から20px */
+    right: 20px;   /* 🔹 画面右から20px */
+    z-index: 1000; /* 🔹 他の要素の上に表示 */
+}
+
+.write-add {
+    background-color: #60b2de; 
+    color: white;  
+    font-size: 30px;  
+    padding: 15px;  
+    border-radius: 50%; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    text-decoration: none; 
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    width: 65px; 
+    height: 65px;
+}
+
+.write-add:hover {
+    color: #f8cc64; 
 }

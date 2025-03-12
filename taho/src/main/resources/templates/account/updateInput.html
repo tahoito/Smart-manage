@@ -13,49 +13,51 @@
         <h1 class="write_title">更新画面</h1>
         <h2>下記データを変更してください</h2>
 
-        <form method="post" th:action="@{/account/updateConfirm}">
-            <input type="hidden" name="id" th:value="${account.id}">
-
-            <!-- 日付入力 -->
-            <div class="date">
-                <div class="flex-container">
-                    <label for="date">日時:</label>
-                    <input type="date" id="date" name="date" th:value="${account.date}" required>            
+        <div class="write_form">
+            <form method="post" th:action="@{/account/updateConfirm}">
+                <input type="hidden" name="id" th:value="${account.id}">
+    
+                <!-- 日付入力 -->
+                <div class="date">
+                    <div class="flex-container">
+                        <label for="date">日時:</label>
+                        <input type="date" id="date" name="date" th:value="${account.date}" required>            
+                    </div>
                 </div>
-            </div>
-
-            <!-- カテゴリー選択 -->
-             <div class="type">
-                <div class="flex-container">
-                    <label>カテゴリー:</label>
-                    <select id="category" name="type" required>
-                        <option th:each="category : ${ {1:'食費', 2:'日用品', 3:'交通費', 4:'趣味', 5:'遊び代', 6:'勉強', 7:'ファッション', 8:'美容', 9:'その他'} }"
-                        th:value="${category.key}"
-                        th:selected="${account.type == category.key}"
-                        th:text="${category.value}">
-                        </option>
-                    </select>
+    
+                <!-- カテゴリー選択 -->
+                 <div class="type">
+                    <div class="flex-container">
+                        <label>カテゴリー:</label>
+                        <select id="category" name="type" required>
+                            <option th:each="category : ${ {1:'食費', 2:'日用品', 3:'交通費', 4:'趣味', 5:'遊び代', 6:'勉強', 7:'ファッション', 8:'美容', 9:'その他'} }"
+                            th:value="${category.key}"
+                            th:selected="${account.type == category.key}"
+                            th:text="${category.value}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-
-            <div class="item">
-                <div class="flex-container">
-                    <label>メモ：</label>
-                    <input type="type" name="item" th:value="${account.item}"  maxlength="15" size="30" required>
+    
+                <div class="item">
+                    <div class="flex-container">
+                        <label>メモ：</label>
+                        <input type="type" name="item" th:value="${account.item}"  maxlength="15" size="30" required>
+                    </div>
                 </div>
-            </div>
-
-            <div class="price">
-                <div class="flex-container">
-                    <label>金額：</label>
-                    <input type="type" name="price" th:value="${account.price}" oninput="sliceMaxLength(this, 8)" required>円
+    
+                <div class="price">
+                    <div class="flex-container">
+                        <label>金額：</label>
+                        <input type="type" name="price" th:value="${account.price}" oninput="sliceMaxLength(this, 8)" required>円
+                    </div>
                 </div>
-            </div>
-
-            <div class="update_bottom">
-                <input class="bottom" type="submit" value="更新">
-            </div>
-    </form>
+    
+                <div class="update_button">
+                    <input class="button" type="submit" value="更新">
+                </div>
+        </form>
+        </div>
     </section>
     <script th:src="@{/js/script.js}"></script>
     
