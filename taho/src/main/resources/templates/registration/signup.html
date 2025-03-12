@@ -7,31 +7,42 @@
     <title>新規登録画面</title>
 </head>
 <body>
-    <h1 class="register_title">新規登録</h1>
-    
-    <section class="signup">
-        <!-- エラーメッセージ -->
-        <div th:if="${error}" style="color: red;">
-            <p th:text="${error}"></p>
-        </div>
+    <div class="container">    
+        <section class="signup">
+            <!-- エラーメッセージ -->
+            <h1 class="smart_title">Smart Manage</h1>
+            <div th:if="${error}" style="color: red;">
+                <p th:text="${error}"></p>
+            </div>
 
-        <form th:action="@{/signup}" method="post">
-            <div>
-                <label>アカウント名:</label>
-                <input type="text" name="username" required>
+            <div class="account">
+                <form th:action="@{/signup}" method="post">
+                    <div class="name">
+                        <div class="flex-container">
+                            <label>アカウント名:</label>
+                            <input type="text" name="username" required>
+                        </div>
+                    </div>
+                    <div class="password">
+                        <div class="flex-container">
+                            <label>パスワード:</label>
+                            <input type="password" name="password" required>
+                        </div>
+                    </div>
+                    <div class="password_again">
+                        <div class="flex-container">
+                            <label>パスワード(確認):</label>
+                            <input type="password" name="confirmPassword" required>
+                        </div>
+                    </div>
+                    <button type="submit">登録</button>
+                </form>
             </div>
-            <div>
-                <label>パスワード:</label>
-                <input type="password" name="password" required>
-            </div>
-            <div>
-                <label>パスワード(確認):</label>
-                <input type="password" name="confirmPassword" required>
-            </div>
-            <button type="submit">登録</button>
-        </form>
     </section>
 
-    <p>すでにアカウントをお持ちですか？ <a th:href="@{/login}">ログイン画面</a></p>
+    <div class="login_next">
+        <p>ログインは<a th:href="@{/login}">こちら</a></p>
+    </div>
+    </div>
 </body>
 </html>

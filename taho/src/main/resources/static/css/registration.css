@@ -23,6 +23,17 @@ section.login{
     border-radius: 30px;
 }
 
+section.signup{
+    position:absolute;
+    background-color: rgb(255, 255, 255);
+    width:400px;
+    height:250px;
+    left:50%;
+    transform: translate(-50%,-50%);
+    top:50%;
+    border-radius: 30px;
+}
+
 .smart_title{
     position: absolute;
     font-weight: bold;
@@ -35,11 +46,19 @@ section.login{
 
 .signup_next{
     position: absolute;
-    bottom: 10px; /* 下に配置 */
-    right: 10px; /* 右に配置 */
+    bottom: 20px; 
+    right: 15px; 
     color: white;
     font-size: 15px;
     text-align: right;
+}
+
+.login_next{
+    position: absolute;
+    bottom: 10px; 
+    right: 15px; 
+    color: white;
+    font-size: 15px;
 }
 
 .account{
@@ -49,7 +68,7 @@ section.login{
     top:50%;
 }
 
-.login_form,.password_form{
+.login_form,.password_form,.name,.password,.password_again{
     display: grid;
     justify-items:left;
     font-size: 15px;
