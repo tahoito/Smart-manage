@@ -131,9 +131,9 @@ public class AccountDAO {
     }
 
     public List<Account> searchAccounts(Integer year, Integer month, Integer type, String username) {
-        String sql = "SELECT id, date, type, item, price, username FROM account WHERE username = ?";
+        String sql = "SELECT id, date, type, item, price, username FROM account WHERE username = ? AND type < 10"; // 🔹 `type < 10` を追加
         List<Object> params = new ArrayList<>();
-        params.add(username); // 🔹 `username` を追加
+        params.add(username); 
     
         if (year != null) {
             sql += " AND YEAR(date) = ?";
@@ -162,11 +162,13 @@ public class AccountDAO {
             account.setType(convertToInt(result.get("type"), "type"));
             account.setPrice(convertToInt(result.get("price"), "price"));
             account.setItem((String) result.get("item"));
-            account.setUsername((String) result.get("username")); // 🔹 `username` をセット
+            account.setUsername((String) result.get("username"));
             list.add(account);
         }
+    
         return list;
     }
+    
     
 
 }

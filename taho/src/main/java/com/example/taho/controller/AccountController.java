@@ -175,28 +175,31 @@ public class AccountController {
 
 	@GetMapping("/account/search")
 	public String search(@RequestParam(required = false) Integer year,
-                    @RequestParam(required = false) Integer month,
-                    @RequestParam(required = false) Integer type,
-                    Model model) {
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String username = authentication.getName();
-
-	List<Account> list = service.searchAccounts(year, month, (type == null ? 9 : type), username);
-
-    // 🔹 支出の合計を計算
-    int totalPrice = list.stream()
-                        .filter(account -> account.getType() < 10) // 🔹 支出だけを計算
-                        .mapToInt(Account::getPrice)
-                        .sum();
-
-    model.addAttribute("list", list);
-    model.addAttribute("totalPrice", totalPrice);
-
-    return "account/search";
-}
-
+						 @RequestParam(required = false) Integer month,
+						 @RequestParam(required = false) Integer type,
+						 Model model) {
 	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+	
+		// 🔹 `type == null ? 9 : type` を削除（検索結果がおかしくなる原因）
+		List<Account> list = service.searchAccounts(year, month, type, username);
+	
+		// 🔹 支出の合計を計算
+		int totalPrice = list.stream()
+							.filter(account -> account.getType() < 10) // 🔹 支出だけを計算
+							.mapToInt(Account::getPrice)
+							.sum();
+	
+		// 🔹 デバッグ用に検索条件と結果件数を表示
+		System.out.println("検索条件: 年=" + year + ", 月=" + month + ", カテゴリー=" + type + ", ユーザー=" + username);
+		System.out.println("検索結果件数: " + list.size());
+	
+		model.addAttribute("list", list);
+		model.addAttribute("totalPrice", totalPrice);
+	
+		return "account/search";
+	}
 
 
 
