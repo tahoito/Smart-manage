@@ -64,46 +64,45 @@ section.search{
     margin-top: 5%;
 }
 
+
 .icon_add {
     position: fixed;
     bottom: 20px;  /* 🔹 画面下から20px */
     right: 20px;   /* 🔹 画面右から20px */
     z-index: 1000; /* 🔹 他の要素の上に表示 */
+    display: flex;
+    gap: 15px;  /* 🔹 ボタンの間隔を開ける */
 }
 
-
+/* 🔹 ボタン全体を円形にする */
 .write-add {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; 
-    padding: 10px 15px;
-    border-radius: 20px;
-    font-size: 16px;
+    width: 55px;   /* 🔹 幅を固定（円のサイズ） */
+    height: 55px;  /* 🔹 高さを幅と同じにする（完全な円になる） */
+    border-radius: 50%; /* 🔹 完全な円形 */
+    font-size: 20px;
     font-weight: bold;
     color: white;
     text-decoration: none;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.write_add{
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     background-color: #60b2de;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
-.write-add.expense:hover {
+
+.write-add.expense:hover{
     background-color: #ff4d4d; 
-    transform: scale(1.1);
-    transition: 0.2s;
 }
-
 
 .write-add.income:hover{
     background-color: #4caf50; 
-    transform: scale(1.1);
-    transition: 0.2s;
 }
 
-
+.write-add:hover {
+    transform: scale(1.1);
+}
 
 
 
