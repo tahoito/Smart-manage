@@ -85,10 +85,11 @@ public class AccountDAO {
     }
 
     public int getTotalIncome() {
-        String sql = "SELECT SUM(price) FROM account WHERE type = '収入'";
+        String sql = "SELECT SUM(price) FROM account WHERE type >= 10"; // 🔹 収入のタイプ (10以上) だけ集計
         Integer totalIncome = jdbcTemplate.queryForObject(sql, Integer.class);
-        return totalIncome != null ? totalIncome : 0; 
+        return (totalIncome != null) ? totalIncome : 0; 
     }
+    
 
     
     // ID検索処理
