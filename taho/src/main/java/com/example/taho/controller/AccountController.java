@@ -182,9 +182,13 @@ public class AccountController {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();
 
-    List<Account> list = service.searchAccounts(year, month, type, username);
-    
-    int totalPrice = list.stream().mapToInt(Account::getPrice).sum();
+	List<Account> list = service.searchAccounts(year, month, (type == null ? 9 : type), username);
+
+    // 🔹 支出の合計を計算
+    int totalPrice = list.stream()
+                        .filter(account -> account.getType() < 10) // 🔹 支出だけを計算
+                        .mapToInt(Account::getPrice)
+                        .sum();
 
     model.addAttribute("list", list);
     model.addAttribute("totalPrice", totalPrice);
