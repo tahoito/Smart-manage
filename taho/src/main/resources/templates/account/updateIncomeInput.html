@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<link th:href="@{/css/write.css}" rel="stylesheet">
+<title>Smart Manage</title>
+</head>
+<body>
+    <div th:replace="~{block/header::headerAccount}"></div>
+
+    <section class="write">
+        <h1 class="write_title">収入の更新画面</h1>
+        <h2>下記データを変更してください</h2>
+
+        <div class="write_form">
+            <form method="post" th:action="@{/account/updateIncome}">
+                <input type="hidden" name="id" th:value="${account.id}">
+    
+                <!-- 日付入力 -->
+                <div class="date">
+                    <div class="flex-container">
+                        <label for="date">日時:</label>
+                        <input type="date" id="date" name="date" th:value="${account.date}" required>            
+                    </div>
+                </div>
+    
+                <!-- カテゴリー選択 -->
+                 <div class="type">
+                    <div class="flex-container">
+                        <label>カテゴリー:</label>
+                        <select id="category" name="type" required>
+                            <option th:each="category : ${ {10:'給与', 11:'アルバイト', 12:'副業', 13:'投資', 14:'お小遣い', 15:'臨時収入', 16:'その他'} }"
+                            th:value="${category.key}"
+                            th:selected="${account.type == category.key}"
+                            th:text="${category.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="item">
+                    <div class="flex-container">
+                        <label>メモ：</label>
+                        <input type="type" name="item" th:value="${account.item}"  maxlength="15" size="30" required>
+                    </div>
+                </div>
+    
+                <div class="price">
+                    <div class="flex-container">
+                        <label>金額：</label>
+                        <input type="type" name="price" th:value="${account.price}" oninput="sliceMaxLength(this, 8)" required>円
+                    </div>
+                </div>
+    
+                <div class="update_button">
+                    <input class="button" type="submit" value="更新">
+                </div>
+        </form>
+        </div>
+        <div class="back">
+            <p>⇨<a th:href="@{/account/index}">戻る</a></p>
+        </div>
+    </section>
+    <script th:src="@{/js/script.js}"></script>
+    
+</body>
+</html>

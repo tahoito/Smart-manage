@@ -15,51 +15,15 @@
 			<h1 class="main_title">支出一覧</h1>
 			<div class="line"></div>
 			<table class="table">
-    		<tr>
-        		<th>日時</th>
-        		<th>カテゴリー</th>
-        		<th>メモ</th>
-        		<th>金額</th>
-        		<th></th>
-        		<th></th>
-    		</tr>
-
-    		<tr th:each="account : ${list}" th:if="${account.type < 10}">
-        		<td th:text="${account.date}"></td>
-        		<td th:switch="${account.type}">
-            		<span th:case="1">食費</span>
-            		<span th:case="2">日用品</span>
-            		<span th:case="3">交通費</span>
-            		<span th:case="4">趣味</span>
-            		<span th:case="5">遊び代</span>
-            		<span th:case="6">勉強</span>
-            		<span th:case="7">ファッション</span>
-            		<span th:case="8">美容</span>
-            		<span th:case="*">その他</span>
-				</td>			
-        		<td th:text="${account.item}"></td>
-        		<td th:text="${account.price} + '円'"></td>
-        		<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
-        		<td>
-            		<form th:action="@{/account/delete}" method="post" onsubmit="return confirm('本当に削除しますか？')">
-                		<input type="hidden" name="id" th:value="${account.id}">
-                		<input type="submit" value="削除" class="button">
-            		</form>	
-        		</td>						
-    		</tr>
-			</table>
-			<div class="line"></div>
-
-			<h1 class="main_title">最近の収入</h1>
-				<table class="table">
 				<tr>
 					<th>日時</th>
-					<th>項目</th>
+					<th>カテゴリー</th>
 					<th>メモ</th>
 					<th>金額</th>
 					<th></th>
 					<th></th>
 				</tr>
+				
 				<tr th:each="account : ${list}" th:if="${account.type < 10}">
 					<td th:text="${account.date}"></td>
 					<td th:switch="${account.type}">
@@ -82,48 +46,109 @@
 							<input type="submit" value="削除" class="button">
 						</form>	
 					</td>						
-					</tr>
-				</table>
+				</tr>
+			</table>
 			<div class="line"></div>
+
+			<h1 class="main_title">最近の収入</h1>
+			<div class="line"></div>
+			<table class="table">
+				<tr>
+					<th>日時</th>
+					<th>カテゴリー</th>
+					<th>メモ</th>
+					<th>金額</th>
+					<th></th>
+					<th></th>
+				</tr>
+
+				<tr th:each="account : ${list}" th:if="${account.type >= 10}">
+					<td th:text="${account.date}"></td>
+					<td th:switch="${account.type}">
+						<span th:case="10">給与</span>
+						<span th:case="11">アルバイト</span>
+						<span th:case="12">副業</span>
+						<span th:case="13">投資</span>
+						<span th:case="14">お小遣い</span>
+						<span th:case="15">臨時収入</span>
+						<span th:case="16">その他</span>
+					</td>			
+					<td th:text="${account.item}"></td>
+					<td th:text="${account.price} + '円'"></td>
+					<td><a th:href="@{/account/updateIncomeInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
+					<td>
+						<form th:action="@{/account/deleteIncome}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+							<input type="hidden" name="id" th:value="${account.id}">
+							<input type="submit" value="削除" class="button">
+						</form>	
+					</td>						
+				</tr>
+			</table>
+			<div class="line"></div>
+
 		</section>
 
 		<section class="chart">
 			<canvas id="expenseChart"></canvas>
 			<script th:inline="javascript">
-    			var expenseData = /*[[${expenseData}]]*/ {};
-
-			var categoryColors = {
-				"食費": "#ff6384",
-				"日用品": "#36a2eb",
-				"交通費": "#ffce56",
-				"趣味": "#ff9f40",
-				"遊び代": "#4bc0c0",
-				"勉強": "#9966ff",
-				"ファッション": "#ffcc99",
-				"美容": "#c9cbcf",
-				"その他": "#8e8e8e"
-			};
-
-			var labels = Object.keys(expenseData);
-			var data = Object.values(expenseData);
-			var colors = labels.map(label => categoryColors[label] || "#000000");
-
-			var ctx = document.getElementById("expenseChart").getContext("2d");
-
-			new Chart(ctx, {
-				type: "pie",
-				data: {
-					labels: labels,
-					datasets: [{
-						data: data,
-						backgroundColor: colors,
-					}]
+				var expenseData = /*[[${expenseData}]]*/ {};
+			
+				var categoryColors = {
+					"食費": "#ff6384",
+					"日用品": "#36a2eb",
+					"交通費": "#ffce56",
+					"趣味": "#ff9f40",
+					"遊び代": "#4bc0c0",
+					"勉強": "#9966ff",
+					"ファッション": "#ffcc99",
+					"美容": "#c9cbcf",
+					"その他": "#8e8e8e"
+				};
+			
+				// 🔹 収入カテゴリ一覧（グラフに含めないもの）
+				var incomeCategories = ["給与", "アルバイト", "副業", "投資", "お小遣い", "臨時収入", "その他"];
+			
+				// 🔹 収入データを除外して支出データだけを取得
+				var filteredExpenseData = {};
+				for (var key in expenseData) {
+					if (!incomeCategories.includes(key)) { // 💡 収入なら除外！
+						filteredExpenseData[key] = expenseData[key];
+					}
+				}
+			
+				// 🔹 支出データだけを使ってグラフを描画！
+				var labels = Object.keys(filteredExpenseData);
+				var data = Object.values(filteredExpenseData);
+				var colors = labels.map(label => categoryColors[label] || "#000000");
+			
+				var ctx = document.getElementById("expenseChart").getContext("2d");
+				new Chart(ctx, {
+					type: "pie",
+					data: {
+						labels: labels,
+						datasets: [{
+							data: data,
+							backgroundColor: colors,
+						}]
 					}
 				});
-			</script>   
-			<h1 class="main_title">総収入<span th:text="${totalIncome} + '円'"></span></h1>
-			<h1 class="main_title">総支出<span th:text="${totalPrice} + '円'"></span></h1>
-			<h1 class="main_title">残額<span th:text="${balance} + '円'"></span></h1>
+			</script>
+						
+			<div class="summary">
+				<div class="summary-item">
+					<h2>総収入</h2>
+					<p><span th:text="${totalIncome}"></span> 円</p>
+				</div>
+				<div class="summary-item">
+					<h2>総支出</h2>
+					<p><span th:text="${totalPrice}"></span> 円</p>
+				</div>
+				<div class="summary-item balance">
+					<h2>残額</h2>
+					<p><span th:text="${balance}"></span> 円</p>
+				</div>
+			</div>
+
 		</section>
 
 		<div class="icon_add">

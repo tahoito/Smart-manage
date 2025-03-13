@@ -7,7 +7,7 @@
 </head>
 <body>
     <div th:replace="~{block/header::headerAccount}"></div>
-    <h2>支出の更新が完了しました</h2>
+    <h2>収入の更新が完了しました</h2>
 
     <table class="table table-striped">
         <tr>
@@ -19,15 +19,13 @@
         <tr>
             <td th:text="${account.date}"></td>
             <td th:switch="${account.type}">
-				<span th:case="1">食費</span>
-				<span th:case="2">日用品</span>
-				<span th:case="3">交通費</span>
-				<span th:case="4">趣味</span>
-				<span th:case="5">遊び代</span>
-				<span th:case="6">勉強</span>
-				<span th:case="7">ファッション</span>
-				<span th:case="8">美容</span>
-				<span th:case="*">その他</span>
+				<span th:case="10">給与</span>
+				<span th:case="11">アルバイト</span>
+				<span th:case="12">副業</span>
+				<span th:case="13">投資</span>
+				<span th:case="14">お小遣い</span>
+				<span th:case="15">臨時収入</span>
+				<span th:case="16">その他</span>
 			</td>			
             <td th:text="${account.item}"></td>
 			<td th:text="${account.price} + '円'"></td>

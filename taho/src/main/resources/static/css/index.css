@@ -91,3 +91,28 @@ section.search{
     color: #ffffff; 
 }
 
+
+.summary {
+    display: flex;
+    justify-content: center; /* 中央揃え */
+    gap: 15px; /* ボックス間のスペース */
+    margin-top: 30px; /* 上の余白 */
+}
+
+.summary-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 120px;
+    height: 100px;
+    font-size: 20px;
+}
+
+h2{
+    font-size: 15px;
+}
+
+.balance {
+    background-color: #e3f2fd;
+}

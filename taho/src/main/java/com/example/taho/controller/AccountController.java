@@ -116,15 +116,15 @@ public class AccountController {
 	}
 
 	// 収入更新画面へ遷移
-@GetMapping("/account/updateIncomeInput")
-public String updateIncomeInput(Model model, @RequestParam int id) {
-    Account account = service.findAccountById(id);
-    if (account != null && account.getType() >= 10) { 
-        model.addAttribute("account", account);
-        return "account/updateIncomeInput";
-    }
-    return "redirect:/account/"; // 該当しない場合はリダイレクト
-}
+	@GetMapping("/account/updateIncomeInput")
+	public String updateIncomeInput(Model model, @RequestParam int id) {
+    	Account account = service.findAccountById(id);
+    	if (account != null && account.getType() >= 10) { 
+        	model.addAttribute("account", account);
+        	return "account/updateIncomeInput";
+   	 	}
+    	return "redirect:/account/"; // 該当しない場合はリダイレクト
+	}
 
 	// 収入の更新処理
 	@PostMapping("/account/updateIncome")
