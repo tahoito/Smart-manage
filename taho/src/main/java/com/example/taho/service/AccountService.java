@@ -20,6 +20,7 @@ public class AccountService{
     private final AccountDAO dao;
 
     private int totalPrice;
+    private int totalIncome;
     public AccountService(AccountDAO dao){
         this.dao = dao;
     }
@@ -34,6 +35,12 @@ public class AccountService{
     //新規登録
     public Account insertAccount(Account account){
         dao.insertAccount(account);
+        return account;
+    }
+
+
+    public Account insertIncomeAccount(Account account){
+        dao.insertIncomeAccount(account);
         return account;
     }
 
@@ -65,6 +72,14 @@ public class AccountService{
         this.totalPrice = totalPrice;
     }
 
+    public int getTotalIncome() { // 収入の合計を取得
+        return totalIncome;
+    }
+
+    public void setTotalIncome(int totalIncome) { // 収入の合計を設定
+        this.totalIncome = totalIncome;
+    }
+    
 
     // 仮にデータを保存するためのリストを使います（実際にはデータベースを使用します）
     private List<Account> accountList = new ArrayList<>();

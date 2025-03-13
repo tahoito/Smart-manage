@@ -78,7 +78,19 @@ public class AccountDAO {
             account.getDate(), account.getType(), account.getItem(), account.getPrice(),account.getUsername());
     }
 
+    //収入追加
+    public void insertIncomeAccount(Account account) {
+        jdbcTemplate.update("INSERT INTO account (date, type, item, price, username) VALUES (?, ?, ?, ?, ?)",
+            account.getDate(), account.getType(), account.getItem(), account.getPrice(),account.getUsername());
+    }
 
+    public int getTotalIncome() {
+        String sql = "SELECT SUM(price) FROM account WHERE type = '収入'";
+        Integer totalIncome = jdbcTemplate.queryForObject(sql, Integer.class);
+        return totalIncome != null ? totalIncome : 0; 
+    }
+
+    
     // ID検索処理
     public Account findAccountById(int id) {
         String sql = "SELECT id, date, type, item, price, username FROM account WHERE id = ?";

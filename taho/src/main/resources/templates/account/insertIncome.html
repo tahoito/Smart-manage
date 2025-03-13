@@ -1,0 +1,79 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+<link th:href="@{/css/write.css}" rel="stylesheet">
+<title>Smart Manage</title>
+</head>
+<body> 
+    <!--Thymeleaf テンプレートエンジン-->
+    <div th:replace=" ~{block/header::headerAccount}"></div>
+    
+    <section class="write">
+        <h1 class="write_title">収入追加</h1>
+
+        <form th:action="@{/account/insertIncome}" method="post">
+        <div class="write_form">
+                <div class="date">
+                    <div class="flex-container">
+                        <label>日時:</label>
+                        <input type="date" name="date" required id = "dateInput">
+                    </div>
+                </div>
+                <div class="type">
+                    <div class="flex-container">
+                        <label>カテゴリー:</label>
+                        <select name="type" required>
+                        <option value="10">給与</option>
+                        <option value="11">アルバイト</option>
+                        <option value="12">副業</option>
+                        <option value="13">投資</option>
+                        <option value="14">お小遣い</option>
+                        <option value="15">臨時収入</option>
+                        <option value="16">その他</option>
+                    </select>
+                    </div>
+                </div>
+    
+                <div class="item">
+                    <div class="flex-container">
+                        <label>メモ:</label>
+                        <input type="text" name="item" maxlength="15" size="20" required>
+                    </div>
+                </div>
+    
+                <div class="price">
+                    <div class="flex-container">
+                        <label>金額:</label>
+                        <input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円   
+                    </div>         
+                </div>
+
+                <div class="insert_button">
+                    <input class="button" type="submit" value="追加">
+                </div>
+            </div>
+        </form>
+        <div class="back">
+            <p>⇨<a th:href="@{/account/index}">戻る</a></p>
+        </div>
+    </section>
+    
+
+    <script>
+        function sliceMaxlength(elem,maxlength){
+            elem.value= elem.value.slice(0,maxlength);
+        }
+
+        document.addEventListener("DOMContentLoaded", function(){
+            let today = new Date;
+            let formattedDate = today.toISOString().split("T")[0];
+            document.getElementById("dateInput").value = formattedDate;
+        });
+    </script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    
+</body>
+</html>

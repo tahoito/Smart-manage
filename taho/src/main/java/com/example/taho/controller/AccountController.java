@@ -41,15 +41,20 @@ public class AccountController {
 		String username = authentication.getName();
 
 		List<Account> list = service.findByUsername(username);
+		int totalIncome = accountService.getTotalIncome(); // 総収入
 		int totalPrice = list.stream().mapToInt(Account::getPrice).sum();
+    	int balance = totalIncome - totalPrice; // 残額を計算
+
 		Map<String, Integer> expensesByCategory = service.getExpenseByCategory(username);
 		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("getTotalIncome",totalIncome);
 		model.addAttribute("expenseData", expensesByCategory);
+		model.addAttribute("balance", balance);
 		return "account/index";
-		
 	}
+
 
 	@Autowired
     private AccountService accountService;
@@ -64,7 +69,6 @@ public class AccountController {
 	// 新規登録画面へ遷移
 	@GetMapping("/account/insert")
 	public String goInsert() {
-
 		return "account/insert";
 	}
 
@@ -76,12 +80,61 @@ public class AccountController {
     String username = authentication.getName();
 
     account.setUsername(username);
-    account = service.insertAccount(account);
+    service.insertAccount(account);
 
     model.addAttribute("account", account);
     return "account/insertComplete";
+	}
+
+	@GetMapping("/account/insertIncome")
+	public String goInsertIncome() {
+		return "account/insertIncome";
+	}
+
+	@PostMapping("/account/insertIncome")
+	public String insertIncome(Model model, Account account){
+	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+
+	account.setUsername(username);
+    service.insertIncomeAccount(account);
+
+	model.addAttribute("account", account);
+    return "account/insertIncomeComplete";
+	}
+
+	// 収入の削除処理
+	@PostMapping("/account/deleteIncome")
+	public String deleteIncome(Model model, @RequestParam int id) {
+    	// 削除前に収入データを取得
+    	Account account = service.getAccountById(id);
+    	if (account != null && account.getType() >= 10) { // 🔹 typeが収入(10以上)の場合のみ削除
+        	model.addAttribute("account", account);
+        	service.deleteAccountById(id);
+    	}
+    	return "redirect:/account/"; 
+	}
+
+	// 収入更新画面へ遷移
+@GetMapping("/account/updateIncomeInput")
+public String updateIncomeInput(Model model, @RequestParam int id) {
+    Account account = service.findAccountById(id);
+    if (account != null && account.getType() >= 10) { 
+        model.addAttribute("account", account);
+        return "account/updateIncomeInput";
+    }
+    return "redirect:/account/"; // 該当しない場合はリダイレクト
 }
 
+	// 収入の更新処理
+	@PostMapping("/account/updateIncome")
+	public String updateIncome(Model model, Account account) {
+    	if (account.getType() >= 10) { 
+        	service.updateAccount(account);
+        	model.addAttribute("account", account);
+    	}
+    	return "account/updateIncomeComplete";
+	}
 
 	// 削除処理を行う
 	@PostMapping("/account/delete")
@@ -113,17 +166,15 @@ public class AccountController {
 
 	@GetMapping("/account/search")
 	public String search(@RequestParam(required = false) Integer year,
-                     @RequestParam(required = false) Integer month,
-                     @RequestParam(required = false) Integer type,
-                     Model model) {
-    // 🔹 現在ログインしているユーザーの `username` を取得
+                    @RequestParam(required = false) Integer month,
+                    @RequestParam(required = false) Integer type,
+                    Model model) {
+
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();
 
-    // 🔹 `username` を渡して検索
     List<Account> list = service.searchAccounts(year, month, type, username);
     
-    // 🔹 合計金額計算
     int totalPrice = list.stream().mapToInt(Account::getPrice).sum();
 
     model.addAttribute("list", list);
