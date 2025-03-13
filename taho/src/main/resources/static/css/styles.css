@@ -120,16 +120,16 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     background: #f0f0f0;
 }
 
-button{
+
+.button_list{
     background-color: #60b2de;
     border: none;
     color: white;
 }
 
-button:hover{
+.button_list:hover{
     background-color: #f8cc64;
 }
-
 .button{
     background-color: #60b2de;
     font-size: 15px;
