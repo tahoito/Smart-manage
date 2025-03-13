@@ -75,6 +75,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     padding-top: 5%;
 }
 
+
+
 .user-menu{
     position: relative;
     margin-left: 15px;
@@ -116,4 +118,25 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 .menu a:hover, .menu form button:hover {
     background: #f0f0f0;
+}
+
+button{
+    background-color: #60b2de;
+    border: none;
+    color: white;
+}
+
+button:hover{
+    background-color: #f8cc64;
+}
+
+.button{
+    background-color: #60b2de;
+    font-size: 15px;
+    border: none;
+    color: white;
+}
+
+.button:hover{
+    background-color: #f8cc64;
 }

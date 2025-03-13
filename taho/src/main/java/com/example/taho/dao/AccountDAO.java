@@ -89,7 +89,7 @@ public class AccountDAO {
 
         // 日付を String に変換
         Date date = (Date) result.get("date");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         account.setDate(dateFormat.format(date));
 
         // Typeを適切に変換
@@ -144,7 +144,7 @@ public class AccountDAO {
             Account account = new Account();
             account.setId(convertToInt(result.get("id"), "id"));
             Date date = (Date) result.get("date");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             account.setDate(dateFormat.format(date));
             account.setType(convertToInt(result.get("type"), "type"));
             account.setPrice(convertToInt(result.get("price"), "price"));

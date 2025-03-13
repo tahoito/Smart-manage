@@ -20,8 +20,8 @@
 					<th>カテゴリー</th>
 					<th>メモ</th>
 					<th>金額</th>
-					<th>更新</th>
-					<th>削除</th>
+					<th></th>
+					<th></th>
 				</tr>
 		
 				<tr th:each="account,iterStat : ${list}">
@@ -39,11 +39,11 @@
 					</td>			
 					<td th:text="${account.item}"></td>
 					<td th:text="${account.price} + '円'"></td>
-					<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新"></a></td>
+					<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
 					<td>
 						<form th:action="@{/account/delete}" method="post" onsubmit="return confirm('本当に削除しますか？')">
 							<input type="hidden" name="id" th:value="${account.id}">
-							<input type="submit" value="削除">
+							<input type="submit" value="削除" class="button">
 						</form>	
 					</td>						
 				</tr>
