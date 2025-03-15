@@ -3,10 +3,30 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/styles.css}">
-        <link rel="stylesheet" th:href="@{/css/index.css}">
+        <link rel="stylesheet" th:href="@{/css/menu.css}">
         <title>Smart Manage</title>
     </head>    
     <body>
         <div th:replace="~{block/header::headerAccount}"></div>
+        <section class="profile_icon">
+            <div class="icon_picture">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </section>
+
+        <section class="character">
+            <div class="username"></div>
+            <div class="userdate"></div>
+            <div class="usergender"></div>
+        </section>
+        <section class="goal">
+            <div class="goal_income">目標貯金額（例：10万円貯める）</div>
+            <div class="goal_month">月の支出目安（例：3万円以内）</div>
+            <div class="goal_things">買いたいもの（例：新しいスマホ、服、ゲームなど）</div>
+            <div class="goal_place">行きたい場所（例：旅行先、テーマパーク、ライブ会場など）</div>
+            <div class="goal_date">目標達成予定日（期限を設定できるとモチベーションUP）</div>
+            <div class="goal_graph">達成状況の表示（パーセンテージや進捗バーなど）</div>
+        </section>
     </body>
+
 </html>
