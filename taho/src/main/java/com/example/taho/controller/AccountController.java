@@ -201,6 +201,9 @@ public class AccountController {
 		return "account/search";
 	}
 
-
+	@GetMapping("/menu/profile")
+    public String profilePage() {
+        return "menu/profile"; 
+	}
 
 }

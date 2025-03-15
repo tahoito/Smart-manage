@@ -1,0 +1,38 @@
+section.profile_icon{
+    position: absolute;
+    background-color: #f2eeee;
+    width:200px;
+    height: 200px;
+    border-radius: 30px;
+    top:15%;
+    left:15%;
+}
+
+.icon_picture{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    color: white;
+    font-size:40px;
+}
+
+section.character{
+    position: absolute;
+    background-color: #f2eeee;
+    border-radius: 30px;
+    bottom:10%;
+    left:10%;
+    width: 380px;
+    height: 270px;
+}
+
+section.goal{
+    position: absolute;
+    background-color: #f2eeee;
+    border-radius: 30px;
+    bottom:10%;
+    right:10%;
+    width: 500px;
+    height: 280px;
+}
