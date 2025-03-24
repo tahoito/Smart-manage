@@ -1,6 +1,7 @@
 package com.example.taho.controller;
 
 import java.net.Authenticator;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -200,10 +202,40 @@ public class AccountController {
 	
 		return "account/search";
 	}
+	
+	@RequestMapping("/menu")
+	public class ProfileController {
 
-	@GetMapping("/menu/profile")
-    public String profilePage() {
-        return "menu/profile"; 
-	}
+    @Autowired
+    private ProfileService profileService;
+
+    // プロフィール表示
+    @GetMapping
+    public String showProfile(Model model, Principal principal) {
+        String username = principal.getName();
+        UserProfile profile = profileService.getProfileByUsername(username);
+        model.addAttribute("profile", profile);
+        return "menu/profile";  // ← profile/view.html に表示させる
+    }
+
+    // プロフィール編集画面へ
+    @GetMapping("/edit")
+    public String editProfile(Model model, Principal principal) {
+        String username = principal.getName();
+        UserProfile profile = profileService.getProfileByUsername(username);
+        model.addAttribute("profile", profile);
+        return "menu/profile_edit";  // ← profile/edit.html でフォーム編集
+    }
+
+    // プロフィールの更新
+    @PostMapping("/update")
+    public String updateProfile(@ModelAttribute UserProfile profile, Principal principal) {
+        String username = principal.getName();
+        profile.setUsername(username);  // 安全のため再設定
+        profileService.updateProfile(profile);
+        return "redirect:/menu/profile";
+    }
+}
+
 
 }

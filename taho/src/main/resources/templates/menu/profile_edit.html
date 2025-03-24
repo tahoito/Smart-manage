@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/menu.css}">
+        <title>Smart Manage</title>
+    </head>    
+    <body>
+        <form method="post" th:action="@{/profile/update}" th:object="${profile}">
+            <div th:replace="~{block/header::headerAccount}"></div>
+        <section class="profile_icon">
+            <div class="icon_picture">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <p>アイコンを編集する</p>
+        </section>
+
+        <section class="character">
+            <div class="profile">
+                <div class="profile_title">基本情報</div>
+                <div class="username">
+                    <label>ユーザー名：</label>
+                    <input type="text" th:field="*{gender}" /><br/>
+                </div>
+                <div class="userage">
+                    <label>生年月日：</label>
+                    <input type="number" th:field="*{userage}" />
+                </div>
+                <div class="usergender">
+                    <label>性別：</label>
+                    <input type="text" th:field="*{usergender}" />
+                </div>
+            </div>
+        </section>
+
+        <section class="goal">
+            <div class="profile">
+                <div class="profile_title">目標宣言</div>
+                <div class="goal_income">
+                    <label>目標貯金額：</label>
+                    <input type="text" th:field="*{targetSaving}" />
+                </div>
+                <div class="goal_month">
+                    <label>月の支出目安：</label>
+                    <input type="text" th:field="*{targetExpensing}" />
+                </div>
+                <div class="goal_things">
+                    <label>買いたいもの：</label>
+                    <input type="text" th:field="*{targetThings}" />
+                </div>
+                <div class="goal_place">
+                    <label>行きたい場所；</label>
+                    <input type="text" th:field="*{targetPlace}" />
+                </div>
+                <div class="goal_date">
+                    <label>目標達成予定日：</label>
+                    <input type="text" th:field="*{targetDate}" />
+                </div>
+            </div>
+        </section>
+        </form>
+    </body>
+
+</html>
