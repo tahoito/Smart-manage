@@ -202,40 +202,5 @@ public class AccountController {
 	
 		return "account/search";
 	}
-	
-	@RequestMapping("/menu")
-	public class ProfileController {
-
-    @Autowired
-    private ProfileService profileService;
-
-    // プロフィール表示
-    @GetMapping
-    public String showProfile(Model model, Principal principal) {
-        String username = principal.getName();
-        UserProfile profile = profileService.getProfileByUsername(username);
-        model.addAttribute("profile", profile);
-        return "menu/profile";  // ← profile/view.html に表示させる
-    }
-
-    // プロフィール編集画面へ
-    @GetMapping("/edit")
-    public String editProfile(Model model, Principal principal) {
-        String username = principal.getName();
-        UserProfile profile = profileService.getProfileByUsername(username);
-        model.addAttribute("profile", profile);
-        return "menu/profile_edit";  // ← profile/edit.html でフォーム編集
-    }
-
-    // プロフィールの更新
-    @PostMapping("/update")
-    public String updateProfile(@ModelAttribute UserProfile profile, Principal principal) {
-        String username = principal.getName();
-        profile.setUsername(username);  // 安全のため再設定
-        profileService.updateProfile(profile);
-        return "redirect:/menu/profile";
-    }
-}
-
 
 }
