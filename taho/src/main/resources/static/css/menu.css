@@ -22,7 +22,7 @@ section.character{
     background-color: #f2eeee;
     border-radius: 30px;
     bottom:10%;
-    left:10%;
+    left:15%;
     width: 380px;
     height: 270px;
 }
@@ -35,4 +35,14 @@ section.goal{
     right:10%;
     width: 500px;
     height: 280px;
+}
+
+.profile{
+    padding:20px;
+}
+
+
+.profile_title{
+    font-weight: bold;
+    font-size:20px;
 }
