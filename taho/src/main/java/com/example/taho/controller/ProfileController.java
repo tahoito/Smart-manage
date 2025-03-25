@@ -16,12 +16,12 @@ public class ProfileController {
     private ProfileService profileService;
 
     // プロフィール表示
-    @GetMapping
+    @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
         String username = principal.getName();
         UserProfile profile = profileService.getProfileByUsername(username);
         model.addAttribute("profile", profile);
-        return "menu/profile";  // 例: templates/menu/profile.html
+        return "menu/profile"; 
     }
 
     // プロフィール編集画面へ
@@ -30,7 +30,7 @@ public class ProfileController {
         String username = principal.getName();
         UserProfile profile = profileService.getProfileByUsername(username);
         model.addAttribute("profile", profile);
-        return "menu/profile_edit";  // 例: templates/menu/profile_edit.html
+        return "menu/profile_edit";  
     }
 
     // プロフィールの更新
