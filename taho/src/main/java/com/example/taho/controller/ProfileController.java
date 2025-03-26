@@ -18,11 +18,13 @@ public class ProfileController {
     // プロフィール表示
     @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
-        String username = principal.getName();
+        String username = principal.getName(); // ← これでログイン中のユーザー名が取れる！
+        // ここで使えるようになるよ！
         UserProfile profile = profileService.getProfileByUsername(username);
         model.addAttribute("profile", profile);
-        return "menu/profile"; 
+        return "menu/profile";
     }
+
 
     // プロフィール編集画面へ
     @GetMapping("/edit")
