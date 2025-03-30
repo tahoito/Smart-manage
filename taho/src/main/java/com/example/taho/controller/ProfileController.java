@@ -15,8 +15,14 @@ import com.example.taho.entity.User;
 @Controller
 public class ProfileController {
 
+
+    @Autowired
+    private ProfileService profileService;
+    
     @Autowired
     private UserRepository userRepository;
+
+
 
     // プロフィール表示
     @GetMapping("/profile")
