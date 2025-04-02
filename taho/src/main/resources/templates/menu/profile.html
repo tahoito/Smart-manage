@@ -18,19 +18,23 @@
         <section class="character">
             <div class="profile">
                 <div class="profile_title">基本情報</div>
-                <div class="username">ユーザー名：<span th:text="${profile.username}"></span></div>
-                <div class="userage">生年月日：<span th:text="${profile.userage}"></span></div>
-                <div class="usergender">性別：<span th:text="${profile.usergender}"></span></div>
+                <div class="profile_space">
+                    <div class="username">ユーザー名：<span th:text="${profile.username}"></span></div>
+                    <div class="userage">生年月日：<span th:text="${profile.userage}"></span></div>
+                    <div class="usergender">性別：<span th:text="${profile.usergender}"></span></div>
+                </div>
             </div>
         </section>
         <section class="goal">
             <div class="profile">
                 <div class="profile_title">目標宣言</div>
-                <div class="goal_income">目標貯金額：<span th:text="${profile.targetSaving}"></span></div>
-                <div class="goal_month">月の支出目安：<span th:text="${profile.targetExpensing}"></span></div>
-                <div class="goal_things">買いたいもの：<span th:text="${profile.targetThings}"></span></div>
-                <div class="goal_place">行きたい場所：<span th:text="${profile.targetPlace}"></span></div>
-                <div class="goal_date">目標達成予定日：<span th:text="${profile.targetDate}"></span></div>
+                <div class="profile_space">
+                    <div class="goal_income">目標貯金額：<span th:text="${profile.targetSaving}"></span></div>
+                    <div class="goal_month">月の支出目安：<span th:text="${profile.targetExpensing}"></span></div>
+                    <div class="goal_things">買いたいもの：<span th:text="${profile.targetThings}"></span></div>
+                    <div class="goal_place">行きたい場所：<span th:text="${profile.targetPlace}"></span></div>
+                    <div class="goal_date">目標達成予定日：<span th:text="${profile.targetDate}"></span></div>
+                </div>
             </div>
         </section>
     </body>
