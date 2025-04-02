@@ -4,8 +4,8 @@ section.profile_icon {
     width: 200px;
     height: 200px;
     border-radius: 30px;
-    top: 10%;
-    left: 10%;
+    top: 20%;
+    left: 12%;
 }
 
 section.graph {
@@ -14,7 +14,7 @@ section.graph {
     width: 300px;
     height: 200px;
     border-radius: 30px;
-    top: 10%;
+    top: 15%;
     left: 27%; /* アイコンの右に配置 */
 }
 
@@ -22,8 +22,8 @@ section.character {
     position: absolute;
     background-color: #f2eeee;
     border-radius: 30px;
-    bottom: 10%;
-    left: 10%;
+    top: 58%;
+    left: 12%;
     width: 380px;
     height: auto;
 }
@@ -32,8 +32,8 @@ section.goal {
     position: absolute;
     background-color: #f2eeee;
     border-radius: 30px;
-    bottom: 10%;
-    right: 10%;
+    top: 58%;
+    right: 12%;
     width: 500px;
     height: auto;
 }
