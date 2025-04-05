@@ -85,17 +85,25 @@ public class AccountController {
 
 	// 新規登録画面へ遷移
 	@PostMapping("/account/insert")
-	public String insert(Model model, Account account) {
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String username = authentication.getName();
-
-    account.setUsername(username);
-    service.insertAccount(account);
-
-    model.addAttribute("account", account);
-    return "account/insertComplete";
+	public String insert(
+		Model model,
+		@RequestParam("type") int recordType,      // 0: 支出, 10: 収入
+		@RequestParam("category") int categoryType, // 選択されたカテゴリー（1〜9など）
+		Account account
+	) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		account.setUsername(username);
+	
+		// 🔁 type を決定
+		int finalType = recordType == 0 ? categoryType : categoryType + 10;
+		account.setType(finalType);
+	
+		service.insertAccount(account);  // insertAccount に保存を任せる
+		model.addAttribute("account", account);
+		return "account/insertComplete";
 	}
+	
 
 	@GetMapping("/account/insertIncome")
 	public String goInsertIncome() {

@@ -13,38 +13,40 @@
     <section class="write">
         <h1 class="write_title">支出追加</h1>
 
+        <!-- ラジオボタンによってカテゴリを切り替える -->
         <form th:action="@{/account/insert}" method="post">
-        <div class="write_form">
+            <div class="write_form">
+                <div class="record_type">
+                    <div class="flex-container">
+                        <label>種類:</label>
+                        <input type="radio" name="type" value="0" checked onchange="updateCategory()"> 支出
+                        <input type="radio" name="type" value="10" onchange="updateCategory()"> 収入
+                    </div>
+                </div>
+
                 <div class="date">
                     <div class="flex-container">
                         <label>日時:</label>
-                        <input type="date" name="date" required id = "dateInput">
+                        <input type="date" name="date" required id="dateInput">
                     </div>
                 </div>
-                <div class="type">
+
+                <div class="category">
                     <div class="flex-container">
                         <label>カテゴリー:</label>
-                        <select id="category" name="type" required>
-                            <option value="1">食費</option>
-                            <option value="2">日用品</option>
-                            <option value="3">交通費</option>
-                            <option value="4">趣味</option>
-                            <option value="5">遊び代</option>
-                            <option value="6">勉強</option>
-                            <option value="7">ファッション</option>
-                            <option value="8">美容</option>
-                            <option value="*">その他</option>
+                        <select id="category" name="category" required>
+                            <!-- 初期状態：支出カテゴリ -->
                         </select>
                     </div>
                 </div>
-    
+
                 <div class="item">
                     <div class="flex-container">
                         <label>メモ:</label>
                         <input type="text" name="item" maxlength="15" size="20" required>
                     </div>
                 </div>
-    
+
                 <div class="price">
                     <div class="flex-container">
                         <label>金額:</label>
@@ -57,6 +59,7 @@
                 </div>
             </div>
         </form>
+
         <div class="back">
             <p>⇨<a th:href="@{/account}">戻る</a></p>
         </div>
@@ -64,16 +67,53 @@
     
 
     <script>
-        function sliceMaxlength(elem,maxlength){
-            elem.value= elem.value.slice(0,maxlength);
+        const expenseCategories = [
+            { value: 1, label: "食費" },
+            { value: 2, label: "日用品" },
+            { value: 3, label: "交通費" },
+            { value: 4, label: "趣味" },
+            { value: 5, label: "遊び代" },
+            { value: 6, label: "勉強" },
+            { value: 7, label: "ファッション" },
+            { value: 8, label: "美容" },
+            { value: 9, label: "その他" }
+        ];
+    
+        const incomeCategories = [
+            { value: 1, label: "給与" },
+            { value: 2, label: "アルバイト" },
+            { value: 3, label: "副業" },
+            { value: 4, label: "投資" },
+            { value: 5, label: "お小遣い" },
+            { value: 6, label: "臨時収入" },
+            { value: 7, label: "その他" }
+        ];
+    
+        function updateCategory() {
+            const type = document.querySelector('input[name="type"]:checked').value;
+            const categorySelect = document.getElementById("category");
+            categorySelect.innerHTML = ""; // 一度空にする
+    
+            const categories = (type == "0") ? expenseCategories : incomeCategories;
+            categories.forEach(cat => {
+                const option = document.createElement("option");
+                option.value = cat.value;
+                option.text = cat.label;
+                categorySelect.appendChild(option);
+            });
         }
-
+    
         document.addEventListener("DOMContentLoaded", function(){
-            let today = new Date;
-            let formattedDate = today.toISOString().split("T")[0];
-            document.getElementById("dateInput").value = formattedDate;
+            let today = new Date();
+            document.getElementById("dateInput").value = today.toISOString().split("T")[0];
+            updateCategory(); // 初期表示も支出カテゴリにする
         });
+    
+        function sliceMaxlength(elem, maxlength){
+            elem.value = elem.value.slice(0, maxlength);
+        }
     </script>
+    
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
     
