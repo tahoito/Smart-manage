@@ -32,6 +32,7 @@
 					<canvas id="expenseChart"></canvas>
 					<script th:inline="javascript">
 						var expenseData = /*[[${expenseData}]]*/ {};
+					
 						var categoryColors = {
 							"食費": "#ff6384",
 							"日用品": "#36a2eb",
@@ -43,14 +44,32 @@
 							"美容": "#c9cbcf",
 							"その他": "#8e8e8e"
 						};
-						var labels = Object.keys(expenseData);
-						var data = Object.values(expenseData);
+					
+						//収入カテゴリ一覧（グラフに含めないもの）
+						var incomeCategories = ["給与", "アルバイト", "副業", "投資", "お小遣い", "臨時収入", "その他"];
+					
+						//収入データを除外して支出データだけを取得
+						var filteredExpenseData = {};
+						for (var key in expenseData) {
+							if (!incomeCategories.includes(key)) { // 💡 収入なら除外！
+								filteredExpenseData[key] = expenseData[key];
+							}
+						}
+					
+						//支出データだけを使ってグラフを描画！
+						var labels = Object.keys(filteredExpenseData);
+						var data = Object.values(filteredExpenseData);
 						var colors = labels.map(label => categoryColors[label] || "#000000");
-						new Chart(document.getElementById("expenseChart"), {
+					
+						var ctx = document.getElementById("expenseChart").getContext("2d");
+						new Chart(ctx, {
 							type: "pie",
 							data: {
 								labels: labels,
-								datasets: [{ data: data, backgroundColor: colors }]
+								datasets: [{
+									data: data,
+									backgroundColor: colors,
+								}]
 							}
 						});
 					</script>
