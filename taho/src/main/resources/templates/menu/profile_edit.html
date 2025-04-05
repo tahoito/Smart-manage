@@ -19,47 +19,52 @@
         <section class="character">
             <div class="profile">
                 <div class="profile_title">基本情報</div>
-                <div class="username">
-                    <label>ユーザー名：</label>
-                    <input type="text" th:field="*{username}" /><br/>
+                <div class="profile_space">
+                    <div class="username">
+                        <label>ユーザー名：</label>
+                        <input type="text" th:field="*{username}" /><br/>
+                    </div>
+                    <div class="userage">
+                        <label>生年月日：</label>
+                        <input type="number" th:field="*{birthYear}" placeholder="年" min="1900" max="2100" required />
+                        <input type="number" th:field="*{birthMonth}" placeholder="月" min="1" max="12" required />
+                        <input type="number" th:field="*{birthDay}" placeholder="日" min="1" max="31" required />
+                    </div>                
+                    <div class="usergender">
+                        <label>性別：</label>
+                        <input type="radio" th:field="*{usergender}" value="男性" />男性
+                        <input type="radio" th:field="*{usergender}" value="女性" />女性
+                        <input type="radio" th:field="*{usergender}" value="その他" />その他
+                    </div>
                 </div>
-                <div class="userage">
-                    <label>生年月日：</label>
-                    <input type="number" th:field="*{birthYear}" placeholder="年" min="1900" max="2100" required />
-                    <input type="number" th:field="*{birthMonth}" placeholder="月" min="1" max="12" required />
-                    <input type="number" th:field="*{birthDay}" placeholder="日" min="1" max="31" required />
-                </div>                
-                <div class="usergender">
-                    <label>性別：</label>
-                    <input type="radio" th:field="*{usergender}" value="男性" />男性
-                    <input type="radio" th:field="*{usergender}" value="女性" />女性
-                    <input type="radio" th:field="*{usergender}" value="その他" />その他
-                </div>                
             </div>
         </section>
+        
 
         <section class="goal">
             <div class="profile">
                 <div class="profile_title">目標宣言</div>
-                <div class="goal_income">
-                    <label>目標貯金額：</label>
-                    <input type="text" th:field="*{targetSaving}" />
-                </div>
-                <div class="goal_month">
-                    <label>月の支出目安：</label>
-                    <input type="text" th:field="*{targetExpensing}" />
-                </div>
-                <div class="goal_things">
-                    <label>買いたいもの：</label>
-                    <input type="text" th:field="*{targetThings}" />
-                </div>
-                <div class="goal_place">
-                    <label>行きたい場所；</label>
-                    <input type="text" th:field="*{targetPlace}" />
-                </div>
-                <div class="goal_date">
-                    <label>目標達成予定日：</label>
-                    <input type="text" th:field="*{targetDate}" />
+                <div class="profile_space">
+                    <div class="goal_income">
+                        <label>目標貯金額：</label>
+                        <input type="text" th:field="*{targetSaving}" />
+                    </div>
+                    <div class="goal_month">
+                        <label>月の支出目安：</label>
+                        <input type="text" th:field="*{targetExpensing}" />
+                    </div>
+                    <div class="goal_things">
+                        <label>買いたいもの：</label>
+                        <input type="text" th:field="*{targetThings}" />
+                    </div>
+                    <div class="goal_place">
+                        <label>行きたい場所；</label>
+                        <input type="text" th:field="*{targetPlace}" />
+                    </div>
+                    <div class="goal_date">
+                        <label>目標達成予定日：</label>
+                        <input type="text" th:field="*{targetDate}" />
+                    </div>
                 </div>
             </div>
         </section>
