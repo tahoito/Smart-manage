@@ -60,6 +60,7 @@ public class ProfileController {
     // プロフィールの更新
     @PostMapping("/update")
     public String updateProfile(@ModelAttribute UserProfile profile, Principal principal) {
+        System.out.println("✅ updateProfile メソッド呼び出し！");
         profile.setUsername(principal.getName()); // 念のためユーザー名を上書き
         profileService.updateProfile(profile); // ← ここでDBに保存
         return "redirect:/menu"; // 保存後に表示画面へ戻る  

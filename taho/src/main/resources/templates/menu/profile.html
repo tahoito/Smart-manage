@@ -8,16 +8,7 @@
     </head>    
     <body>
         <div th:replace="~{block/header::headerAccount}"></div>
-        <section class="profile_icon">
-            <div class="icon_picture">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <a th:href="@{/menu/edit}">プロフィールを編集する</a>
-        </section>
-
-        <section class="graph">
-
-        </section>
+        <a th:href="@{/menu/edit}">プロフィールを編集する</a>
 
         <section class="character">
             <div class="profile">

@@ -27,4 +27,5 @@ public class ProfileService {
     public void createProfile(UserProfile profile) {
         userProfileRepository.save(profile);
     }
+
 }

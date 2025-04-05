@@ -13,7 +13,7 @@
 		<div class="container">
 
 			<div class="summary-chart-wrapper">
-				<div class="summary">
+				<section class="summary">
 					<div class="summary-item">
 						<h2>総収入</h2>
 						<p><span th:text="${totalIncome}"></span> 円</p>
@@ -26,7 +26,7 @@
 						<h2>残額</h2>
 						<p><span th:text="${balance}"></span> 円</p>
 					</div>
-				</div>
+				</section>
 
 				<section class="chart">
 					<canvas id="expenseChart"></canvas>
@@ -58,11 +58,8 @@
 			</div>
 		
 			<div class="icon_add">
-				<a href="/account/insert" class="write-add expense">
-					<i class="fa-solid fa-minus"></i><span></span> 
-				</a>
-				<a href="/account/insertIncome" class="write-add income">
-					<i class="fa-solid fa-plus"></i><span></span> 
+				<a href="/account/insert" class="write-add">
+					<i class="fa-solid fa-pen"></i><span></span> 
 				</a>
 			</div>
 		</div>

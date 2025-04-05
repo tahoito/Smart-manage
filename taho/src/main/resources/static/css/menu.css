@@ -1,4 +1,4 @@
-section.profile_icon {
+/*section.profile_icon { 
     position: absolute;
     background-color: #f2eeee;
     width: 200px;
@@ -6,25 +6,15 @@ section.profile_icon {
     border-radius: 30px;
     top: 20%;
     left: 12%;
-}
-
-section.graph {
-    position: absolute;
-    background-color: #f2eeee;
-    width: 300px;
-    height: 200px;
-    border-radius: 30px;
-    top: 20%;
-    left: 40%; 
-}
+}*/
 
 section.character {
     position: absolute;
     background-color: #f2eeee;
     border-radius: 30px;
-    top: 58%;
+    top: 20%;
     left: 12%;
-    width: 400px;
+    width: 450px;
     height: auto;
 }
 
@@ -32,7 +22,7 @@ section.goal {
     position: absolute;
     background-color: #f2eeee;
     border-radius: 30px;
-    top: 58%;
+    top: 20%;
     right: 12%;
     width: 500px;
     height: auto;

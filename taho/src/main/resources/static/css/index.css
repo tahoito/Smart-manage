@@ -2,23 +2,25 @@
     display: flex;
     flex-direction: column; /* 上から下に並べる */
     gap: 30px;
-    padding: 0 20px;
+    padding: 0 30px;
 }
 
-/* 💰 合計＋グラフを横並びにするラッパー */
 .summary-chart-wrapper {
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    padding-top: 30px;
 }
 
-/* 💰 総収入・支出・残額 */
 .summary {
     flex: 2;
     display: flex;
     justify-content: center;
     gap: 15px;
+    background-color: #f2eeee;
+    border-radius: 30px;
 }
+
 .summary-item {
     background-color: #f8f9fa;
     padding: 15px;
@@ -27,7 +29,9 @@
     width: 120px;
     height: 100px;
     font-size: 20px;
+    margin-top: 30px;
 }
+
 h2 {
     font-size: 15px;
 }
@@ -35,7 +39,7 @@ h2 {
     background-color: #e3f2fd;
 }
 
-/* 📊 グラフ */
+
 .chart {
     flex: 1;
     background-color: #f2eeee;
@@ -43,7 +47,7 @@ h2 {
     padding: 10px;
 }
 
-/* 📋 一覧（タブ） */
+
 section.list {
     background-color: rgb(255, 255, 255);
     padding: 20px;
@@ -52,7 +56,7 @@ section.list {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-/* 🧾 タブ切り替え */
+
 .tab-menu {
     display: flex;
     justify-content: center;
@@ -76,7 +80,6 @@ section.list {
     color: white;
 }
 
-/* ➕ 追加ボタン */
 .icon_add {
     position: fixed;
     bottom: 20px;
@@ -89,10 +92,10 @@ section.list {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     color: white;
     text-decoration: none;
@@ -100,12 +103,10 @@ section.list {
     background-color: #60b2de;
     transition: transform 0.2s, background-color 0.2s;
 }
-.write-add.expense:hover {
-    background-color: #ff4d4d;
+.write-add:hover {
+    background-color: #f8cc64;
 }
-.write-add.income:hover {
-    background-color: #4caf50;
-}
+
 .write-add:hover {
     transform: scale(1.1);
 }
