@@ -13,7 +13,9 @@ public class UserProfile {
     private Long id;
 
     private String username;
-    private int userage;
+    private Integer birthYear;
+    private Integer birthMonth;
+    private Integer birthDay;
     private String usergender;
     private int targetSaving;
     private int targetExpensing;
@@ -37,14 +39,29 @@ public class UserProfile {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public int getUserage() {
-        return userage;
+    public Integer getBirthYear() {
+        return birthYear;
     }
-
-    public void setUserage(int userage) {
-        this.userage = userage;
+    
+    public void setBirthYear(Integer birthYear) {
+        this.birthYear = birthYear;
     }
+    
+    public Integer getBirthMonth() {
+        return birthMonth;
+    }
+    
+    public void setBirthMonth(Integer birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+    
+    public Integer getBirthDay() {
+        return birthDay;
+    }
+    
+    public void setBirthDay(Integer birthDay) {
+        this.birthDay = birthDay;
+    }    
 
     public String getUsergender() {
         return usergender;
