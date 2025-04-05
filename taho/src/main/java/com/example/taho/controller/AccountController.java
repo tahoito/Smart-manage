@@ -37,35 +37,56 @@ public class AccountController {
 
 	// 全件表示を行う
 	@GetMapping("/account")
-	public String account(Model model) {
+	public String showHomePage(Model model, Principal principal) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+	
+		List<Account> list = service.findByUsername(username);
+	
+		int totalIncome = list.stream().filter(account -> account.getType() >= 10).mapToInt(Account::getPrice).sum();
+		int totalPrice = list.stream().filter(account -> account.getType() < 10).mapToInt(Account::getPrice).sum();
+		int balance = totalIncome - totalPrice;
+	
+		Map<String, Integer> expensesByCategory = service.getExpenseByCategory(username);
+	
+		model.addAttribute("totalIncome", totalIncome);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("balance", balance);
+		model.addAttribute("expenseData", expensesByCategory);
+	
+		return "account/index"; 
+	}
+	
 
+	@GetMapping("/list")
+	public String showList(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 
 		List<Account> list = service.findByUsername(username);
-		// 🔹 収入（type >= 10）
-		int totalIncome = list.stream()
-		   .filter(account -> account.getType() >= 10) // 🔹 収入だけを抽出
-		   .mapToInt(Account::getPrice)
-		   .sum();
 
-		// 🔹 支出（type < 10）
+		int totalIncome = list.stream()
+			.filter(account -> account.getType() >= 10)
+			.mapToInt(Account::getPrice)
+			.sum();
+
 		int totalPrice = list.stream()
-		  	.filter(account -> account.getType() < 10) // 🔹 支出だけを抽出
-		  	.mapToInt(Account::getPrice)
-		  	.sum();
-    	int balance = totalIncome - totalPrice; // 残額を計算
+			.filter(account -> account.getType() < 10)
+			.mapToInt(Account::getPrice)
+			.sum();
+
+		int balance = totalIncome - totalPrice;
 
 		Map<String, Integer> expensesByCategory = service.getExpenseByCategory(username);
-		System.out.println(list);
+
 		model.addAttribute("list", list);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("totalIncome", totalIncome);
 		model.addAttribute("expenseData", expensesByCategory);
 		model.addAttribute("balance", balance);
-		return "account/index";
-	}
 
+		return "account/list";  // 🔸 list.html に飛ばす
+	}
 
 	@Autowired
     private AccountService accountService;

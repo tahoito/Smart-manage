@@ -6,17 +6,6 @@
 	<link th:href="@{/css/index.css}" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<title>Smart Manage</title>
-	<style>
-		.tab-content > .tab-pane {
-			display: none;
-		}
-		.tab-content > .active {
-			display: block;
-		}
-		.nav-tabs {
-			margin-bottom: 1rem;
-		}
-	</style>
 </head>
 <body>
 	<div th:replace="~{block/header::headerAccount}"></div>
@@ -67,92 +56,6 @@
 					</script>
 				</section>
 			</div>
-
-
-			<!-- タブ切り替えナビゲーション -->
-			<div class="tab-menu">
-				<button class="tab-btn active" onclick="openTab('expenseTab')">支出</button>
-				<button class="tab-btn" onclick="openTab('incomeTab')">収入</button>
-			</div>
-			<div class="tab-content">
-				<!-- 支出タブ -->
-				<div class="tab-pane active" id="expenseTab">
-					<section class="list">
-						<h1 class="main_title">支出一覧</h1>
-						<table class="table">
-							<tr>
-								<th>日時</th>
-								<th>カテゴリー</th>
-								<th>メモ</th>
-								<th>金額</th>
-								<th></th>
-								<th></th>
-							</tr>
-							<tr th:each="account : ${list}" th:if="${account.type < 10}">
-								<td th:text="${account.date}"></td>
-								<td th:switch="${account.type}">
-									<span th:case="1">食費</span>
-									<span th:case="2">日用品</span>
-									<span th:case="3">交通費</span>
-									<span th:case="4">趣味</span>
-									<span th:case="5">遊び代</span>
-									<span th:case="6">勉強</span>
-									<span th:case="7">ファッション</span>
-									<span th:case="8">美容</span>
-									<span th:case="*">その他</span>
-								</td>
-								<td th:text="${account.item}"></td>
-								<td th:text="${account.price} + '円'"></td>
-								<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
-								<td>
-									<form th:action="@{/account/delete}" method="post" onsubmit="return confirm('本当に削除しますか？')">
-										<input type="hidden" name="id" th:value="${account.id}">
-										<input type="submit" value="削除" class="button">
-									</form>
-								</td>
-							</tr>
-						</table>
-					</section>
-				</div>
-	
-				<!-- 収入タブ -->
-				<div class="tab-pane" id="incomeTab">
-					<section class="list">
-						<h1 class="main_title">最近の収入</h1>
-						<table class="table">
-							<tr>
-								<th>日時</th>
-								<th>カテゴリー</th>
-								<th>メモ</th>
-								<th>金額</th>
-								<th></th>
-								<th></th>
-							</tr>
-							<tr th:each="account : ${list}" th:if="${account.type >= 10}">
-								<td th:text="${account.date}"></td>
-								<td th:switch="${account.type}">
-									<span th:case="10">給与</span>
-									<span th:case="11">アルバイト</span>
-									<span th:case="12">副業</span>
-									<span th:case="13">投資</span>
-									<span th:case="14">お小遣い</span>
-									<span th:case="15">臨時収入</span>
-									<span th:case="16">その他</span>
-								</td>
-								<td th:text="${account.item}"></td>
-								<td th:text="${account.price} + '円'"></td>
-								<td><a th:href="@{/account/updateIncomeInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
-								<td>
-									<form th:action="@{/account/deleteIncome}" method="post" onsubmit="return confirm('本当に削除しますか？')">
-										<input type="hidden" name="id" th:value="${account.id}">
-										<input type="submit" value="削除" class="button">
-									</form>
-								</td>
-							</tr>
-						</table>
-					</section>
-				</div>
-			</div>
 		
 			<div class="icon_add">
 				<a href="/account/insert" class="write-add expense">
@@ -173,30 +76,6 @@
 			window.location.href = url; // 削除処理を実行
 		}
 		}
-		document.querySelectorAll('.nav-link').forEach(tab => {
-			tab.addEventListener('click', function (e) {
-				e.preventDefault();
-				document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-				document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-				this.classList.add('active');
-				document.querySelector(this.getAttribute('href')).classList.add('active');
-			});
-		});
-		function openTab(tabId) {
-		// タブコンテンツを全部非表示に
-		document.querySelectorAll('.tab-pane').forEach(pane => {
-			pane.classList.remove('active');
-		});
-
-		// ボタンの active も全部外す
-		document.querySelectorAll('.tab-btn').forEach(btn => {
-			btn.classList.remove('active');
-		});
-
-		// 対象のタブだけ表示
-		document.getElementById(tabId).classList.add('active');
-		event.currentTarget.classList.add('active');
-	}
 	</script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/js/script.js}"></script>
