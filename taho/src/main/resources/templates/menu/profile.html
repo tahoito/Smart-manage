@@ -24,7 +24,12 @@
                 <div class="profile_title">基本情報</div>
                 <div class="profile_space">
                     <div class="username">ユーザー名：<span th:text="${profile.username}"></span></div>
-                    <div class="userage">生年月日：<span th:text="${profile.userage}"></span></div>
+                    <div class="userage">
+                        生年月日：
+                        <span th:text="${profile.birthYear}"></span>年
+                        <span th:text="${profile.birthMonth}"></span>月
+                        <span th:text="${profile.birthDay}"></span>日
+                    </div>                      
                     <div class="usergender">性別：<span th:text="${profile.usergender}"></span></div>
                 </div>
             </div>

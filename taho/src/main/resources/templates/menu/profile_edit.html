@@ -25,9 +25,9 @@
                 </div>
                 <div class="userage">
                     <label>生年月日：</label>
-                    <input type="number" name="birthYear" placeholder="年" min="1900" max="2100" required />
-                    <input type="number" name="birthMonth" placeholder="月" min="1" max="12" required />
-                    <input type="number" name="birthDay" placeholder="日" min="1" max="31" required />
+                    <input type="number" th:field="*{birthYear}" placeholder="年" min="1900" max="2100" required />
+                    <input type="number" th:field="*{birthMonth}" placeholder="月" min="1" max="12" required />
+                    <input type="number" th:field="*{birthDay}" placeholder="日" min="1" max="31" required />
                 </div>                
                 <div class="usergender">
                     <label>性別：</label>
