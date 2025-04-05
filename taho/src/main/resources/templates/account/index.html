@@ -6,221 +6,199 @@
 	<link th:href="@{/css/index.css}" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<title>Smart Manage</title>
+	<style>
+		.tab-content > .tab-pane {
+			display: none;
+		}
+		.tab-content > .active {
+			display: block;
+		}
+		.nav-tabs {
+			margin-bottom: 1rem;
+		}
+	</style>
 </head>
 <body>
 	<div th:replace="~{block/header::headerAccount}"></div>
 
-	<div class="container">
-		<section class="list">
-			<h1 class="main_title">支出一覧</h1>
-			<table class="table">
-				<tr>
-					<th>日時</th>
-					<th>カテゴリー</th>
-					<th>メモ</th>
-					<th>金額</th>
-					<th></th>
-					<th></th>
-				</tr>
-				
-				<tr th:each="account : ${list}" th:if="${account.type < 10}">
-					<td th:text="${account.date}"></td>
-					<td th:switch="${account.type}">
-						<span th:case="1">食費</span>
-						<span th:case="2">日用品</span>
-						<span th:case="3">交通費</span>
-						<span th:case="4">趣味</span>
-						<span th:case="5">遊び代</span>
-						<span th:case="6">勉強</span>
-						<span th:case="7">ファッション</span>
-						<span th:case="8">美容</span>
-						<span th:case="*">その他</span>
-					</td>			
-					<td th:text="${account.item}"></td>
-					<td th:text="${account.price} + '円'"></td>
-					<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
-					<td>
-						<form th:action="@{/account/delete}" method="post" onsubmit="return confirm('本当に削除しますか？')">
-							<input type="hidden" name="id" th:value="${account.id}">
-							<input type="submit" value="削除" class="button">
-						</form>	
-					</td>						
-				</tr>
-			</table>
-			<div class="line"></div>
+		<div class="container">
 
-			<h1 class="main_title">最近の収入</h1>
-			<table class="table">
-				<tr>
-					<th>日時</th>
-					<th>カテゴリー</th>
-					<th>メモ</th>
-					<th>金額</th>
-					<th></th>
-					<th></th>
-				</tr>
-
-				<tr th:each="account : ${list}" th:if="${account.type >= 10}">
-					<td th:text="${account.date}"></td>
-					<td th:switch="${account.type}">
-						<span th:case="10">給与</span>
-						<span th:case="11">アルバイト</span>
-						<span th:case="12">副業</span>
-						<span th:case="13">投資</span>
-						<span th:case="14">お小遣い</span>
-						<span th:case="15">臨時収入</span>
-						<span th:case="16">その他</span>
-					</td>			
-					<td th:text="${account.item}"></td>
-					<td th:text="${account.price} + '円'"></td>
-					<td><a th:href="@{/account/updateIncomeInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
-					<td>
-						<form th:action="@{/account/deleteIncome}" method="post" onsubmit="return confirm('本当に削除しますか？')">
-							<input type="hidden" name="id" th:value="${account.id}">
-							<input type="submit" value="削除" class="button">
-						</form>	
-					</td>						
-				</tr>
-			</table>
-			<div class="line"></div>
-
-		</section>
-
-		<section class="chart">
-			<canvas id="expenseChart"></canvas>
-			<script th:inline="javascript">
-				var expenseData = /*[[${expenseData}]]*/ {};
-			
-				var categoryColors = {
-					"食費": "#ff6384",
-					"日用品": "#36a2eb",
-					"交通費": "#ffce56",
-					"趣味": "#ff9f40",
-					"遊び代": "#4bc0c0",
-					"勉強": "#9966ff",
-					"ファッション": "#ffcc99",
-					"美容": "#c9cbcf",
-					"その他": "#8e8e8e"
-				};
-			
-				// 🔹 収入カテゴリ一覧（グラフに含めないもの）
-				var incomeCategories = ["給与", "アルバイト", "副業", "投資", "お小遣い", "臨時収入", "その他"];
-			
-				// 🔹 収入データを除外して支出データだけを取得
-				var filteredExpenseData = {};
-				for (var key in expenseData) {
-					if (!incomeCategories.includes(key)) { // 💡 収入なら除外！
-						filteredExpenseData[key] = expenseData[key];
-					}
-				}
-			
-				// 🔹 支出データだけを使ってグラフを描画！
-				var labels = Object.keys(filteredExpenseData);
-				var data = Object.values(filteredExpenseData);
-				var colors = labels.map(label => categoryColors[label] || "#000000");
-			
-				var ctx = document.getElementById("expenseChart").getContext("2d");
-				new Chart(ctx, {
-					type: "pie",
-					data: {
-						labels: labels,
-						datasets: [{
-							data: data,
-							backgroundColor: colors,
-						}]
-					}
-				});
-			</script>
-						
-			<div class="summary">
-				<div class="summary-item">
-					<h2>総収入</h2>
-					<p><span th:text="${totalIncome}"></span> 円</p>
+			<div class="summary-chart-wrapper">
+				<div class="summary">
+					<div class="summary-item">
+						<h2>総収入</h2>
+						<p><span th:text="${totalIncome}"></span> 円</p>
+					</div>
+					<div class="summary-item">
+						<h2>総支出</h2>
+						<p><span th:text="${totalPrice}"></span> 円</p>
+					</div>
+					<div class="summary-item balance">
+						<h2>残額</h2>
+						<p><span th:text="${balance}"></span> 円</p>
+					</div>
 				</div>
-				<div class="summary-item">
-					<h2>総支出</h2>
-					<p><span th:text="${totalPrice}"></span> 円</p>
-				</div>
-				<div class="summary-item balance">
-					<h2>残額</h2>
-					<p><span th:text="${balance}"></span> 円</p>
-				</div>
+
+				<section class="chart">
+					<canvas id="expenseChart"></canvas>
+					<script th:inline="javascript">
+						var expenseData = /*[[${expenseData}]]*/ {};
+						var categoryColors = {
+							"食費": "#ff6384",
+							"日用品": "#36a2eb",
+							"交通費": "#ffce56",
+							"趣味": "#ff9f40",
+							"遊び代": "#4bc0c0",
+							"勉強": "#9966ff",
+							"ファッション": "#ffcc99",
+							"美容": "#c9cbcf",
+							"その他": "#8e8e8e"
+						};
+						var labels = Object.keys(expenseData);
+						var data = Object.values(expenseData);
+						var colors = labels.map(label => categoryColors[label] || "#000000");
+						new Chart(document.getElementById("expenseChart"), {
+							type: "pie",
+							data: {
+								labels: labels,
+								datasets: [{ data: data, backgroundColor: colors }]
+							}
+						});
+					</script>
+				</section>
 			</div>
 
-		</section>
 
-		<div class="icon_add">
-			<a href="/account/insert" class="write-add expense">
-				<i class="fa-solid fa-minus"></i><span></span> 
-			</a>
-			
-			<a href="/account/insertIncome" class="write-add income">
-				<i class="fa-solid fa-plus"></i><span></span> 
-			</a>
+			<!-- タブ切り替えナビゲーション -->
+			<div class="tab-menu">
+				<button class="tab-btn active" onclick="openTab('expenseTab')">支出</button>
+				<button class="tab-btn" onclick="openTab('incomeTab')">収入</button>
+			</div>
+			<div class="tab-content">
+				<!-- 支出タブ -->
+				<div class="tab-pane active" id="expenseTab">
+					<section class="list">
+						<h1 class="main_title">支出一覧</h1>
+						<table class="table">
+							<tr>
+								<th>日時</th>
+								<th>カテゴリー</th>
+								<th>メモ</th>
+								<th>金額</th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr th:each="account : ${list}" th:if="${account.type < 10}">
+								<td th:text="${account.date}"></td>
+								<td th:switch="${account.type}">
+									<span th:case="1">食費</span>
+									<span th:case="2">日用品</span>
+									<span th:case="3">交通費</span>
+									<span th:case="4">趣味</span>
+									<span th:case="5">遊び代</span>
+									<span th:case="6">勉強</span>
+									<span th:case="7">ファッション</span>
+									<span th:case="8">美容</span>
+									<span th:case="*">その他</span>
+								</td>
+								<td th:text="${account.item}"></td>
+								<td th:text="${account.price} + '円'"></td>
+								<td><a th:href="@{/account/updateInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
+								<td>
+									<form th:action="@{/account/delete}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+										<input type="hidden" name="id" th:value="${account.id}">
+										<input type="submit" value="削除" class="button">
+									</form>
+								</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+	
+				<!-- 収入タブ -->
+				<div class="tab-pane" id="incomeTab">
+					<section class="list">
+						<h1 class="main_title">最近の収入</h1>
+						<table class="table">
+							<tr>
+								<th>日時</th>
+								<th>カテゴリー</th>
+								<th>メモ</th>
+								<th>金額</th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr th:each="account : ${list}" th:if="${account.type >= 10}">
+								<td th:text="${account.date}"></td>
+								<td th:switch="${account.type}">
+									<span th:case="10">給与</span>
+									<span th:case="11">アルバイト</span>
+									<span th:case="12">副業</span>
+									<span th:case="13">投資</span>
+									<span th:case="14">お小遣い</span>
+									<span th:case="15">臨時収入</span>
+									<span th:case="16">その他</span>
+								</td>
+								<td th:text="${account.item}"></td>
+								<td th:text="${account.price} + '円'"></td>
+								<td><a th:href="@{/account/updateIncomeInput(id=${account.id})}"><input type="button" value="更新" class="button"></a></td>
+								<td>
+									<form th:action="@{/account/deleteIncome}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+										<input type="hidden" name="id" th:value="${account.id}">
+										<input type="submit" value="削除" class="button">
+									</form>
+								</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+			</div>
+		
+			<div class="icon_add">
+				<a href="/account/insert" class="write-add expense">
+					<i class="fa-solid fa-minus"></i><span></span> 
+				</a>
+				<a href="/account/insertIncome" class="write-add income">
+					<i class="fa-solid fa-plus"></i><span></span> 
+				</a>
+			</div>
 		</div>
-		
-		
-		<!--<section class="add">
-			<h1 class="add_title">支出の追加</h1>
-			<div class="add_space">
-				<form th:action="@{/account/insert}" method="post">
-					<div class="date">
-						<div class="flex-container">
-							<label>日時:</label>
-							<input type="date" name="date" required>
-						</div>
-					</div>
-					<div class="type">
-						<div class="flex-container">
-							<label>カテゴリー:</label>
-							<select id="category" name="type" required>
-								<option value="1">食費</option>
-								<option value="2">日用品</option>
-								<option value="3">交通費</option>
-								<option value="4">趣味</option>
-								<option value="5">遊び代</option>
-								<option value="6">勉強</option>
-								<option value="7">ファッション</option>
-								<option value="8">美容</option>
-								<option value="*">その他</option>
-							</select>
-						</div>
-					</div>
-		
-					<div class="item">
-						<div class="flex-container">
-							<label>メモ:</label>
-							<input type="text" name="item" maxlength="15" size="30" required>
-						</div>
-					</div>
-		
-					<div class="price">
-						<div class="flex-container">
-							<label>金額:</label>
-							<input type="number" name="price" oninput="sliceMaxlength(this,8)" required>円   
-						</div>         
-					</div>
-					<div class="insert_buttom">
-						<input class="buttom" type="submit" value="追加">
-					</div>
-				</form>
-			</div>
-		</section>-->
-	</div>
-    
-    <script>
-        function sliceMaxlength(elem,maxlength){
+
+	<script>
+		function sliceMaxlength(elem,maxlength){
             elem.value= elem.value.slice(0,maxlength);
         }
 		function confirmDelete(url) {
 		if (confirm("本当に削除しますか？")) {
 			window.location.href = url; // 削除処理を実行
 		}
-	}
-    </script>
+		}
+		document.querySelectorAll('.nav-link').forEach(tab => {
+			tab.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+				document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+				this.classList.add('active');
+				document.querySelector(this.getAttribute('href')).classList.add('active');
+			});
+		});
+		function openTab(tabId) {
+		// タブコンテンツを全部非表示に
+		document.querySelectorAll('.tab-pane').forEach(pane => {
+			pane.classList.remove('active');
+		});
 
+		// ボタンの active も全部外す
+		document.querySelectorAll('.tab-btn').forEach(btn => {
+			btn.classList.remove('active');
+		});
+
+		// 対象のタブだけ表示
+		document.getElementById(tabId).classList.add('active');
+		event.currentTarget.classList.add('active');
+	}
+	</script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/js/script.js}"></script>
-	
 </body>
 </html>

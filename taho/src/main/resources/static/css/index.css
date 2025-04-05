@@ -1,118 +1,24 @@
 .container {
     display: flex;
-    gap: 20px; /* 間隔を空ける */
+    flex-direction: column; /* 上から下に並べる */
+    gap: 30px;
+    padding: 0 20px;
 }
 
-section.list {
-    flex: 2; /* 幅の比率（大きめ） */
-    background-color: rgb(255, 255, 255);
-    width: 900px;
-    height: 600px;
-}
-
-section.chart {
-    flex: 1; /* 幅の比率（小さめ） */
-    background-color: #f2eeee;
-    width: 400px;
-    height: 400px;
-    border-radius:30px;
-    margin-top: 5%;
-}
-
-/*
-section.add {
-    flex: 1; 
-    background-color: #d9d9d9;
-    width: 400px;
-    height: 350px;
-    border-radius:30px;
-    margin-top: 5%;
-}*/
-
-
-
-.date,.type,.item,.price,.month,.year{
-    display: grid;
-    justify-items:left;
-    padding-left: 10%;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left:30%;
-    font-size: 15px;
-}
-
-.flex-container{
+/* 💰 合計＋グラフを横並びにするラッパー */
+.summary-chart-wrapper {
     display: flex;
-    align-items: center; 
-    gap: 8px; 
+    justify-content: space-between;
+    gap: 20px;
 }
 
-.flex-container label{
-    white-space: nowrap;
-}
-
-.add_space{
-    padding-top:10%;
-}
-
-section.search{
-    flex: 1; /* 幅の比率（小さめ） */
-    background-color: rgb(222, 221, 221);
-    width: 400px;
-    height: 300px;
-    border-radius:30px;
-    margin-top: 5%;
-}
-
-
-.icon_add {
-    position: fixed;
-    bottom: 20px;  /* 🔹 画面下から20px */
-    right: 20px;   /* 🔹 画面右から20px */
-    z-index: 1000; /* 🔹 他の要素の上に表示 */
-    display: flex;
-    gap: 15px;  /* 🔹 ボタンの間隔を開ける */
-}
-
-/* 🔹 ボタン全体を円形にする */
-.write-add {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 55px;   /* 🔹 幅を固定（円のサイズ） */
-    height: 55px;  /* 🔹 高さを幅と同じにする（完全な円になる） */
-    border-radius: 50%; /* 🔹 完全な円形 */
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    background-color: #60b2de;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-
-.write-add.expense:hover{
-    background-color: #ff4d4d; 
-}
-
-.write-add.income:hover{
-    background-color: #4caf50; 
-}
-
-.write-add:hover {
-    transform: scale(1.1);
-}
-
-
-
+/* 💰 総収入・支出・残額 */
 .summary {
+    flex: 2;
     display: flex;
-    justify-content: center; /* 中央揃え */
-    gap: 15px; /* ボックス間のスペース */
-    margin-top: 30px; /* 上の余白 */
+    justify-content: center;
+    gap: 15px;
 }
-
 .summary-item {
     background-color: #f8f9fa;
     padding: 15px;
@@ -122,11 +28,84 @@ section.search{
     height: 100px;
     font-size: 20px;
 }
-
-h2{
+h2 {
     font-size: 15px;
 }
-
 .balance {
     background-color: #e3f2fd;
+}
+
+/* 📊 グラフ */
+.chart {
+    flex: 1;
+    background-color: #f2eeee;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+/* 📋 一覧（タブ） */
+section.list {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 🧾 タブ切り替え */
+.tab-menu {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.tab-btn {
+    background-color: #f2f2f2;
+    border: none;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+.tab-btn:hover {
+    background-color: #e0e0e0;
+}
+.tab-btn.active {
+    background-color: #60b2de;
+    color: white;
+}
+
+/* ➕ 追加ボタン */
+.icon_add {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+}
+.write-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    background-color: #60b2de;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.write-add.expense:hover {
+    background-color: #ff4d4d;
+}
+.write-add.income:hover {
+    background-color: #4caf50;
+}
+.write-add:hover {
+    transform: scale(1.1);
 }
