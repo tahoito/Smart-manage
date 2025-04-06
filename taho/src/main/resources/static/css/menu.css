@@ -55,3 +55,13 @@ section.goal {
     color: white;
     font-size: 39px;
 }
+
+
+.edit_button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+}

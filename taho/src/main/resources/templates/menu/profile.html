@@ -8,19 +8,13 @@
     </head>    
     <body>
         <div th:replace="~{block/header::headerAccount}"></div>
-        <a th:href="@{/menu/edit}">プロフィールを編集する</a>
 
         <section class="character">
             <div class="profile">
                 <div class="profile_title">基本情報</div>
                 <div class="profile_space">
                     <div class="username">ユーザー名：<span th:text="${profile.username}"></span></div>
-                    <div class="userage">
-                        生年月日：
-                        <span th:text="${profile.birthYear}"></span>年
-                        <span th:text="${profile.birthMonth}"></span>月
-                        <span th:text="${profile.birthDay}"></span>日
-                    </div>                      
+                    <div class="userage">生年月日：<span th:text="${profile.birthDate}"></span></div>                      
                     <div class="usergender">性別：<span th:text="${profile.usergender}"></span></div>
                 </div>
             </div>
@@ -37,6 +31,11 @@
                 </div>
             </div>
         </section>
+
+        
+        <div class="edit_button">
+            <a th:href="@{/menu/edit}">編集する</a>
+        </div>
     </body>
 
 </html>

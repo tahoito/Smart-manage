@@ -2,6 +2,9 @@ package com.example.taho.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -17,14 +20,17 @@ public class UserProfile {
     private Long id;
 
     private String username;
-
-    private LocalDate birthDate;
     private String usergender;
     private int targetSaving;
     private int targetExpensing;
     private String targetThings;  // ← 例：パソコンとか
     private String targetPlace;   // ← 例：ヨーロッパ旅行とか
-    private String targetDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate targetDate;
+
 
     // --- Getter & Setter（省略してるけど必要！） ---
     public Long getId() {
@@ -42,6 +48,15 @@ public class UserProfile {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+    
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+    
 
     public String getUsergender() {
         return usergender;
@@ -83,11 +98,12 @@ public class UserProfile {
         this.targetPlace = targetPlace;
     }
 
-    public String getTargetDate() {
+    public LocalDate getTargetDate() {
         return targetDate;
     }
-
-    public void setTargetDate(String targetDate) {
+    
+    public void setTargetDate(LocalDate targetDate) {
         this.targetDate = targetDate;
     }
+    
 }
