@@ -21,10 +21,8 @@
                         <input type="text" th:field="*{username}" /><br/>
                     </div>
                     <div class="userage">
-                        <label for="birthYear">生年月日：</label>
-                        <input type="number" id="birthYear" th:field="*{birthYear}" placeholder="年" min="1900" max="2100" required />
-                        <input type="number" id="birthMonth" th:field="*{birthMonth}" placeholder="月" min="1" max="12" required />
-                        <input type="number" id="birthDay" th:field="*{birthDay}" placeholder="日" min="1" max="31" required />
+                        <label for="birthDate">生年月日：</label>
+                        <input type="date" th:field="*{birthDate}" />
                     </div>                
                     <div class="usergender">
                         <label for="usergender">性別：</label>
@@ -59,7 +57,7 @@
                     </div>
                     <div class="goal_date">
                         <label for="goal_date">目標達成予定日：</label>
-                        <input type="text" th:field="*{targetDate}" />
+                        <input type="date" th:field="*{targetDate}" />
                     </div>
                 </div>
             </div>

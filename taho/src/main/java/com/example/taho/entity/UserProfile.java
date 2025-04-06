@@ -5,6 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 public class UserProfile {
 
@@ -13,9 +17,8 @@ public class UserProfile {
     private Long id;
 
     private String username;
-    private Integer birthYear;
-    private Integer birthMonth;
-    private Integer birthDay;
+
+    private LocalDate birthDate;
     private String usergender;
     private int targetSaving;
     private int targetExpensing;
@@ -39,29 +42,6 @@ public class UserProfile {
     public void setUsername(String username) {
         this.username = username;
     }
-    public Integer getBirthYear() {
-        return birthYear;
-    }
-    
-    public void setBirthYear(Integer birthYear) {
-        this.birthYear = birthYear;
-    }
-    
-    public Integer getBirthMonth() {
-        return birthMonth;
-    }
-    
-    public void setBirthMonth(Integer birthMonth) {
-        this.birthMonth = birthMonth;
-    }
-    
-    public Integer getBirthDay() {
-        return birthDay;
-    }
-    
-    public void setBirthDay(Integer birthDay) {
-        this.birthDay = birthDay;
-    }    
 
     public String getUsergender() {
         return usergender;

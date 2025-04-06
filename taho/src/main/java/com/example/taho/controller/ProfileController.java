@@ -59,11 +59,24 @@ public class ProfileController {
 
     @PostMapping("/update")
     public String updateProfile(@ModelAttribute UserProfile profile, Principal principal) {
-        profile.setUsername(principal.getName()); // 念のため上書き
-        System.out.println("プロフィール更新: " + profile);
+        // ログイン中のユーザー名
+        String username = principal.getName();
+
+        // DBから元のプロフィールを取得
+        UserProfile existing = profileService.getProfileByUsername(username);
+
+        // 既存のIDをセットして「insert」ではなく「update」扱いにする！
+        if (existing != null) {
+            profile.setId(existing.getId());
+        }
+
+        // 念のためユーザー名もセット
+        profile.setUsername(username);
+
         profileService.updateProfile(profile);
-        return "redirect:/menu/profile"; // 保存後にプロフィールへ戻す
+        return "redirect:/menu/profile";
     }
+
 
 
 }
