@@ -57,13 +57,13 @@ public class ProfileController {
         return "menu/profile_edit";  
     }
 
-    // プロフィールの更新
     @PostMapping("/update")
     public String updateProfile(@ModelAttribute UserProfile profile, Principal principal) {
-        System.out.println("✅ updateProfile メソッド呼び出し！");
-        profile.setUsername(principal.getName()); // 念のためユーザー名を上書き
-        profileService.updateProfile(profile); // ← ここでDBに保存
-        return "redirect:/menu"; // 保存後に表示画面へ戻る  
+        profile.setUsername(principal.getName()); // 念のため上書き
+        System.out.println("プロフィール更新: " + profile);
+        profileService.updateProfile(profile);
+        return "redirect:/menu/profile"; // 保存後にプロフィールへ戻す
     }
+
 
 }
