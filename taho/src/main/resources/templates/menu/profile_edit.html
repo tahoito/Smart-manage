@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
@@ -7,9 +8,9 @@
         <title>Smart Manage</title>
     </head>    
     <body>
+        <div th:replace="~{block/header::headerAccount}"></div>
         <form method="post" th:action="@{/menu/update}" th:object="${profile}">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <div th:replace="~{block/header::headerAccount}"></div>
 
         <section class="character">
             <div class="profile">
