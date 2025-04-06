@@ -26,6 +26,32 @@
 						<h2>残額</h2>
 						<p><span th:text="${balance}"></span> 円</p>
 					</div>
+
+					<div class="goal_graph">
+						<canvas id="myChart"></canvas>
+						<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+						<script>
+							const ctx = document.getElementById('myChart');
+
+							const targetSaving = [[${targetSaving}]];
+							const targetExpensing = [[${targetExpensing}]];
+
+							new Chart(ctx, {
+								type: 'bar',
+								data: {
+									labels: ['貯金目標', '支出目安'],
+									datasets: [{
+										label: '金額（円）',
+										data: [targetSaving, targetExpensing],
+									}]
+								}
+							});
+						</script>
+					</div>
+
+					<div class="profile_button">
+						<a href="/profile/edit" class="btn btn-primary">プロフィールを編集</a>
+					</div>
 				</section>
 
 				<section class="chart">

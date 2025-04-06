@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.taho.entity.Account;
+import com.example.taho.entity.UserProfile;
 import com.example.taho.service.AccountService;
+import com.example.taho.service.ProfileService;
+
 import java.util.Map;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +31,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Controller
 public class AccountController {
 
+	@Autowired
+	private ProfileService profileService;
+
+
 	private final AccountService service;
 
 
@@ -39,23 +46,32 @@ public class AccountController {
 	@GetMapping("/account")
 	public String showHomePage(Model model, Principal principal) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-	
+		String username = authentication.getName(); // ← ここで username を取得！
+
+		UserProfile profile = profileService.getProfileByUsername(username); // ← これでOK！
+
+		if (profile != null) {
+			model.addAttribute("targetSaving", profile.getTargetSaving());
+			model.addAttribute("targetExpensing", profile.getTargetExpensing());
+		}
+
 		List<Account> list = service.findByUsername(username);
-	
 		int totalIncome = list.stream().filter(account -> account.getType() >= 10).mapToInt(Account::getPrice).sum();
 		int totalPrice = list.stream().filter(account -> account.getType() < 10).mapToInt(Account::getPrice).sum();
 		int balance = totalIncome - totalPrice;
-	
+		int thisMonthExpense = service.getCurrentMonthExpense(username);
+
 		Map<String, Integer> expensesByCategory = service.getExpenseByCategory(username);
-	
+
+		model.addAttribute("thisMonthExpense", thisMonthExpense);
 		model.addAttribute("totalIncome", totalIncome);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("balance", balance);
 		model.addAttribute("expenseData", expensesByCategory);
-	
+
 		return "account/index"; 
 	}
+
 	
 
 	@GetMapping("/list")

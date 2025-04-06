@@ -1,6 +1,7 @@
 package com.example.taho.service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -122,6 +123,21 @@ public class AccountService{
                 Collectors.summingInt(Account::getPrice) // 金額を合計
             ));    
     }
+
+    public int getCurrentMonthExpense(String username) {
+        LocalDate now = LocalDate.now();
+        List<Account> accounts = findByUsername(username);
+
+        return accounts.stream()
+            .filter(a -> a.getType() < 10) // 支出だけ
+            .filter(a -> {
+                LocalDate date = LocalDate.parse(a.getDate()); // String→LocalDateにパース
+                return date.getYear() == now.getYear() && date.getMonth() == now.getMonth();
+            })
+            .mapToInt(Account::getPrice)
+            .sum();
+    }
+
         
 
 }
