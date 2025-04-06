@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.taho.dao.AccountDAO;
 import com.example.taho.entity.Account;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 @Service
 public class AccountService{
@@ -127,17 +130,22 @@ public class AccountService{
     public int getCurrentMonthExpense(String username) {
         LocalDate now = LocalDate.now();
         List<Account> accounts = findByUsername(username);
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd"); // ← ここでスラッシュ対応！
+    
         return accounts.stream()
             .filter(a -> a.getType() < 10) // 支出だけ
             .filter(a -> {
-                LocalDate date = LocalDate.parse(a.getDate()); // String→LocalDateにパース
-                return date.getYear() == now.getYear() && date.getMonth() == now.getMonth();
+                try {
+                    LocalDate date = LocalDate.parse(a.getDate(), formatter); // ← 修正！
+                    return date.getYear() == now.getYear() && date.getMonth() == now.getMonth();
+                } catch (DateTimeParseException e) {
+                    System.out.println("日付形式エラー: " + a.getDate());
+                    return false;
+                }
             })
             .mapToInt(Account::getPrice)
             .sum();
-    }
-
-        
+    }    
+   
 
 }

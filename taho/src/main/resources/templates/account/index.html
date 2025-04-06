@@ -28,29 +28,51 @@
 					</div>
 
 					<div class="goal_graph">
-						<canvas id="myChart"></canvas>
-						<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-						<script>
-							const ctx = document.getElementById('myChart');
-
-							const targetSaving = [[${targetSaving}]];
-							const targetExpensing = [[${targetExpensing}]];
-
-							new Chart(ctx, {
+						<canvas id="goalChart"></canvas>
+						<script th:inline="javascript">
+							const goalChartCtx = document.getElementById('goalChart');
+						
+							const target = /*[[${targetExpensing}]]*/ 0;
+							const actual = /*[[${thisMonthExpense}]]*/ 0;
+						
+							new Chart(goalChartCtx, {
 								type: 'bar',
 								data: {
-									labels: ['貯金目標', '支出目安'],
-									datasets: [{
-										label: '金額（円）',
-										data: [targetSaving, targetExpensing],
-									}]
+									labels: ['今月の支出'],
+									datasets: [
+										{
+											label: '支出目安',
+											data: [target],
+											backgroundColor: '#e0e0e0',
+											barThickness: 30
+										},
+										{
+											label: '実際の支出',
+											data: [actual],
+											backgroundColor: '#ff6384',
+											barThickness: 20
+										}
+									]
+								},
+								options: {
+									indexAxis: 'y',
+									scales: {
+										x: {
+											beginAtZero: true
+										}
+									},
+									plugins: {
+										legend: {
+											position: 'bottom'
+										}
+									}
 								}
 							});
-						</script>
+						</script>																							
 					</div>
 
 					<div class="profile_button">
-						<a href="/profile/edit" class="btn btn-primary">プロフィールを編集</a>
+						<a href="/profile/" class="btn btn-primary">プロフィールへ</a>
 					</div>
 				</section>
 
