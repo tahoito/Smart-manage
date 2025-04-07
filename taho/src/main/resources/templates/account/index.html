@@ -10,10 +10,13 @@
 <body>
 	<div th:replace="~{block/header::headerAccount}"></div>
 
-		<div class="container">
+	<div class="container">
 
-			<div class="summary-chart-wrapper">
+		<div class="dashboard-layout">
+			<!-- 左カラム（上：summary、下：棒グラフ） -->
+			<div class="left-column">
 				<section class="summary">
+					<!-- 収入・支出・残額 -->
 					<div class="summary-item">
 						<h2>総収入</h2>
 						<p><span th:text="${totalIncome}"></span> 円</p>
@@ -26,85 +29,80 @@
 						<h2>残額</h2>
 						<p><span th:text="${balance}"></span> 円</p>
 					</div>
-
-					<div class="goal_graph">
-						<canvas id="goalChart"></canvas>
-						<script th:inline="javascript">
-							const goalChartCtx = document.getElementById('goalChart');
-						
-							const target = /*[[${targetExpensing}]]*/ 0;
-							const actual = /*[[${thisMonthExpense}]]*/ 0;
-						
-							new Chart(goalChartCtx, {
-								type: 'bar',
-								data: {
-									labels: ['今月の支出'],
-									datasets: [
-										{
-											label: '支出目安',
-											data: [target],
-											backgroundColor: '#e0e0e0',
-											barThickness: 30
-										},
-										{
-											label: '実際の支出',
-											data: [actual],
-											backgroundColor: '#ff6384',
-											barThickness: 20
-										}
-									]
-								},
-								options: {
-									indexAxis: 'y',
-									scales: {
-										x: {
-											beginAtZero: true
-										}
+				</section>
+	
+				<!-- 横棒グラフ -->
+				<section class="goal_graph">
+					<canvas id="goalChart"></canvas>
+					<script th:inline="javascript">
+						const goalChartCtx = document.getElementById('goalChart');
+					
+						const target = /*[[${targetExpensing}]]*/ 0;
+						const actual = /*[[${thisMonthExpense}]]*/ 0;
+					
+						new Chart(goalChartCtx, {
+							type: 'bar',
+							data: {
+								labels: ['今月の支出'],
+								datasets: [
+									{
+										label: '支出目安',
+										data: [target],
+										backgroundColor: '#e0e0e0',
+										barThickness: 30
 									},
-									plugins: {
-										legend: {
-											position: 'bottom'
-										}
+									{
+										label: '実際の支出',
+										data: [actual],
+										backgroundColor: '#ff6384',
+										barThickness: 20
+									}
+								]
+							},
+							options: {
+								indexAxis: 'y',
+								scales: {
+									x: {
+										beginAtZero: true
+									}
+								},
+								plugins: {
+									legend: {
+										position: 'bottom'
 									}
 								}
-							});
-						</script>																							
-					</div>
-
-					<div class="profile_button">
-						<a href="/profile/" class="btn btn-primary">プロフィールへ</a>
-					</div>
+							}
+						});
+					</script>
 				</section>
-
+	
+				<div class="profile_button">
+					<a href="/profile/" class="btn btn-primary">プロフィールへ</a>
+				</div>
+			</div>
+	
+			<!-- 右カラム（円グラフ） -->
+			<div class="right-column">
 				<section class="chart">
 					<canvas id="expenseChart"></canvas>
 					<script th:inline="javascript">
 						var expenseData = /*[[${expenseData}]]*/ {};
 					
 						var categoryColors = {
-							"食費": "#ff6384",
-							"日用品": "#36a2eb",
-							"交通費": "#ffce56",
-							"趣味": "#ff9f40",
-							"遊び代": "#4bc0c0",
-							"勉強": "#9966ff",
-							"ファッション": "#ffcc99",
-							"美容": "#c9cbcf",
-							"その他": "#8e8e8e"
+							"食費": "#ff6384", "日用品": "#36a2eb", "交通費": "#ffce56",
+							"趣味": "#ff9f40", "遊び代": "#4bc0c0", "勉強": "#9966ff",
+							"ファッション": "#ffcc99", "美容": "#c9cbcf", "その他": "#8e8e8e"
 						};
-					
-						//収入カテゴリ一覧（グラフに含めないもの）
+	
 						var incomeCategories = ["給与", "アルバイト", "副業", "投資", "お小遣い", "臨時収入", "その他"];
 					
-						//収入データを除外して支出データだけを取得
 						var filteredExpenseData = {};
 						for (var key in expenseData) {
-							if (!incomeCategories.includes(key)) { // 💡 収入なら除外！
+							if (!incomeCategories.includes(key)) {
 								filteredExpenseData[key] = expenseData[key];
 							}
 						}
 					
-						//支出データだけを使ってグラフを描画！
 						var labels = Object.keys(filteredExpenseData);
 						var data = Object.values(filteredExpenseData);
 						var colors = labels.map(label => categoryColors[label] || "#000000");
@@ -123,13 +121,16 @@
 					</script>
 				</section>
 			</div>
-		
-			<div class="icon_add">
-				<a href="/account/insert" class="write-add">
-					<i class="fa-solid fa-pen"></i><span></span> 
-				</a>
-			</div>
 		</div>
+	
+		<!-- 追加ボタン -->
+		<div class="icon_add">
+			<a href="/account/insert" class="write-add">
+				<i class="fa-solid fa-pen"></i><span></span> 
+			</a>
+		</div>
+	</div>
+
 
 	<script>
 		function sliceMaxlength(elem,maxlength){

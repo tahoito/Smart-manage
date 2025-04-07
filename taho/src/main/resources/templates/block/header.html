@@ -11,10 +11,10 @@
             
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0 d-flex">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/account}">ホーム</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/list}">一覧表</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/account/insert}">収支記録</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/account/search}">支出検索</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/account}" th:classappend="${#httpServletRequest.requestURI == '/account'} ? ' active'">ホーム</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/list}" th:classappend="${#httpServletRequest.requestURI == '/list'} ? ' active'">一覧表</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/account/insert}" th:classappend="${#httpServletRequest.requestURI == '/account/insert'} ? ' active'">収支記録</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/account/search}" th:classappend="${#httpServletRequest.requestURI == '/account/search'} ? ' active'">支出検索</a></li>
                     <!-- ユーザーメニュー -->
                     <li class="nav-item user-menu">
                         <button id="userIcon" class="user-icon" onclick="toggleMenu()">
