@@ -168,8 +168,10 @@ public class AccountController {
         	model.addAttribute("account", account);
         	service.deleteAccountById(id);
     	}
-    	return "redirect:/account/"; 
+    	return "redirect:/list/"; 
 	}
+
+
 
 	// 収入更新画面へ遷移
 	@GetMapping("/account/updateIncomeInput")
@@ -182,6 +184,8 @@ public class AccountController {
     	return "redirect:/account/"; // 該当しない場合はリダイレクト
 	}
 
+	
+
 	// 収入の更新処理
 	@PostMapping("/account/updateIncome")
 	public String updateIncome(Model model, Account account) {
@@ -191,7 +195,6 @@ public class AccountController {
     	}
     	return "account/updateIncomeComplete";
 	}
-
 	// 削除処理を行う
 	@PostMapping("/account/delete")
 		public String delete(Model model, @RequestParam int id) {
@@ -201,7 +204,7 @@ public class AccountController {
         	model.addAttribute("account", account); // 削除したアカウント情報をModelに追加
     	}
     	service.deleteAccountById(id);
-    	return "redirect:/account/"; 
+    	return "redirect:/list/"; 
 	}
 
 	@GetMapping("/account/updateInput")
