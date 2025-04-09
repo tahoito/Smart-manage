@@ -126,7 +126,7 @@ public class AccountDAO {
 
     // 更新処理
     public void updateAccount(Account account) {
-        jdbcTemplate.update("UPDATE account SET date = ?, type = ?, item = ?, price = ? username = ? WHERE id = ?",
+        jdbcTemplate.update("UPDATE account SET date = ?, type = ?, item = ?, price = ? , username = ? , WHERE id = ?",
             account.getDate(), account.getType(), account.getItem(), account.getPrice(), account.getId(), account.getUsername());
     }
 
