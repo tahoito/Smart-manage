@@ -206,7 +206,9 @@ public class AccountController {
         	model.addAttribute("account", account);
     	}
     	return "account/updateIncomeComplete";
+
 	}
+	
 	// 削除処理を行う
 	@PostMapping("/account/delete")
 		public String delete(Model model, @RequestParam int id) {

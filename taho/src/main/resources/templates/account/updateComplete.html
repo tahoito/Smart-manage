@@ -1,10 +1,21 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>テスト</title>
+</head>
+<body>
+    <h1>支出の更新完了ページです</h1>
+</body>
+</html>
+
+<!--<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 <link th:href="@{/css/styles.css}" rel="stylesheet">
 <title>Smart Manage</title>
 </head>
+
 <body>
     <div th:replace="~{block/header::headerAccount}"></div>
     <h2>支出の更新が完了しました</h2>
@@ -18,7 +29,7 @@
         </tr>
         <tr>
             <td th:text="${account.date}"></td>
-            <td th:switch="${account.category}">
+            <td th:switch="${account.type}">
 				<span th:case="1">食費</span>
 				<span th:case="2">日用品</span>
 				<span th:case="3">交通費</span>
@@ -40,4 +51,4 @@
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-</body>
+</body>-->

@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td th:text="${account.date}"></td>
-            <td th:switch="${account.category}">
+            <td th:switch="${account.type}">
 				<span th:case="10">給与</span>
 				<span th:case="11">アルバイト</span>
 				<span th:case="12">副業</span>
