@@ -250,15 +250,17 @@ public class AccountController {
 	
 	// 更新処理を行う
 	@PostMapping("/account/update")
-	public String update(Model model, Account account) {Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public String update(Model model, Account account) {
+		// 🔹 認証ユーザーの username をセット！
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		account.setUsername(username);	
-		
-    	service.updateAccount(account); // まず更新処理を実行
-    	model.addAttribute("account", account); // 更新したデータをセット
-    	return "account/updateComplete"; // updateComplete.html に遷移
+		account.setUsername(username);
+	
+		service.updateAccount(account); 
+		model.addAttribute("account", account); 
+		return "account/updateComplete"; 
 	}
-
+	
 
 	@GetMapping("/account/search")
 	public String search(@RequestParam(required = false) Integer year,
