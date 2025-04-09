@@ -2,6 +2,8 @@ package com.example.taho.controller;
 
 import java.net.Authenticator;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,7 +170,7 @@ public class AccountController {
         	model.addAttribute("account", account);
         	service.deleteAccountById(id);
     	}
-    	return "redirect:/list/"; 
+    	return "redirect:/list"; 
 	}
 
 
@@ -176,14 +178,24 @@ public class AccountController {
 	// 収入更新画面へ遷移
 	@GetMapping("/account/updateIncomeInput")
 	public String updateIncomeInput(Model model, @RequestParam int id) {
-    	Account account = service.findAccountById(id);
-    	if (account != null && account.getType() >= 10) { 
-        	model.addAttribute("account", account);
-        	return "account/updateIncomeInput";
-   	 	}
-    	return "redirect:/account/"; // 該当しない場合はリダイレクト
-	}
+		Account account = service.findAccountById(id);
 
+		// "yyyy/MM/dd" → "yyyy-MM-dd" に変換して渡す
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		String formattedDate = "";
+		try {
+			LocalDate parsedDate = LocalDate.parse(account.getDate(), inputFormatter);
+			formattedDate = parsedDate.format(outputFormatter);
+		} catch (Exception e) {
+			formattedDate = LocalDate.now().format(outputFormatter); // fallback
+		}
+
+		model.addAttribute("account", account);
+		model.addAttribute("formattedDate", formattedDate); // ← これを HTML 側で使う
+		return "account/updateIncomeInput"; 
+	}
 	
 
 	// 収入の更新処理
@@ -210,9 +222,25 @@ public class AccountController {
 	@GetMapping("/account/updateInput")
 	public String updateInput(Model model, @RequestParam int id) {
 		Account account = service.findAccountById(id);
+
+		// 日付を yyyy/MM/dd → yyyy-MM-dd に変換
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		String formattedDate;
+		try {
+			LocalDate parsedDate = LocalDate.parse(account.getDate(), inputFormatter);
+			formattedDate = parsedDate.format(outputFormatter);
+		} catch (Exception e) {
+			formattedDate = LocalDate.now().format(outputFormatter);
+		}
+
 		model.addAttribute("account", account);
+		model.addAttribute("formattedDate", formattedDate); // ← これをHTMLで使う！
+
 		return "account/updateInput";
 	}
+
 	
 	// 更新処理を行う
 	@PostMapping("/account/update")
