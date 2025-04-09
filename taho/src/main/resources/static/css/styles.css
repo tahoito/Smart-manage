@@ -70,7 +70,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     display:grid;
 }
 
-.add_title,.search_title{
+.add_title{
     color: #60b2de;
     font-size:25px;
     justify-items: center;
@@ -78,7 +78,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     padding-top:10px;
 }
 
-.search_button,.login_button,.signup_button{
+.login_button,.signup_button{
     display: grid;
     justify-items:center;
     padding-top: 5%;

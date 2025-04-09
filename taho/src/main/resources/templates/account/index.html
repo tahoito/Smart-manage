@@ -33,48 +33,91 @@
 	
 				<!-- 横棒グラフ -->
 				<section class="goal_graph">
-					<canvas id="goalChart"></canvas>
+					<canvas id="goalChart1"></canvas> <!-- 支出 -->
+					<canvas id="goalChart2" style="margin-top: 40px;"></canvas> <!-- 貯金 -->
+					
 					<script th:inline="javascript">
-						const goalChartCtx = document.getElementById('goalChart');
-					
-						const target = /*[[${targetExpensing}]]*/ 0;
-						const actual = /*[[${thisMonthExpense}]]*/ 0;
-					
-						new Chart(goalChartCtx, {
-							type: 'bar',
-							data: {
-								labels: ['今月の支出'],
-								datasets: [
-									{
-										label: '支出目安',
-										data: [target],
-										backgroundColor: '#e0e0e0',
-										barThickness: 30
-									},
-									{
-										label: '実際の支出',
-										data: [actual],
-										backgroundColor: '#ff6384',
-										barThickness: 20
-									}
-								]
+					  const goalChartCtx1 = document.getElementById('goalChart1');
+					  const goalChartCtx2 = document.getElementById('goalChart2');
+				  
+					  const targetExpense = /*[[${targetExpensing}]]*/ 0;
+					  const actualExpense = /*[[${thisMonthExpense}]]*/ 0;
+				  
+					  const targetSaving = /*[[${targetSaving}]]*/ 0;
+					  const balance = /*[[${balance}]]*/ 0;
+				  
+					  // グラフ① 支出
+					  new Chart(goalChartCtx1, {
+						type: 'bar',
+						data: {
+						  labels: ['今月の支出'],
+						  datasets: [
+							{
+							  label: '支出目安',
+							  data: [targetExpense],
+							  backgroundColor: '#e0e0e0',
+							  barThickness: 30
 							},
-							options: {
-								indexAxis: 'y',
-								scales: {
-									x: {
-										beginAtZero: true
-									}
-								},
-								plugins: {
-									legend: {
-										position: 'bottom'
-									}
-								}
+							{
+							  label: '実際の支出',
+							  data: [actualExpense],
+							  backgroundColor: '#ff6384',
+							  barThickness: 20
 							}
-						});
+						  ]
+						},
+						options: {
+						  indexAxis: 'y',
+						  scales: {
+							x: {
+							  beginAtZero: true
+							}
+						  },
+						  plugins: {
+							legend: {
+							  position: 'bottom'
+							}
+						  }
+						}
+					  });
+				  
+					  // グラフ② 貯金
+					  new Chart(goalChartCtx2, {
+						type: 'bar',
+						data: {
+						  labels: ['今月の貯金'],
+						  datasets: [
+							{
+							  label: '貯金目標',
+							  data: [targetSaving],
+							  backgroundColor: '#b0c4de',
+							  barThickness: 30
+							},
+							{
+							  label: '残高',
+							  data: [balance],
+							  backgroundColor: '#4caf50',
+							  barThickness: 20
+							}
+						  ]
+						},
+						options: {
+						  indexAxis: 'y',
+						  scales: {
+							x: {
+							  beginAtZero: true
+							}
+						  },
+						  plugins: {
+							legend: {
+							  position: 'bottom'
+							}
+						  }
+						}
+					  });
 					</script>
 				</section>
+				  
 	
 				<div class="profile_button">
 					<a href="/menu/profile/" class="btn btn-primary">プロフィールへ</a>
