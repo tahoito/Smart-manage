@@ -201,6 +201,10 @@ public class AccountController {
 	// 収入の更新処理
 	@PostMapping("/account/updateIncome")
 	public String updateIncome(Model model, Account account) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();
+    	account.setUsername(username);
+
     	if (account.getType() >= 10) { 
         	service.updateAccount(account);
         	model.addAttribute("account", account);
@@ -246,7 +250,10 @@ public class AccountController {
 	
 	// 更新処理を行う
 	@PostMapping("/account/update")
-	public String update(Model model, Account account) {
+	public String update(Model model, Account account) {Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		account.setUsername(username);	
+		
     	service.updateAccount(account); // まず更新処理を実行
     	model.addAttribute("account", account); // 更新したデータをセット
     	return "account/updateComplete"; // updateComplete.html に遷移

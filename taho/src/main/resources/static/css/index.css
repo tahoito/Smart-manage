@@ -150,3 +150,13 @@ section.list {
 .write-add:hover {
     transform: scale(1.1);
 }
+
+
+section.search{
+    flex: 1; /* 幅の比率（小さめ） */
+    background-color: rgb(222, 221, 221);
+    width: 400px;
+    height: 300px;
+    border-radius:30px;
+    margin-top: 5%;
+}
