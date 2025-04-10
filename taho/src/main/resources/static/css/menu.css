@@ -65,3 +65,22 @@ section.goal {
     display: flex;
     gap: 15px;
 }
+
+
+.form_button_area{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+}
+
+.back{
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 15px;
+}
