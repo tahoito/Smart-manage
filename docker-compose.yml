@@ -24,10 +24,11 @@ services:
     networks:
       - app-net
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "db", "-uroot", "-p168168"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
 networks:
   app-net:
+
