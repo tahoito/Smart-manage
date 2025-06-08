@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-d0lv7o2dbo4c73canq50-a:5432/smart_manage_db
-    username: smart_manage_db_user
-    password: smart_manage_db_user
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mysql://localhost:3306/HouseHoldAccount?serverTimezone=UTC
+    username: root
+    password: 168168
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 server:
   port: 8888
