@@ -181,23 +181,25 @@ public class AccountController {
 	public String updateIncomeInput(Model model, @RequestParam int id) {
 		Account account = service.findAccountById(id);
 
-		// "yyyy/MM/dd" → "yyyy-MM-dd" に変換して渡す
-		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		String formattedDate = "";
+		String formattedDate;
 		try {
-			LocalDate parsedDate = LocalDate.parse(account.getDate(), inputFormatter);
-			formattedDate = parsedDate.format(outputFormatter);
+			// Date → LocalDate に変換
+			LocalDate localDate = account.getDate()
+				.toInstant()
+				.atZone(java.time.ZoneId.systemDefault())
+				.toLocalDate();
+			formattedDate = localDate.format(outputFormatter);
 		} catch (Exception e) {
-			formattedDate = LocalDate.now().format(outputFormatter); // fallback
+			formattedDate = LocalDate.now().format(outputFormatter);
 		}
 
 		model.addAttribute("account", account);
-		model.addAttribute("formattedDate", formattedDate); // ← これを HTML 側で使う
-		return "account/updateIncomeInput"; 
+		model.addAttribute("formattedDate", formattedDate);
+		return "account/updateIncomeInput";
 	}
-	
+
 
 	// 収入の更新処理
 	@PostMapping("/account/updateIncome")
@@ -230,21 +232,21 @@ public class AccountController {
 	public String updateInput(Model model, @RequestParam int id) {
 		Account account = service.findAccountById(id);
 
-		// 日付を yyyy/MM/dd → yyyy-MM-dd に変換
-		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 		String formattedDate;
 		try {
-			LocalDate parsedDate = LocalDate.parse(dateStr, inputFormatter); // ✅ OK
-			formattedDate = parsedDate.format(outputFormatter);              // → "2025-06-15"
+			LocalDate localDate = account.getDate()
+				.toInstant()
+				.atZone(java.time.ZoneId.systemDefault())
+				.toLocalDate();
+			formattedDate = localDate.format(outputFormatter);
 		} catch (Exception e) {
 			formattedDate = LocalDate.now().format(outputFormatter);
 		}
 
 		model.addAttribute("account", account);
-		model.addAttribute("formattedDate", formattedDate); // ← これをHTMLで使う！
-
+		model.addAttribute("formattedDate", formattedDate); // ← HTMLの value に使う用
 		return "account/updateInput";
 	}
 

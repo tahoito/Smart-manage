@@ -1,0 +1,20 @@
+edit
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 2d1a7c8
+# Last commands done (2 commands done):
+#    pick c19957f edit
+#    pick 18e3b78 edit
+# No commands remaining.
+# You are currently rebasing branch 'main' on '2d1a7c8'.
+#
+# Changes to be committed:
+#	modified:   smart-manage/src/main/java/com/taho/smartmanage/controller/AccountController.java
+#	modified:   smart-manage/src/main/java/com/taho/smartmanage/dao/AccountDAO.java
+#
+# Untracked files:
+#	taho/src/main/java/com/example/taho/controller/
+#	taho/target/classes/com/example/taho/controller/
+#

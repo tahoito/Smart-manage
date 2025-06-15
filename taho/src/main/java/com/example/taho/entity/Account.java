@@ -54,7 +54,7 @@ public class Account {
 
 
     public Date getDate() {
-        return (date != null && !date.isEmpty()) ? date : new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+        return date != null ? date : new Date(); // 今の時刻を返すように
     }
 
 

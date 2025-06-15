@@ -130,22 +130,21 @@ public class AccountService{
     public int getCurrentMonthExpense(String username) {
         LocalDate now = LocalDate.now();
         List<Account> accounts = findByUsername(username);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd"); // ← ここでスラッシュ対応！
-    
+
         return accounts.stream()
             .filter(a -> a.getType() < 10) // 支出だけ
             .filter(a -> {
                 try {
-                    LocalDate date = LocalDate.parse(a.getDate(), formatter); // ← 修正！
+                    // Date → Instant → LocalDate に変換
+                    LocalDate date = a.getDate().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
                     return date.getYear() == now.getYear() && date.getMonth() == now.getMonth();
-                } catch (DateTimeParseException e) {
-                    System.out.println("日付形式エラー: " + a.getDate());
+                } catch (Exception e) {
+                    System.out.println("日付変換エラー: " + a.getDate());
                     return false;
                 }
             })
             .mapToInt(Account::getPrice)
             .sum();
-    }    
-   
+    }
 
 }
