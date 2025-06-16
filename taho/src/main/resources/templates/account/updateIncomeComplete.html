@@ -17,7 +17,7 @@
             <th>金額</th>
         </tr>
         <tr>
-            <td th:text="${account.date}"></td>
+            <td th:text="${#dates.format(account.date, 'yyyy/MM/dd')}"></td>
             <td th:switch="${account.type}">
 				<span th:case="10">給与</span>
 				<span th:case="11">アルバイト</span>
