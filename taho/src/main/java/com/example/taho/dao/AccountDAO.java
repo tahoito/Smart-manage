@@ -1,5 +1,6 @@
 package com.example.taho.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,21 @@ public class AccountDAO {
             Account account = new Account();
 
             account.setId(convertToInt(result.get("id"), "id"));
-            account.setDate((Date) result.get("date")); // ← そのままDate型で渡す
+            //account.setDate((Date) result.get("date")); ← そのままDate型で渡す
+            Object rawDate = result.get("date");
+                if (rawDate instanceof String) {
+                    try {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        account.setDate(formatter.parse((String) rawDate));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        account.setDate(null);
+                    }
+                } else if (rawDate instanceof Date) {
+                    account.setDate((Date) rawDate);
+                } else {
+                    account.setDate(null);
+                }
             account.setType(convertToInt(result.get("type"), "type"));
             account.setPrice(convertToInt(result.get("price"), "price"));
             account.setItem((String) result.get("item"));
@@ -95,7 +110,21 @@ public class AccountDAO {
 
         Account account = new Account();
         account.setId(convertToInt(result.get("id"), "id"));
-        account.setDate((Date) result.get("date"));
+        //account.setDate((Date) result.get("date"));
+        Object rawDate = result.get("date");
+            if (rawDate instanceof String) {
+                try {
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    account.setDate(formatter.parse((String) rawDate));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    account.setDate(null);
+                }
+            } else if (rawDate instanceof Date) {
+                account.setDate((Date) rawDate);
+            } else {
+                account.setDate(null);
+            }
         account.setType(convertToInt(result.get("type"), "type"));
         account.setItem((String) result.get("item"));
         account.setPrice(convertToInt(result.get("price"), "price"));
@@ -150,7 +179,21 @@ public class AccountDAO {
         for (Map<String, Object> result : resultList) {
             Account account = new Account();
             account.setId(convertToInt(result.get("id"), "id"));
-            account.setDate((Date) result.get("date"));
+            //account.setDate((Date) result.get("date"));
+            Object rawDate = result.get("date");
+                if (rawDate instanceof String) {
+                    try {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        account.setDate(formatter.parse((String) rawDate));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        account.setDate(null);
+                    }
+                } else if (rawDate instanceof Date) {
+                    account.setDate((Date) rawDate);
+                } else {
+                    account.setDate(null);
+                }
             account.setType(convertToInt(result.get("type"), "type"));
             account.setPrice(convertToInt(result.get("price"), "price"));
             account.setItem((String) result.get("item"));

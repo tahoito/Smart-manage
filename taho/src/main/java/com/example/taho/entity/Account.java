@@ -2,8 +2,9 @@ package com.example.taho.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name = "account")
@@ -13,13 +14,14 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
+    @NotNull(message = "Date must not be null")
     private Date date;
 
 
-    @NotNull(message = "Date must not be null")
-
+    @Column(nullable = false)
     private int type;
 
     private String item;
@@ -30,11 +32,9 @@ public class Account {
 
     private String username;
 
-
-    // デフォルトコンストラクタ
+    // --- コンストラクタ ---
     public Account() {}
 
-    // コンストラクタ（主にinsert用）
     public Account(Date date, int type, String item, int price, String username) {
         this.date = date;
         this.type = type;
@@ -52,16 +52,13 @@ public class Account {
         this.id = id;
     }
 
-
     public Date getDate() {
-        return date != null ? date : new Date(); // 今の時刻を返すように
+        return date;
     }
-
 
     public void setDate(Date date) {
         this.date = date;
     }
-
 
     public int getType() {
         return type;
@@ -103,12 +100,12 @@ public class Account {
         this.username = username;
     }
 
-    // デバッグ・表示用
+    // --- toString（デバッグ用） ---
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", date='" + date + '\'' +
+                ", date=" + date +
                 ", type=" + type +
                 ", item='" + item + '\'' +
                 ", price=" + price +

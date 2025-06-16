@@ -42,7 +42,8 @@
 								<th></th>
 							</tr>
 							<tr th:each="account : ${list}" th:if="${account.type < 10}">
-								<td th:text="${account.date}"></td>
+								<!--<td th:text="${account.date}"></td>-->
+								<td th:text="${#dates.format(account.date, 'yyyy/MM/dd')}"></td>
 								<td th:switch="${account.type}">
 									<span th:case="1">食費</span>
 									<span th:case="2">日用品</span>
@@ -82,7 +83,7 @@
 								<th></th>
 							</tr>
 							<tr th:each="account : ${list}" th:if="${account.type >= 10}">
-								<td th:text="${account.date}"></td>
+								<td th:text="${#dates.format(account.date, 'yyyy/MM/dd')}"></td>
 								<td th:switch="${account.type}">
 									<span th:case="10">給与</span>
 									<span th:case="11">アルバイト</span>
